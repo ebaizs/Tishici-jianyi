@@ -1,0 +1,748 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary: #4361ee;
+    --secondary: #3f37c9;
+    --success: #4cc9f0;
+    --warning: #f72585;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --gray: #6c757d;
+    --home: #4361ee;
+    --public: #7209b7;
+    --landscape: #2a9d8f;
+    --art: #f72585;
+    --shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 6px 12px rgba(0, 0, 0, 0.1);
+    --radius: 8px;
+    --radius-lg: 12px;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e7f1 100%);
+    color: var(--dark);
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 16px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+header {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+header p {
+    opacity: 0.9;
+    font-size: 0.95rem;
+}
+
+.tabs {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 14px 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    font-size: 0.95rem;
+}
+
+.tab:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.tab.active {
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom: 3px solid white;
+}
+
+.tab.home.active { border-color: var(--home); }
+.tab.public.active { border-color: var(--public); }
+.tab.landscape.active { border-color: var(--landscape); }
+.tab.art.active { border-color: var(--art); }
+
+.content {
+    padding: 24px;
+}
+
+.panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 0.95rem;
+}
+
+.form-group select, 
+.form-group input, 
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid #e9ecef;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    transition: all 0.3s;
+    background: white;
+}
+
+.form-group select:focus, 
+.form-group input:focus, 
+.form-group textarea:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 8px;
+    margin-top: 6px;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: var(--radius);
+    border: 1px solid #e9ecef;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 2px solid transparent;
+    font-size: 0.9rem;
+}
+
+.checkbox-item:hover {
+    background: #e9ecef;
+    transform: translateY(-1px);
+}
+
+.checkbox-item input {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.checkbox-item.checked {
+    background: rgba(67, 97, 238, 0.08);
+    border-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.dynamic-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.dynamic-checkboxes label {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #e9ecef;
+    font-size: 0.85rem;
+    font-weight: normal;
+    margin: 2px;
+    white-space: nowrap; /* 防止文字换行 */
+}
+
+.dynamic-checkboxes label {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid #e9ecef;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
+
+.dynamic-checkboxes label:hover {
+    background: #e9ecef;
+    border-color: var(--primary);
+}
+
+.dynamic-checkboxes input {
+    margin-right: 6px;
+}
+
+.btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    box-shadow: var(--shadow);
+}
+
+.btn:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn.generate {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    width: 100%;
+    padding: 14px;
+    font-size: 1.05rem;
+    margin-top: 8px;
+}
+
+.btn.secondary {
+    background: #6c757d;
+}
+
+.btn.secondary:hover {
+    background: #5a6268;
+}
+
+.btn.disabled {
+    background: #adb5bd;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn.save { background: var(--success); }
+.btn.edit { background: var(--warning); }
+.btn.clear { background: var(--gray); }
+.btn.copy { background: #6f42c1; }
+
+.result-section {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e9ecef;
+}
+
+.prompt-output {
+    background: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: var(--radius);
+    padding: 18px;
+    min-height: 100px;
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    position: relative;
+}
+
+.prompt-output:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: white;
+}
+
+.prompt-output .copy-hint {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 0.75rem;
+    color: var(--gray);
+    background: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.prompt-output:hover .copy-hint {
+    opacity: 1;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.action-buttons .btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px 16px;
+}
+
+/* 复制和保存按钮强制一行 */
+.action-buttons .copy,
+.action-buttons .save {
+    flex: 0 0 calc(50% - 5px);
+    min-width: auto;
+}
+
+.action-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: var(--radius);
+}
+
+.quick-tip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.quick-tip i {
+    color: #ffc107;
+}
+
+.history-section {
+    margin-top: 24px;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.history-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.history-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+}
+
+.history-item {
+    background: white;
+    border-radius: var(--radius);
+    padding: 12px;
+    border: 1px solid #e9ecef;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.history-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: var(--primary);
+}
+
+.history-item .tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    background: #e9ecef;
+    color: var(--dark);
+}
+
+.history-item .prompt {
+    font-size: 0.85rem;
+    color: var(--gray);
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 60px;
+    line-height: 1.5;
+}
+
+.history-item-actions {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.history-item-actions button {
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: all 0.2s;
+    flex: 1;
+    min-width: 70px;
+}
+/* 紧凑复选框样式 */
+.checkbox-text {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100px; /* 限制最大宽度，超出显示省略号 */
+    margin-left: 4px;
+}
+/* 鼠标悬停时显示完整文字 */
+.dynamic-checkboxes label:hover .checkbox-text {
+    overflow: visible;
+    white-space: normal;
+    max-width: none;
+    position: relative;
+    z-index: 10;
+    background: white;
+    padding: 2px 4px;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.edit-btn { background: var(--warning); color: white; }
+.delete-btn { background: #dc3545; color: white; }
+.copy-btn { background: #6f42c1; color: white; }
+
+/* 版块特定样式 */
+.home-panel { border-top: 4px solid var(--home); }
+.public-panel { border-top: 4px solid var(--public); }
+.landscape-panel { border-top: 4px solid var(--landscape); }
+.art-panel { border-top: 4px solid var(--art); }
+
+.tab.home:hover { color: var(--home); }
+.tab.public:hover { color: var(--public); }
+.tab.landscape:hover { color: var(--landscape); }
+.tab.art:hover { color: var(--art); }
+
+.empty-state {
+    text-align: center;
+    padding: 32px 16px;
+    color: var(--gray);
+    grid-column: 1 / -1;
+}
+
+.empty-state i {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    opacity: 0.5;
+}
+
+.section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e9ecef;
+    color: var(--dark);
+}
+
+.section-title i {
+    margin-right: 6px;
+    color: var(--primary);
+}
+
+.info-text {
+    font-size: 0.8rem;
+    color: var(--gray);
+    margin-top: 4px;
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .tabs {
+        flex-direction: column;
+    }
+    
+    /* 移动端下拉菜单强制2个项目一行 */
+    .form-row {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 12px;
+    }
+    
+    /* 空间元素和设计修饰词单独一行 */
+    .dynamic-checkboxes {
+        grid-column: 1 / -1;
+    }
+    
+    /* 附加描述单独一行 */
+    .form-group textarea {
+        grid-column: 1 / -1;
+    }
+    
+    /* 转换要求单独一行 */
+    .checkbox-group {
+        grid-column: 1 / -1;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .history-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .dynamic-checkboxes {
+        grid-template-columns: 1fr;
+    }
+    
+    .history-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .action-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .quick-tip {
+        text-align: center;
+        justify-content: center;
+    }
+    
+    /* 复制和保存按钮强制一行 */
+    .action-buttons .copy,
+    .action-buttons .save {
+        flex: 0 0 calc(50% - 5px);
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-row {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .dynamic-checkboxes {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 4px;
+        font-size: 0.8rem;
+    }
+    
+    .dynamic-checkboxes label {
+        padding: 5px 6px;
+        font-size: 0.8rem;
+    }
+    
+    .checkbox-group {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        padding: 6px;
+    }
+    
+    .checkbox-item {
+        padding: 6px 8px;
+        font-size: 0.85rem;
+    }
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: var(--radius);
+    background: var(--success);
+    color: white;
+    font-weight: 600;
+    box-shadow: var(--shadow-lg);
+    transform: translateX(200%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-width: 280px;
+    font-size: 0.9rem;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.error {
+    background: #dc3545;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+    padding: 16px;
+    color: var(--gray);
+}
+
+.loading.show {
+    display: block;
+}
+
+.spinner {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 3px solid var(--primary);
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 8px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.placeholder {
+    color: #adb5bd;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.tooltip {
+    position: relative;
+    cursor: help;
+    border-bottom: 1px dotted var(--gray);
+    margin-left: 4px;
+}
+
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--dark);
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 0.8rem;
+    z-index: 100;
+    margin-bottom: 4px;
+}
+
+/* 手机端选项卡布局 */
+@media (max-width: 768px) {
+    .tabs {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4px;
+        background: none;
+        border-bottom: none;
+    }
+    
+    .tab {
+        padding: 10px 4px;
+        font-size: 0.85rem;
+        border: 1px solid #e9ecef;
+        border-radius: 6px;
+        margin-bottom: 4px;
+        text-align: center;
+        background: white;
+        border-bottom: 2px solid transparent;
+    }
+    
+    .tab:hover {
+        background: #f8f9fa;
+    }
+    
+    .tab.active {
+        border-bottom: 2px solid;
+        background: #f8f9fa;
+    }
+    
+    .dynamic-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        font-size: 0.8rem;
+    }
+    
+    .dynamic-checkboxes label {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 8px;
+        margin: 2px;
+        font-size: 0.78rem;
+        line-height: 1.2;
+        white-space: nowrap;
+        flex-shrink: 0; /* 防止元素被压缩 */
+    }
+    
+    .dynamic-checkboxes input {
+        margin-right: 4px;
+        transform: scale(0.9);
+    }
+}
