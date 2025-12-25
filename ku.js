@@ -161,12 +161,6 @@ const wordBank = {
         "大师级作品", "视觉享受", "收藏级", "展览级别"
     ],
     
-    // 转换要求说明
-    specialRequirements: {
-        "ignore-requirements": "忽略之前要求，重新设计",
-        "transform-room": "将毛坯房转换为完工后的实景照片"
-    },
-    
     // 空间名称映射
     spaceNames: {
         home: {
@@ -240,5 +234,25 @@ const wordBank = {
     },
     
     // 固定文字部分
-    fixedText: "注重材质的质感对比，运用天然材料与现代工艺的完美结合，充分利用空间潜力，实现实用性与艺术性的统一，要求整体风格统一，功能实用，美观大方，营造舒适宜人的空间氛围。"
+    fixedText: "注重材质的质感对比，运用天然材料与现代工艺的完美结合，充分利用空间潜力，实现实用性与艺术性的统一，要求整体风格统一，功能实用，美观大方，营造舒适宜人的空间氛围。",
+    
+    // 转换要求选项
+    specialRequirements: {
+        home: [
+            { text: "忽略之前要求，重新设计", value: "ignore-requirements" },
+            { text: "将毛坯房转换为完工后的实景照片", value: "transform-room" }
+        ],
+        public: [
+            { text: "忽略之前要求，重新设计", value: "ignore-requirements" },
+            { text: "将毛坯房转换为完工后的实景照片", value: "transform-room" }
+        ],
+        landscape: [
+            { text: "忽略之前要求，重新设计", value: "ignore-requirements" },
+            { text: "将毛坯场地转换为完工后的实景照片", value: "transform-room" }
+        ],
+        art: [
+            { text: "忽略之前要求，重新设计", value: "ignore-requirements" },
+            { text: "将线稿/草图转换为完整艺术作品", value: "transform-room" }
+        ]
+    }
 };
