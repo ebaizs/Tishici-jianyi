@@ -174,19 +174,7 @@ header p {
     transform: translateY(-1px);
 }
 
-.checkbox-item input {
-    margin-right: 8px;
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-}
 
-.checkbox-item.checked {
-    background: rgba(67, 97, 238, 0.08);
-    border-color: var(--primary);
-    color: var(--primary);
-    font-weight: 600;
-}
 
 .dynamic-checkboxes {
     display: flex;
@@ -228,9 +216,7 @@ header p {
     border-color: var(--primary);
 }
 
-.dynamic-checkboxes input {
-    margin-right: 6px;
-}
+
 
 .btn {
     background: var(--primary);
@@ -425,12 +411,9 @@ header p {
     font-size: 0.85rem;
     color: var(--gray);
     margin-bottom: 10px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
     overflow: hidden;
-    min-height: 60px;
-    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .history-item-actions {
@@ -670,28 +653,6 @@ header p {
     font-size: 0.9rem;
 }
 
-.tooltip {
-    position: relative;
-    cursor: help;
-    border-bottom: 1px dotted var(--gray);
-    margin-left: 4px;
-}
-
-.tooltip:hover::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--dark);
-    color: white;
-    padding: 6px 10px;
-    border-radius: 6px;
-    white-space: nowrap;
-    font-size: 0.8rem;
-    z-index: 100;
-    margin-bottom: 4px;
-}
 
 /* 手机端选项卡布局 */
 @media (max-width: 768px) {
@@ -744,5 +705,69 @@ header p {
     .dynamic-checkboxes input {
         margin-right: 4px;
         transform: scale(0.9);
+    }
+}
+/* 文字选择项样式 */
+.text-select-item {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    margin: 4px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    color: #495057;
+    user-select: none;
+}
+
+.text-select-item:hover {
+    background: #e9ecef;
+    border-color: #adb5bd;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.text-select-item.selected {
+    background: linear-gradient(135deg, #4361ee, #3f37c9);
+    color: white;
+    border-color: #3f37c9;
+    font-weight: 600;
+    box-shadow: 0 4px 6px rgba(63, 55, 201, 0.2);
+}
+
+.text-select-item.selected:hover {
+    background: linear-gradient(135deg, #3f37c9, #3733b8);
+    border-color: #3733b8;
+}
+
+/* 转换要求特殊样式 */
+.checkbox-group .text-select-item {
+    display: flex;
+    width: 100%;
+    margin: 6px 0;
+    padding: 10px 14px;
+}
+
+/* 动态复选框容器的文字选择项 */
+.dynamic-checkboxes .text-select-item {
+    display: inline-flex;
+    margin: 4px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .text-select-item {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+        margin: 3px;
+    }
+    
+    .checkbox-group .text-select-item {
+        padding: 8px 12px;
     }
 }
