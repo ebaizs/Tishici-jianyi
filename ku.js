@@ -530,22 +530,12 @@ const wordBank = {
   fixedText: "注重材质的质感对比，运用天然材料与现代工艺的完美结合，充分利用空间潜力，实现实用性与艺术性的统一，要求整体风格统一，功能实用，美观大方，营造舒适宜人的空间氛围。",
   
   // 转换要求选项
-  specialRequirements: {
-    home: [
-      { text: "忽略之前要求，重新设计", value: "ignore-requirements" },
-      { text: "将毛坯房转换为完工后的实景照片", value: "transform-room" }
-    ],
-    public: [
-      { text: "忽略之前要求，重新设计", value: "ignore-requirements" },
-      { text: "将毛坯房转换为完工后的实景照片", value: "transform-room" }
-    ],
-    landscape: [
-      { text: "忽略之前要求，重新设计", value: "ignore-requirements" },
-      { text: "将毛坯场地转换为完工后的实景照片", value: "transform-room" }
-    ],
-    art: [
-      { text: "忽略之前要求，重新设计", value: "ignore-requirements" },
-      { text: "将线稿/草图转换为完整艺术作品", value: "transform-room" }
-    ]
-  }
+  specialRequirements: [
+      { text: "忽略之前要求，重新设计"},
+      { text: "参考拼接图的元素和位置，优化细节，合理化构图"},
+      { text: "自由发挥设计，完成装修后效果"},
+      { text:  "结合要求，仅对指定区域进行重绘"},
+      { text: "将毛坯房转换为完工后的实景照片"}
+    
+  ]
 };
