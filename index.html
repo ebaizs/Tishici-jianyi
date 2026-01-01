@@ -473,6 +473,35 @@
 <script src="app.js"></script>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 检查登录状态
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    const userName = sessionStorage.getItem('userName');
+    
+    if (isLoggedIn === 'true' && userName) {
+        // 如果已登录，显示主应用
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('main-container').style.display = 'block';
+        
+        // 强制更新用户信息到最右边
+        const userInfo = document.getElementById('user-info');
+        if (userInfo) {
+            userInfo.innerHTML = `
+                <span><i class="fas fa-user"></i> ${userName}</span>
+                <button onclick="logout()" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i> 退出
+                </button>
+            `;
+            userInfo.style.display = 'flex';
+        }
+    } else {
+        // 未登录，显示登录界面
+        document.getElementById('main-container').style.display = 'none';
+        document.getElementById('login-container').style.display = 'flex';
+        initLogin();
+    }
+});
+
 // 全局退出函数
 function logout() {
     if (confirm('确定要退出登录吗？')) {
@@ -484,33 +513,6 @@ function logout() {
         location.reload();
     }
 }
-
-// 页面加载完成后初始化
-document.addEventListener('DOMContentLoaded', function() {
-    // 检查登录状态
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-    const userName = sessionStorage.getItem('userName');
-    
-    if (isLoggedIn === 'true' && userName) {
-        // 如果已登录，直接显示主应用
-        showMainApp();
-        // 初始化用户信息显示
-        const userInfo = document.getElementById('user-info');
-        if (userInfo) {
-            userInfo.innerHTML = `
-                <span><i class="fas fa-user"></i> ${userName}</span>
-                <button onclick="logout()" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> 退出
-                </button>
-            `;
-        }
-    } else {
-        // 未登录，显示登录界面
-        document.getElementById('main-container').style.display = 'none';
-        document.getElementById('login-container').style.display = 'flex';
-        initLogin();
-    }
-});
 
 </script>
 </script>
