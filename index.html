@@ -148,7 +148,7 @@
                 
                 <div class="form-section">
                     <div class="section-title">
-                        <i class="fas fa-exchange-alt"></i> 转换要求
+                        <i class="fas fa-exchange-alt"></i> 其它补充要求
                     </div>
                     <div class="special-checkboxes" id="home-special">
                         <!-- 动态生成选项 -->
@@ -431,11 +431,13 @@
                 
        
             </div>
-            
-            <div class="loading" id="loading">
-                <div class="spinner"></div>
-                <div>正在智能生成提示词...</div>
-            </div>
+            <!-- 添加通知容器 -->
+<div class="notification" id="notification"></div>
+
+<div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div>正在智能生成提示词...</div>
+</div>
             
             <!-- 结果区域 -->
             <div class="result-section" id="result-section" style="display: none;">
@@ -480,52 +482,14 @@
     </div>
     
     <script src="ku.js"></script>
-<script src="denglu.js"></script>
-<script src="app.js"></script>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // 检查登录状态
-    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-    const userName = sessionStorage.getItem('userName');
+    <script src="denglu.js"></script>
+    <script src="app.js"></script>
     
-    if (isLoggedIn === 'true' && userName) {
-        // 如果已登录，显示主应用
-        document.getElementById('login-container').style.display = 'none';
-        document.getElementById('main-container').style.display = 'block';
-        
-        // 强制更新用户信息到最右边
-        const userInfo = document.getElementById('user-info');
-        if (userInfo) {
-            userInfo.innerHTML = `
-                <span><i class="fas fa-user"></i> ${userName}</span>
-                <button onclick="logout()" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> 退出
-                </button>
-            `;
-            userInfo.style.display = 'flex';
-        }
-    } else {
-        // 未登录，显示登录界面
-        document.getElementById('main-container').style.display = 'none';
-        document.getElementById('login-container').style.display = 'flex';
-        initLogin();
-    }
-});
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        checkLoginStatus();
+    });
+    </script>
 
-// 全局退出函数
-function logout() {
-    if (confirm('确定要退出登录吗？')) {
-        // 清除所有存储
-        sessionStorage.clear();
-        localStorage.removeItem('aiPromptHistory');
-        
-        // 强制刷新页面回到登录状态
-        location.reload();
-    }
-}
-
-</script>
-</script>
 </body>
 </html>

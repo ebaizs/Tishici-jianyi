@@ -573,29 +573,37 @@ header p {
     }
 }
 
+/* 通知样式 */
 .notification {
     position: fixed;
     top: 20px;
     right: 20px;
-    padding: 12px 20px;
-    border-radius: var(--radius);
-    background: var(--success);
+    background: #52c41a;
     color: white;
-    font-weight: 600;
-    box-shadow: var(--shadow-lg);
-    transform: translateX(200%);
-    transition: transform 0.3s ease;
-    z-index: 1000;
-    max-width: 280px;
-    font-size: 0.9rem;
+    padding: 12px 24px;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+    max-width: 300px;
+    word-break: break-word;
+    display: none;
 }
 
 .notification.show {
-    transform: translateX(0);
+    opacity: 1;
+    transform: translateY(0);
+    display: block;
 }
 
 .notification.error {
-    background: #dc3545;
+    background: #ff4d4f;
+}
+
+.notification.success {
+    background: #52c41a;
 }
 
 .loading {
@@ -855,6 +863,12 @@ header p {
     justify-content: space-between;
     align-items: center;
 }
+/* 简单蓝色样式 */
+.text-select-item.has-detail {
+    color: #b97322;
+    font-weight: 500;
+}
+
 
 .modal-header h3 {
     font-size: 1.2rem;
@@ -1332,5 +1346,6 @@ header {
     .header-content h1 {
         font-size: 1.5rem;
     }
+    
 }
 
