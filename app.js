@@ -1,22 +1,729 @@
-document['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0044\u004F\u004D\u0043\u006F\u006E\u0074\u0065\u006E\u0074\u004C\u006F\u0061\u0064\u0065\u0064",function(){var _0x3782fb=(124862^124860)+(631590^631586);const _0x9fa3ff=sessionStorage['\u0067\u0065\u0074\u0049\u0074\u0065\u006D']("\u0069\u0073\u004C\u006F\u0067\u0067\u0065\u0064\u0049\u006E");_0x3782fb=(122453^122454)+(573288^573294);var _0x_0xb0c=(789638^789639)+(355796^355798);const _0xd8452b=sessionStorage['\u0067\u0065\u0074\u0049\u0074\u0065\u006D']("\u0075\u0073\u0065\u0072\u004E\u0061\u006D\u0065");_0x_0xb0c=520321^520327;if(_0x9fa3ff!=="eurt".split("").reverse().join("")||!_0xd8452b){console['\u006C\u006F\u0067']("\u672A\u767B\u5F55\uFF0C\u65E0\u6CD5\u8BBF\u95EE\u5E94\u7528\u529F\u80FD");return;}console['\u006C\u006F\u0067']("\u7528\u6237\u5DF2\u767B\u5F55\u003A",_0xd8452b);const _0x9ed1de=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0075\u0073\u0065\u0072\u002D\u0069\u006E\u0066\u006F");if(_0x9ed1de&&_0xd8452b){_0x9ed1de['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']=`
-            <span><i class="fas fa-user"></i> ${_0xd8452b}</span>
+document.addEventListener('DOMContentLoaded', function() {
+    // 简化的登录检查 - 只检查登录状态
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+    const userName = sessionStorage.getItem('userName');
+    
+    // 如果未登录，不执行后续代码
+    if (isLoggedIn !== 'true' || !userName) {
+        console.log('未登录，无法访问应用功能');
+        return;
+    }
+    
+    console.log('用户已登录:', userName);
+    
+    // 显示用户信息（确保存在）
+    const userInfo = document.getElementById('user-info');
+    if (userInfo && userName) {
+        userInfo.innerHTML = `
+            <span><i class="fas fa-user"></i> ${userName}</span>
             <button onclick="logout()" class="logout-btn">
                 <i class="fas fa-sign-out-alt"></i> 退出
             </button>
-        `;}_0x51afbc();var _0x12201b;const _0xe71d9f=document['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072\u0041\u006C\u006C']("\u002E\u0074\u0061\u0062");_0x12201b=215716^215715;var _0x1bd;const _0x804ed=document['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072\u0041\u006C\u006C']("\u002E\u0070\u0061\u006E\u0065\u006C");_0x1bd=(866727^866723)+(467635^467639);_0xe71d9f['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](tab=>{tab['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",()=>{if(tab['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0063\u006F\u006E\u0074\u0061\u0069\u006E\u0073']("\u0061\u0063\u0074\u0069\u0076\u0065"))return;_0xe71d9f['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](t=>t['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0072\u0065\u006D\u006F\u0076\u0065']("evitca".split("").reverse().join("")));_0x804ed['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](p=>p['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0072\u0065\u006D\u006F\u0076\u0065']("evitca".split("").reverse().join("")));tab['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("evitca".split("").reverse().join(""));const panelId=`${tab['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0070\u0061\u006E\u0065\u006C']}-panel`;document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](panelId)['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("\u0061\u0063\u0074\u0069\u0076\u0065");_0xef4e4d(tab['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0070\u0061\u006E\u0065\u006C']);});});function _0x01aa(styleName){if(!styleName)return'';if(styleName['\u0069\u006E\u0063\u006C\u0075\u0064\u0065\u0073']("\u003D\u003D")){const _0x76c=styleName['\u0073\u0070\u006C\u0069\u0074']("\u003D\u003D");styleName=_0x76c[314095^314095];}const _0x2_0x9d2=["\u7EA6\u7B80\u4EE3\u73B0".split("").reverse().join(""),"\u65B0\u4E2D\u5F0F","\u5F0F\u65E5".split("").reverse().join(""),"\u6B27\u5317".split("").reverse().join(""),"\u8F7B\u5962","\u4E1A\u5DE5".split("").reverse().join(""),"\u4F20\u7EDF\u4E2D\u5F0F","\u751F\u6001\u81EA\u7136","\u753B\u6CB9".split("").reverse().join(""),"\u6C34\u5F69","\u7D20\u63CF","\u4E2D\u56FD","\u62BD\u8C61"];for(const _0x74e77f of _0x2_0x9d2){if(styleName['\u0069\u006E\u0063\u006C\u0075\u0064\u0065\u0073'](_0x74e77f)&&!styleName['\u0069\u006E\u0063\u006C\u0075\u0064\u0065\u0073']("\u98CE\u683C")){return _0x74e77f+"\u98CE\u683C";}}return styleName;}function _0xa12cbb(){const _0x997cbc=["\u0068\u006F\u006D\u0065","cilbup".split("").reverse().join(""),"\u006C\u0061\u006E\u0064\u0073\u0063\u0061\u0070\u0065","tra".split("").reverse().join("")];_0x997cbc['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](section=>{var _0x38b84d=(691433^691433)+(298397^298398);const _0xcb2=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-style`);_0x38b84d=(711969^711971)+(495818^495818);const _0x78ea=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-space`);const _0x6f58b=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-furniture`);var _0xc2b8ff=(585298^585301)+(319984^319988);const _0x9edgg=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-modifiers`);_0xc2b8ff=(939712^939719)+(756765^756764);if(_0xcb2&&_0x78ea){const _0xe78c9a=()=>{const _0x9665c=_0xcb2['\u0076\u0061\u006C\u0075\u0065'];const _0xgc5dd=_0xcb2['\u006F\u0070\u0074\u0069\u006F\u006E\u0073'][_0xcb2['\u0073\u0065\u006C\u0065\u0063\u0074\u0065\u0064\u0049\u006E\u0064\u0065\u0078']]['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074'];const _0x87ff8g=_0x78ea['\u0076\u0061\u006C\u0075\u0065'];if(_0x87ff8g){var _0x6688d;let _0x932c7b=null;_0x6688d='\u0069\u006A\u006E\u006E\u0070\u006C';if(wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section]?.[_0xgc5dd]?.[_0x87ff8g]){_0x932c7b=wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section][_0xgc5dd][_0x87ff8g];}else if(wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section]?.[_0x9665c]?.[_0x87ff8g]){_0x932c7b=wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section][_0x9665c][_0x87ff8g];}else if(_0xgc5dd&&_0xgc5dd['\u0065\u006E\u0064\u0073\u0057\u0069\u0074\u0068']("\u98CE\u683C")){const _0xc2b3af=_0xgc5dd['\u0072\u0065\u0070\u006C\u0061\u0063\u0065']("\u683C\u98CE".split("").reverse().join(""),'');if(wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section]?.[_0xc2b3af]?.[_0x87ff8g]){_0x932c7b=wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section][_0xc2b3af][_0x87ff8g];}}else if(wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section]){for(const styleKey in wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section]){if(styleKey['\u0069\u006E\u0063\u006C\u0075\u0064\u0065\u0073'](_0xgc5dd)||_0xgc5dd['\u0069\u006E\u0063\u006C\u0075\u0064\u0065\u0073'](styleKey)){if(wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section][styleKey][_0x87ff8g]){_0x932c7b=wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section][styleKey][_0x87ff8g];break;}}}}if(!_0x932c7b){var _0x83cb=(682822^682831)+(850154^850153);let _0xa3625f="\u73B0\u4EE3\u7B80\u7EA6\u98CE\u683C";_0x83cb="lolfab".split("").reverse().join("");if(section==="\u0061\u0072\u0074"){_0xa3625f="\u6CB9\u753B\u98CE\u683C";}if(wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section]?.[_0xa3625f]?.[_0x87ff8g]){_0x932c7b=wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section][_0xa3625f][_0x87ff8g];}else if(wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section]){for(const styleKey in wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section]){if(wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section][styleKey][_0x87ff8g]){_0x932c7b=wordBank['\u0064\u0065\u0074\u0061\u0069\u006C\u0073'][section][styleKey][_0x87ff8g];break;}}}}if(_0x932c7b){_0x6f58b['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']='';_0x932c7b['\u0066\u0075\u0072\u006E\u0069\u0074\u0075\u0072\u0065']['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](item=>{_0xafcbbg(_0x6f58b,item);});_0x9edgg['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']='';_0x932c7b['\u006D\u006F\u0064\u0069\u0066\u0069\u0065\u0072\u0073']['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](item=>{_0xafcbbg(_0x9edgg,item);});}else{_0x6f58b['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']="\u003C\u0073\u0070\u0061\u006E\u0020\u0063\u006C\u0061\u0073\u0073\u003D\u0022\u0070\u006C\u0061\u0063\u0065\u0068\u006F\u006C\u0064\u0065\u0072\u0022\u003E\u8BE5\u98CE\u683C\u6682\u65E0\u6B64\u7A7A\u95F4\u7684\u5143\u7D20\u6570\u636E\u003C\u002F\u0073\u0070\u0061\u006E\u003E";_0x9edgg['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']=">naps/<\u636E\u6570\u7D20\u5143\u7684\u95F4\u7A7A\u6B64\u65E0\u6682\u683C\u98CE\u8BE5>\"redlohecalp\"=ssalc naps<".split("").reverse().join("");}}else{_0x6f58b['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']=">naps/<\u95F4\u7A7A\u62E9\u9009\u5148\u8BF7>\"redlohecalp\"=ssalc naps<".split("").reverse().join("");_0x9edgg['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']="\u003C\u0073\u0070\u0061\u006E\u0020\u0063\u006C\u0061\u0073\u0073\u003D\u0022\u0070\u006C\u0061\u0063\u0065\u0068\u006F\u006C\u0064\u0065\u0072\u0022\u003E\u8BF7\u5148\u9009\u62E9\u7A7A\u95F4\u003C\u002F\u0073\u0070\u0061\u006E\u003E";}};_0x78ea['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("egnahc".split("").reverse().join(""),_0xe78c9a);_0xcb2['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u0068\u0061\u006E\u0067\u0065",_0xe78c9a);}});}function _0xafcbbg(container,text){const _0xf7a0c=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("lebal".split("").reverse().join(""));_0xf7a0c['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=text;_0xf7a0c['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0076\u0061\u006C\u0075\u0065']=text;_0xf7a0c['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("\u0074\u0065\u0078\u0074\u002D\u0073\u0065\u006C\u0065\u0063\u0074\u002D\u0069\u0074\u0065\u006D");_0xf7a0c['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("kcilc".split("").reverse().join(""),function(){this['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0074\u006F\u0067\u0067\u006C\u0065']("\u0073\u0065\u006C\u0065\u0063\u0074\u0065\u0064");});container['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](_0xf7a0c);}function _0xbcb(section,space,furnitureContainer,modifiersContainer){var _0xceeca=(507397^507405)+(385337^385338);const _0xa6a36d=wordBank['\u0064\u0065\u0066\u0061\u0075\u006C\u0074\u0042\u0079\u0053\u0070\u0061\u0063\u0065']['\u0066\u0075\u0072\u006E\u0069\u0074\u0075\u0072\u0065'][section]?.[space]||[];_0xceeca=234086^234084;var _0x2ab;const _0x8b419g=wordBank['\u0064\u0065\u0066\u0061\u0075\u006C\u0074\u0042\u0079\u0053\u0070\u0061\u0063\u0065']['\u006D\u006F\u0064\u0069\u0066\u0069\u0065\u0072\u0073'][section]?.[space]||[];_0x2ab=(409985^409987)+(362617^362623);furnitureContainer['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']='';_0xa6a36d['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](item=>{_0xafcbbg(furnitureContainer,item);});modifiersContainer['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']='';_0x8b419g['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](item=>{_0xafcbbg(modifiersContainer,item);});}function _0x3d5aee(){const _0x41a=["\u0068\u006F\u006D\u0065","cilbup".split("").reverse().join(""),"\u006C\u0061\u006E\u0064\u0073\u0063\u0061\u0070\u0065","tra".split("").reverse().join("")];_0x41a['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](section=>{var _0xdda=(150925^150921)+(331270^331270);const _0xa34b7e=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-special`);_0xdda="obpiob".split("").reverse().join("");if(_0xa34b7e&&wordBank['\u0073\u0070\u0065\u0063\u0069\u0061\u006C\u0052\u0065\u0071\u0075\u0069\u0072\u0065\u006D\u0065\u006E\u0074\u0073']){_0xa34b7e['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']='';wordBank['\u0073\u0070\u0065\u0063\u0069\u0061\u006C\u0052\u0065\u0071\u0075\u0069\u0072\u0065\u006D\u0065\u006E\u0074\u0073']['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](itemStr=>{const _0xade2=itemStr['\u0073\u0070\u006C\u0069\u0074']("==".split("").reverse().join(""));var _0x748a=(792606^792607)+(607605^607613);const _0xb_0x9ae=_0xade2[627323^627323];_0x748a=(801645^801645)+(473482^473486);const _0xaa1b5d=_0xade2[257953^257952]||_0xade2[237941^237941];const _0x8f_0x96b=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("\u006C\u0061\u0062\u0065\u006C");_0x8f_0x96b['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=_0xb_0x9ae;_0x8f_0x96b['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']=_0xb_0x9ae;_0x8f_0x96b['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0076\u0061\u006C\u0075\u0065']=_0xaa1b5d;_0x8f_0x96b['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("\u0074\u0065\u0078\u0074\u002D\u0073\u0065\u006C\u0065\u0063\u0074\u002D\u0069\u0074\u0065\u006D");if(itemStr['\u0069\u006E\u0063\u006C\u0075\u0064\u0065\u0073']("\u003D\u003D")&&_0xade2[673414^673415]){_0x8f_0x96b['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("liated-sah".split("").reverse().join(""));_0x8f_0x96b['\u0074\u0069\u0074\u006C\u0065']=`详细内容: ${_0xade2[117595^117594]}`;}_0x8f_0x96b['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",function(){this['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0074\u006F\u0067\u0067\u006C\u0065']("\u0073\u0065\u006C\u0065\u0063\u0074\u0065\u0064");});_0xa34b7e['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](_0x8f_0x96b);});}});}function _0x51afbc(){const _0x878cf=["emoh".split("").reverse().join(""),"\u0070\u0075\u0062\u006C\u0069\u0063","\u006C\u0061\u006E\u0064\u0073\u0063\u0061\u0070\u0065","\u0061\u0072\u0074"];_0x878cf['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](section=>{const _0x7b7cf=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-style`);if(_0x7b7cf){wordBank['\u0073\u0074\u0079\u006C\u0065\u0073'][section]['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](item=>{const option=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("noitpo".split("").reverse().join(""));const parts=item['\u0073\u0070\u006C\u0069\u0074']("\u003D\u003D");const displayText=parts[198835^198835];const actualValue=parts[869739^869738]||parts[210578^210578];option['\u0076\u0061\u006C\u0075\u0065']=actualValue;option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=displayText;_0x7b7cf['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](option);});}const _0xd67a3d=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-space`);if(_0xd67a3d){wordBank['\u0073\u0070\u0061\u0063\u0065\u0073'][section]['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](space=>{var _0xfa0d3d=(950232^950233)+(126895^126895);const option=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("noitpo".split("").reverse().join(""));_0xfa0d3d=(836692^836688)+(119912^119913);option['\u0076\u0061\u006C\u0075\u0065']=space;option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=space;_0xd67a3d['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](option);});}var _0x49ed1e=(820702^820701)+(705699^705700);const _0xb23e=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-lighting`);_0x49ed1e=653586^653594;if(_0xb23e){wordBank['\u006C\u0069\u0067\u0068\u0074\u0069\u006E\u0067'][section]['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](light=>{const option=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("\u006F\u0070\u0074\u0069\u006F\u006E");option['\u0076\u0061\u006C\u0075\u0065']=light;option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=light;_0xb23e['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](option);});}var _0x16e=(471336^471337)+(338660^338662);const _0xcd38e=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-perspective`);_0x16e=(464703^464695)+(189877^189873);if(_0xcd38e){wordBank['\u0070\u0065\u0072\u0073\u0070\u0065\u0063\u0074\u0069\u0076\u0065\u0073']['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](perspective=>{const option=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("noitpo".split("").reverse().join(""));option['\u0076\u0061\u006C\u0075\u0065']=perspective;option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=perspective;_0xcd38e['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](option);});}const _0xba1g6c=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-scene`);if(_0xba1g6c){const _0x3a37bc=section==="tra".split("").reverse().join("")?gongneng:commonGongneng;_0x3a37bc['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](item=>{var _0xcb_0xagf;const option=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("\u006F\u0070\u0074\u0069\u006F\u006E");_0xcb_0xagf=(688417^688417)+(749315^749314);const parts=item['\u0073\u0070\u006C\u0069\u0074']("==".split("").reverse().join(""));var _0x587bcc=(663533^663530)+(473136^473145);const displayText=parts[949257^949257];_0x587bcc=(154818^154821)+(843315^843322);const actualValue=parts[512943^512942]||parts[174225^174225];option['\u0076\u0061\u006C\u0075\u0065']=actualValue;option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=displayText;_0xba1g6c['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](option);});}const _0x91ef=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-lens`);if(_0x91ef){wordBank['\u006C\u0065\u006E\u0073\u0065\u0073']['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](lens=>{const option=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("\u006F\u0070\u0074\u0069\u006F\u006E");option['\u0076\u0061\u006C\u0075\u0065']=lens;option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=lens;_0x91ef['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](option);});}});_0xa12cbb();_0x3d5aee();}function _0xef4e4d(section){var _0x4b3a1d=(887647^887647)+(830646^830640);const _0x4e_0x05c=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-furniture`);_0x4b3a1d=604193^604194;var _0x2gfd=(490501^490509)+(981995^981999);const _0xf67a=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-modifiers`);_0x2gfd=(123062^123070)+(998912^998913);if(_0x4e_0x05c){_0x4e_0x05c['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']="\u003C\u0073\u0070\u0061\u006E\u0020\u0063\u006C\u0061\u0073\u0073\u003D\u0022\u0070\u006C\u0061\u0063\u0065\u0068\u006F\u006C\u0064\u0065\u0072\u0022\u003E\u8BF7\u5148\u9009\u62E9\u98CE\u683C\u548C\u7A7A\u95F4\u003C\u002F\u0073\u0070\u0061\u006E\u003E";}if(_0xf67a){_0xf67a['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']="\u003C\u0073\u0070\u0061\u006E\u0020\u0063\u006C\u0061\u0073\u0073\u003D\u0022\u0070\u006C\u0061\u0063\u0065\u0068\u006F\u006C\u0064\u0065\u0072\u0022\u003E\u8BF7\u5148\u9009\u62E9\u98CE\u683C\u548C\u7A7A\u95F4\u003C\u002F\u0073\u0070\u0061\u006E\u003E";}}const _0x3_0x807=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("ntb-etareneg".split("").reverse().join(""));const _0xa_0x9d6=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("noitces-tluser".split("").reverse().join(""));const _0x213f4f=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0070\u0072\u006F\u006D\u0070\u0074\u002D\u006F\u0075\u0074\u0070\u0075\u0074");var _0x46a=(267559^267552)+(611074^611079);const _0x142c8c=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u006C\u006F\u0061\u0064\u0069\u006E\u0067");_0x46a=(899247^899245)+(464165^464167);var _0x8177f;const notification=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u006E\u006F\u0074\u0069\u0066\u0069\u0063\u0061\u0074\u0069\u006F\u006E");_0x8177f=874816^874816;_0x3_0x807['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",async()=>{const activePanel=document['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072']("evitca.lenap.".split("").reverse().join(""));if(!activePanel){_0x84ba("\u8BF7\u5148\u9009\u62E9\u7248\u5757","\u0065\u0072\u0072\u006F\u0072");return;}const panelId=activePanel['\u0069\u0064'];var _0x46bg7a;const section=panelId['\u0073\u0070\u006C\u0069\u0074']("\u002D")[382275^382275];_0x46bg7a="mkdlnf".split("").reverse().join("");const _0x4cgg=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-style`)['\u0076\u0061\u006C\u0075\u0065'];const space=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-space`)['\u0076\u0061\u006C\u0075\u0065'];var _0x575gd=(109591^109599)+(545398^545392);const _0x8a34aa=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-lighting`)['\u0076\u0061\u006C\u0075\u0065'];_0x575gd='\u0063\u006F\u006E\u006C\u006C\u006B';const _0xda_0xd2b=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-perspective`)['\u0076\u0061\u006C\u0075\u0065'];const _0x8862cd=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-scene`)['\u0076\u0061\u006C\u0075\u0065'];var _0x1a_0x10a=(872220^872212)+(793379^793379);const _0x84a15g=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-lens`)['\u0076\u0061\u006C\u0075\u0065'];_0x1a_0x10a='\u0069\u006C\u006B\u006A\u0064\u006B';const _0xffb73g=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-desc`)['\u0076\u0061\u006C\u0075\u0065'];var _0xf50db=(174750^174744)+(937691^937688);const furniture=[];_0xf50db=(732024^732027)+(570257^570264);const modifiers=[];activePanel['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072\u0041\u006C\u006C'](`#${section}-furniture .text-select-item.selected`)['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](item=>{furniture['\u0070\u0075\u0073\u0068'](item['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0076\u0061\u006C\u0075\u0065']||item['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']);});activePanel['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072\u0041\u006C\u006C'](`#${section}-modifiers .text-select-item.selected`)['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](item=>{modifiers['\u0070\u0075\u0073\u0068'](item['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0076\u0061\u006C\u0075\u0065']||item['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']);});var _0x385e8f=(154708^154706)+(183748^183746);const _0x4_0x49e=[];_0x385e8f=(821820^821820)+(802469^802470);activePanel['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072\u0041\u006C\u006C'](`#${section}-special .text-select-item.selected`)['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](item=>{const _0xade=item['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0076\u0061\u006C\u0075\u0065']||item['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074'];_0x4_0x49e['\u0070\u0075\u0073\u0068'](_0xade);});var _0x4732f=(244733^244734)+(399310^399303);const _0x36cg=_0x4cgg||space||_0x8a34aa||_0xda_0xd2b||_0x8862cd||_0x84a15g||_0xffb73g||furniture['\u006C\u0065\u006E\u0067\u0074\u0068']>(300494^300494)||modifiers['\u006C\u0065\u006E\u0067\u0074\u0068']>(615487^615487)||_0x4_0x49e['\u006C\u0065\u006E\u0067\u0074\u0068']>(155309^155309);_0x4732f=729016^729008;if(!_0x36cg){_0x84ba("\u8BF7\u81F3\u5C11\u586B\u5199\u4E00\u9879\u5185\u5BB9\uFF01","\u0065\u0072\u0072\u006F\u0072");return;}_0x142c8c['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("\u0073\u0068\u006F\u0077");_0x3_0x807['\u0064\u0069\u0073\u0061\u0062\u006C\u0065\u0064']=!![];_0x3_0x807['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("\u0064\u0069\u0073\u0061\u0062\u006C\u0065\u0064");await new Promise(resolve=>setTimeout(resolve,348280^349016));var _0xd_0x734=(583949^583949)+(284876^284868);const prompt=_0x1c6gfe(section,_0x4cgg,space,furniture,modifiers,_0x8a34aa,_0xda_0xd2b,_0x8862cd,_0x84a15g,_0xffb73g,_0x4_0x49e);_0xd_0x734=(521346^521348)+(773585^773587);_0x213f4f['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=prompt;_0xa_0x9d6['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u0062\u006C\u006F\u0063\u006B";_0xa_0x9d6['\u0073\u0063\u0072\u006F\u006C\u006C\u0049\u006E\u0074\u006F\u0056\u0069\u0065\u0077']({"behavior":"\u0073\u006D\u006F\u006F\u0074\u0068","block":'start'});_0x142c8c['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0072\u0065\u006D\u006F\u0076\u0065']("\u0073\u0068\u006F\u0077");_0x3_0x807['\u0064\u0069\u0073\u0061\u0062\u006C\u0065\u0064']=false;_0x3_0x807['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0072\u0065\u006D\u006F\u0076\u0065']("delbasid".split("").reverse().join(""));_0x84ba("\u63D0\u793A\u8BCD\u751F\u6210\u6210\u529F\uFF01");});function _0x1c6gfe(section,style,space,furniture,modifiers,lighting,perspective,scene,lens,desc,specialRequirements,_0xe5bf){_0xe5bf='';if(specialRequirements['\u006C\u0065\u006E\u0067\u0074\u0068']>(596220^596220)){specialRequirements['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](req=>{_0xe5bf+=req+"\uFF0C";});}if(space){const _0x69fega={"home":'家装',"public":"\u516C\u88C5","landscape":'景观','\u0061\u0072\u0074':'艺术'};const _0x427b=wordBank['\u0073\u0070\u0061\u0063\u0065\u004E\u0061\u006D\u0065\u0073'][section][space]||`${space}图片`;_0xe5bf+=`设计一个${_0x69fega[section]}${_0x427b}，`;}if(furniture['\u006C\u0065\u006E\u0067\u0074\u0068']>(514127^514127)){var _0x6a_0x1f1=(421374^421375)+(491148^491146);const _0x4383f=furniture['\u006A\u006F\u0069\u006E']("\u3001");_0x6a_0x1f1=721405^721397;_0xe5bf+=`重点突出${_0x4383f}`;if(!_0xe5bf['\u0065\u006E\u0064\u0073\u0057\u0069\u0074\u0068']("\uFF0C")){_0xe5bf+="\uFF0C";}}if(desc){_0xe5bf+=` ${desc}，`;}if(style){var _0xf322ab=(393324^393320)+(530072^530064);const _0x6ab31c=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-style`);_0xf322ab="qompip".split("").reverse().join("");var _0xde128e=(429977^429969)+(924074^924077);let _0xc3892b=style;_0xde128e=(307679^307677)+(585299^585302);if(_0x6ab31c){var _0xa9d6a=(436683^436686)+(992047^992044);const option=_0x6ab31c['\u006F\u0070\u0074\u0069\u006F\u006E\u0073'][_0x6ab31c['\u0073\u0065\u006C\u0065\u0063\u0074\u0065\u0064\u0049\u006E\u0064\u0065\u0078']];_0xa9d6a='\u0063\u006F\u006B\u0062\u006E\u0071';if(option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']){_0xc3892b=option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']['\u0073\u0070\u006C\u0069\u0074']("\u003D\u003D")[803790^803790]||option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074'];}}_0xe5bf+=`${_0xc3892b}风格，`;}if(perspective){_0xe5bf+=`${perspective}，`;}if(scene){var _0xf926e;const _0x15c=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${section}-scene`);_0xf926e=445905^445911;let _0x967c=scene;if(_0x15c){const option=_0x15c['\u006F\u0070\u0074\u0069\u006F\u006E\u0073'][_0x15c['\u0073\u0065\u006C\u0065\u0063\u0074\u0065\u0064\u0049\u006E\u0064\u0065\u0078']];if(option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']){_0x967c=option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']['\u0073\u0070\u006C\u0069\u0074']("==".split("").reverse().join(""))[185773^185773]||option['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074'];}}_0xe5bf+=`${_0x967c}，`;}if(lighting){_0xe5bf+=`运用${lighting}与人工照明的完美融合，打造富有层次的光环境，`;}if(modifiers['\u006C\u0065\u006E\u0067\u0074\u0068']>(159191^159191)){const _0xf3aaaf=modifiers['\u006A\u006F\u0069\u006E']("\u3001");_0xe5bf+=`营造${_0xf3aaaf}的氛围，`;}if(_0xe5bf['\u006C\u0065\u006E\u0067\u0074\u0068']>(804065^804065)){const _0x54c=["\u677E\u653E\u5FC3\u8EAB".split("").reverse().join(""),"\u5FC3\u65F7\u795E\u6021","\u610F\u60EC\u9002\u8212".split("").reverse().join(""),"\u8FDC\u81F4\u9759\u5B81".split("").reverse().join(""),"\u53D1\u8FF8\u611F\u7075".split("").reverse().join(""),"\u5165\u6295\u6CE8\u4E13".split("").reverse().join("")];const _0xe_0xcge=_0x54c[Math['\u0066\u006C\u006F\u006F\u0072'](Math['\u0072\u0061\u006E\u0064\u006F\u006D']()*_0x54c['\u006C\u0065\u006E\u0067\u0074\u0068'])];_0xe5bf+=`让人${_0xe_0xcge}，`;_0xe5bf+=wordBank['\u0066\u0069\u0078\u0065\u0064\u0054\u0065\u0078\u0074'];}if(lens){_0xe5bf+=` 使用${lens}画风。`;}if(_0xe5bf['\u006C\u0065\u006E\u0067\u0074\u0068']>(924422^924422)&&wordBank['\u006F\u0070\u0074\u0069\u006D\u0069\u007A\u0061\u0074\u0069\u006F\u006E\u0057\u006F\u0072\u0064\u0073'][section]){var _0x1215gc=(459593^459593)+(791523^791524);const _0x9g9g=wordBank['\u006F\u0070\u0074\u0069\u006D\u0069\u007A\u0061\u0074\u0069\u006F\u006E\u0057\u006F\u0072\u0064\u0073'][section]['\u0073\u006F\u0072\u0074'](()=>0.5-Math['\u0072\u0061\u006E\u0064\u006F\u006D']())['\u0073\u006C\u0069\u0063\u0065'](548175^548175,862920^862922)['\u006A\u006F\u0069\u006E']("\uFF0C");_0x1215gc=(235201^235209)+(764282^764283);_0xe5bf+=` ${_0x9g9g}。`;}if(_0xe5bf['\u006C\u0065\u006E\u0067\u0074\u0068']>(452584^452584)&&wordBank['\u0063\u006F\u006D\u006D\u006F\u006E\u004F\u0070\u0074\u0069\u006D\u0069\u007A\u0061\u0074\u0069\u006F\u006E\u0073']){var _0xbb_0x4ac=(781323^781327)+(307525^307523);const _0x6961be=wordBank['\u0063\u006F\u006D\u006D\u006F\u006E\u004F\u0070\u0074\u0069\u006D\u0069\u007A\u0061\u0074\u0069\u006F\u006E\u0073']['\u0073\u006F\u0072\u0074'](()=>0.5-Math['\u0072\u0061\u006E\u0064\u006F\u006D']())['\u0073\u006C\u0069\u0063\u0065'](232615^232615,472366^472365)['\u006A\u006F\u0069\u006E']("\uFF0C");_0xbb_0x4ac=346485^346492;_0xe5bf+=` ${_0x6961be}。`;}if(_0xe5bf['\u0074\u0072\u0069\u006D']()===''){_0xe5bf="\u3002\u8BCD\u793A\u63D0\u6210\u751F\u6765\u8FF0\u63CF\u52A0\u9644\u5199\u586B\u6216\u9879\u9009\u4E2A\u4E00\u62E9\u9009\u5C11\u81F3\u8BF7".split("").reverse().join("");}return _0xe5bf;}const _0x9gb5fb=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0063\u006F\u0070\u0079\u002D\u0062\u0074\u006E");_0x9gb5fb['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",()=>{var _0x8dd=(702042^702042)+(554870^554869);const prompt=_0x213f4f['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074'];_0x8dd="phebei".split("").reverse().join("");if(!prompt||prompt==="\u5236\u590D\u51FB\u70B9\uFF0C\u8F91\u7F16\u53EF".split("").reverse().join(""))return;navigator['\u0063\u006C\u0069\u0070\u0062\u006F\u0061\u0072\u0064']['\u0077\u0072\u0069\u0074\u0065\u0054\u0065\u0078\u0074'](prompt)['\u0074\u0068\u0065\u006E'](()=>{_0x84ba("\uFF01\u677F\u8D34\u526A\u5230\u5236\u590D\u5DF2\u8BCD\u793A\u63D0".split("").reverse().join(""));})['\u0063\u0061\u0074\u0063\u0068'](()=>{const _0xa2_0x509=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("\u0074\u0065\u0078\u0074\u0061\u0072\u0065\u0061");_0xa2_0x509['\u0076\u0061\u006C\u0075\u0065']=prompt;document['\u0062\u006F\u0064\u0079']['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](_0xa2_0x509);_0xa2_0x509['\u0073\u0065\u006C\u0065\u0063\u0074']();document['\u0065\u0078\u0065\u0063\u0043\u006F\u006D\u006D\u0061\u006E\u0064']("\u0063\u006F\u0070\u0079");document['\u0062\u006F\u0064\u0079']['\u0072\u0065\u006D\u006F\u0076\u0065\u0043\u0068\u0069\u006C\u0064'](_0xa2_0x509);_0x84ba("\uFF01\u677F\u8D34\u526A\u5230\u5236\u590D\u5DF2\u8BCD\u793A\u63D0".split("").reverse().join(""));});});const _0xc676d=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("ntb-evas".split("").reverse().join(""));_0xc676d['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",()=>{const prompt=_0x213f4f['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074'];if(!prompt||prompt==="\u5236\u590D\u51FB\u70B9\uFF0C\u8F91\u7F16\u53EF".split("").reverse().join(""))return;var _0xed7c;const activePanel=document['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072']("\u002E\u0070\u0061\u006E\u0065\u006C\u002E\u0061\u0063\u0074\u0069\u0076\u0065");_0xed7c=819334^819334;const panelId=activePanel['\u0069\u0064'];const section=panelId['\u0073\u0070\u006C\u0069\u0074']("\u002D")[784755^784755];const sectionNames={"home":'家装设计','\u0070\u0075\u0062\u006C\u0069\u0063':"\u516C\u88C5\u8BBE\u8BA1",'\u006C\u0061\u006E\u0064\u0073\u0063\u0061\u0070\u0065':'景观设计',"art":'绘画创作'};var _0x6c441c=(871636^871644)+(770729^770730);const record={"id":Date['\u006E\u006F\u0077'](),"section":sectionNames[section],"prompt":prompt,"timestamp":new Date()['\u0074\u006F\u004C\u006F\u0063\u0061\u006C\u0065\u0053\u0074\u0072\u0069\u006E\u0067']("\u007A\u0068\u002D\u0043\u004E")};_0x6c441c='\u0070\u0067\u006E\u006F\u0064\u0062';let history=JSON['\u0070\u0061\u0072\u0073\u0065'](localStorage['\u0067\u0065\u0074\u0049\u0074\u0065\u006D']("\u0061\u0069\u0050\u0072\u006F\u006D\u0070\u0074\u0048\u0069\u0073\u0074\u006F\u0072\u0079")||"][".split("").reverse().join(""));history['\u0075\u006E\u0073\u0068\u0069\u0066\u0074'](record);if(history['\u006C\u0065\u006E\u0067\u0074\u0068']>(583248^583263)){history=history['\u0073\u006C\u0069\u0063\u0065'](452728^452728,311395^311404);}localStorage['\u0073\u0065\u0074\u0049\u0074\u0065\u006D']("\u0061\u0069\u0050\u0072\u006F\u006D\u0070\u0074\u0048\u0069\u0073\u0074\u006F\u0072\u0079",JSON['\u0073\u0074\u0072\u0069\u006E\u0067\u0069\u0066\u0079'](history));_0x67bc7f();_0x84ba("\uFF01\u5B58\u4FDD\u5DF2\u8BCD\u793A\u63D0".split("").reverse().join(""));});const _0x9c623d=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0065\u0078\u0070\u006F\u0072\u0074\u002D\u0062\u0074\u006E");_0x9c623d['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",()=>{const history=JSON['\u0070\u0061\u0072\u0073\u0065'](localStorage['\u0067\u0065\u0074\u0049\u0074\u0065\u006D']("\u0061\u0069\u0050\u0072\u006F\u006D\u0070\u0074\u0048\u0069\u0073\u0074\u006F\u0072\u0079")||"][".split("").reverse().join(""));if(history['\u006C\u0065\u006E\u0067\u0074\u0068']===(218758^218758)){_0x84ba("\u6682\u65E0\u8BB0\u5F55\u53EF\u5BFC\u51FA","\u0065\u0072\u0072\u006F\u0072");return;}var _0x03dc=(277989^277991)+(547498^547491);const _0xag97e=history['\u006D\u0061\u0070'](r=>`【${r['\u0073\u0065\u0063\u0074\u0069\u006F\u006E']}】${r['\u0074\u0069\u006D\u0065\u0073\u0074\u0061\u006D\u0070']}\n${r['\u0070\u0072\u006F\u006D\u0070\u0074']}\n\n`)['\u006A\u006F\u0069\u006E']("\u003D"['\u0072\u0065\u0070\u0065\u0061\u0074'](499169^499155)+"\u000A\u000A");_0x03dc=(406290^406288)+(797980^797973);const _0x69e=new Blob([_0xag97e],{"type":"\u0074\u0065\u0078\u0074\u002F\u0070\u006C\u0061\u0069\u006E\u003B\u0063\u0068\u0061\u0072\u0073\u0065\u0074\u003D\u0075\u0074\u0066\u002D\u0038"});var _0xea10b=(604342^604338)+(313284^313286);const _0x673f=URL['\u0063\u0072\u0065\u0061\u0074\u0065\u004F\u0062\u006A\u0065\u0063\u0074\u0055\u0052\u004C'](_0x69e);_0xea10b=(256641^256644)+(424631^424624);const a=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("\u0061");a['\u0068\u0072\u0065\u0066']=_0x673f;a['\u0064\u006F\u0077\u006E\u006C\u006F\u0061\u0064']=`AI绘画提示词记录_${new Date()['\u0074\u006F\u0049\u0053\u004F\u0053\u0074\u0072\u0069\u006E\u0067']()['\u0073\u006C\u0069\u0063\u0065'](545306^545306,146804^146814)}.txt`;a['\u0063\u006C\u0069\u0063\u006B']();URL['\u0072\u0065\u0076\u006F\u006B\u0065\u004F\u0062\u006A\u0065\u0063\u0074\u0055\u0052\u004C'](_0x673f);_0x84ba("\u8BB0\u5F55\u5DF2\u5BFC\u51FA\uFF01");});var _0xg3824d=(891620^891617)+(273377^273381);const _0x128g=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0063\u006C\u0065\u0061\u0072\u002D\u0068\u0069\u0073\u0074\u006F\u0072\u0079");_0xg3824d='\u006F\u0070\u0061\u0070\u0061\u006F';_0x128g['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",()=>{if(confirm("\u786E\u5B9A\u8981\u6E05\u7A7A\u6240\u6709\u5386\u53F2\u8BB0\u5F55\u5417\uFF1F\u6B64\u64CD\u4F5C\u4E0D\u53EF\u6062\u590D\uFF01")){localStorage['\u0072\u0065\u006D\u006F\u0076\u0065\u0049\u0074\u0065\u006D']("\u0061\u0069\u0050\u0072\u006F\u006D\u0070\u0074\u0048\u0069\u0073\u0074\u006F\u0072\u0079");_0x67bc7f();_0x84ba("\u5386\u53F2\u8BB0\u5F55\u5DF2\u6E05\u7A7A");}});function _0x67bc7f(){var _0xf9679f;const _0x9a860a=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0068\u0069\u0073\u0074\u006F\u0072\u0079\u002D\u006C\u0069\u0073\u0074");_0xf9679f=(596144^596145)+(737916^737918);const _0xaaa=JSON['\u0070\u0061\u0072\u0073\u0065'](localStorage['\u0067\u0065\u0074\u0049\u0074\u0065\u006D']("\u0061\u0069\u0050\u0072\u006F\u006D\u0070\u0074\u0048\u0069\u0073\u0074\u006F\u0072\u0079")||"\u005B\u005D");if(_0xaaa['\u006C\u0065\u006E\u0067\u0074\u0068']===(679350^679350)){_0x9a860a['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']=`
+        `;
+    }
+    
+    // 初始化界面
+    initializeUI();
+    
+    // 选项卡切换
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            if (tab.classList.contains('active')) return;
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+            
+            tab.classList.add('active');
+            const panelId = `${tab.dataset.panel}-panel`;
+            document.getElementById(panelId).classList.add('active');
+            
+            // 清空动态选项
+            clearDynamicOptions(tab.dataset.panel);
+        });
+    });
+   
+   // 创建一个辅助函数来规范化风格名称（去除"风格"后缀，便于匹配）
+function normalizeStyleName(styleName) {
+  if (!styleName) return '';
+  
+  // 如果是带"=="的字符串，提取显示部分
+  if (styleName.includes('==')) {
+    const parts = styleName.split('==');
+    styleName = parts[0]; // 使用显示部分
+  }
+  
+   // 如果是常见风格但没带"风格"后缀，加上
+  const commonStyles = ['现代简约', '新中式', '日式', '北欧', '轻奢', '工业', '传统中式', '生态自然', '油画', '水彩', '素描', '中国', '抽象'];
+  
+  for (const commonStyle of commonStyles) {
+    if (styleName.includes(commonStyle) && !styleName.includes('风格')) {
+        return commonStyle + '风格';
+    }
+  }
+  
+  return styleName;
+}
+// 在 app.js 中找到 setupDynamicLoaders 函数，修改 loadOptions 函数：
+
+function setupDynamicLoaders() {
+  const sections = ['home', 'public', 'landscape', 'art'];
+  sections.forEach(section => {
+    const styleSelect = document.getElementById(`${section}-style`);
+    const spaceSelect = document.getElementById(`${section}-space`);
+    const furnitureContainer = document.getElementById(`${section}-furniture`);
+    const modifiersContainer = document.getElementById(`${section}-modifiers`);
+    
+    if (styleSelect && spaceSelect) {
+ const loadOptions = () => {
+  const styleValue = styleSelect.value;
+  const styleDisplay = styleSelect.options[styleSelect.selectedIndex].textContent;
+  const space = spaceSelect.value;
+  
+  if (space) {
+    // 尝试多种方式查找数据
+    let data = null;
+    
+    // 1. 方式1：使用显示文本查找
+    if (wordBank.details[section]?.[styleDisplay]?.[space]) {
+      data = wordBank.details[section][styleDisplay][space];
+    }
+    // 2. 方式2：使用实际值查找
+    else if (wordBank.details[section]?.[styleValue]?.[space]) {
+      data = wordBank.details[section][styleValue][space];
+    }
+    // 3. 方式3：规范化名称后查找
+    else if (styleDisplay && styleDisplay.endsWith('风格')) {
+      const styleWithoutSuffix = styleDisplay.replace('风格', '');
+      if (wordBank.details[section]?.[styleWithoutSuffix]?.[space]) {
+        data = wordBank.details[section][styleWithoutSuffix][space];
+      }
+    }
+    // 4. 方式4：查找包含关键词的风格
+    else if (wordBank.details[section]) {
+      for (const styleKey in wordBank.details[section]) {
+        if (styleKey.includes(styleDisplay) || styleDisplay.includes(styleKey)) {
+          if (wordBank.details[section][styleKey][space]) {
+            data = wordBank.details[section][styleKey][space];
+            break;
+          }
+        }
+      }
+    }
+    
+    // 5. 如果还是没有找到，使用默认风格的元素
+    if (!data) {
+      let defaultStyle = '现代简约风格'; // 默认使用现代简约风格
+      if (section === 'art') {
+        defaultStyle = '油画风格'; // 艺术板块使用油画风格作为默认
+      }
+      
+      // 检查默认风格是否有这个空间/主题的元素
+      if (wordBank.details[section]?.[defaultStyle]?.[space]) {
+        data = wordBank.details[section][defaultStyle][space];
+      }
+      // 如果默认风格也没有这个空间，尝试找第一个有该空间的风格
+      else if (wordBank.details[section]) {
+        for (const styleKey in wordBank.details[section]) {
+          if (wordBank.details[section][styleKey][space]) {
+            data = wordBank.details[section][styleKey][space];
+            break;
+          }
+        }
+      }
+    }
+    
+    if (data) {
+      // 有数据，显示特定风格或默认风格元素
+      furnitureContainer.innerHTML = '';
+      data.furniture.forEach(item => {
+        createTextSelectItem(furnitureContainer, item);
+      });
+      
+      modifiersContainer.innerHTML = '';
+      data.modifiers.forEach(item => {
+        createTextSelectItem(modifiersContainer, item);
+      });
+    } else {
+      // 没有任何数据，显示提示
+      furnitureContainer.innerHTML = '<span class="placeholder">该风格暂无此空间的元素数据</span>';
+      modifiersContainer.innerHTML = '<span class="placeholder">该风格暂无此空间的元素数据</span>';
+    }
+  } else {
+    furnitureContainer.innerHTML = '<span class="placeholder">请先选择空间</span>';
+    modifiersContainer.innerHTML = '<span class="placeholder">请先选择空间</span>';
+  }
+};
+      
+      // 空间变化时加载默认元素
+      spaceSelect.addEventListener('change', loadOptions);
+      // 风格变化时更新为特定风格元素
+      styleSelect.addEventListener('change', loadOptions);
+    }
+  });
+}
+    
+    // 创建文字选择项
+    function createTextSelectItem(container, text) {
+        const label = document.createElement('label');
+        label.textContent = text;
+        label.dataset.value = text;
+        label.classList.add('text-select-item');
+        
+        // 点击文字切换选中状态
+        label.addEventListener('click', function() {
+            this.classList.toggle('selected');
+        });
+        
+        container.appendChild(label);
+    }
+    
+  function loadDefaultOptions(section, space, furnitureContainer, modifiersContainer) {
+  // 从 wordBank.defaultBySpace 中获取基于空间的默认元素
+  const furniture = wordBank.defaultBySpace.furniture[section]?.[space] || [];
+  const modifiers = wordBank.defaultBySpace.modifiers[section]?.[space] || [];
+
+  // 清空容器并创建选项
+  furnitureContainer.innerHTML = '';
+  furniture.forEach(item => {
+    createTextSelectItem(furnitureContainer, item);
+  });
+  
+  modifiersContainer.innerHTML = '';
+  modifiers.forEach(item => {
+    createTextSelectItem(modifiersContainer, item);
+  });
+}
+// 初始化其它要求选项
+function initializeSpecialRequirements() {
+    const sections = ['home', 'public', 'landscape', 'art'];
+    sections.forEach(section => {
+        const specialContainer = document.getElementById(`${section}-special`);
+        if (specialContainer && wordBank.specialRequirements) {
+            specialContainer.innerHTML = '';
+            
+            wordBank.specialRequirements.forEach(itemStr => {
+                // 解析显示文本和实际值
+                const parts = itemStr.split('==');
+                const displayText = parts[0]; // 显示的内容（==前面的部分）
+                const actualValue = parts[1] || parts[0]; // 生成时使用的内容（==后面的部分，如果没有就使用前面的）
+                
+                const label = document.createElement('label');
+                label.textContent = displayText; // 界面上显示==前面的内容
+                label.dataset.display = displayText; // 保存显示文本
+                label.dataset.value = actualValue; // 保存实际使用的值
+                label.classList.add('text-select-item');
+                
+                // 如果词条带==，添加蓝色样式类
+                if (itemStr.includes('==') && parts[1]) {
+                    label.classList.add('has-detail');
+                    // 添加title提示，显示完整信息
+                    label.title = `详细内容: ${parts[1]}`;
+                }
+                
+                label.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                });
+                
+                specialContainer.appendChild(label);
+            });
+        }
+    });
+}
+    // 初始化界面
+    function initializeUI() {
+        // 填充所有下拉菜单
+        const sections = ['home', 'public', 'landscape', 'art'];
+        
+        sections.forEach(section => {
+          // 填充风格选项
+const styleSelect = document.getElementById(`${section}-style`);
+if (styleSelect) {
+    wordBank.styles[section].forEach(item => {
+        const option = document.createElement('option');
+        // 处理显示文本和实际值
+        const parts = item.split('==');
+        const displayText = parts[0]; // 显示==前面的内容
+        const actualValue = parts[1] || parts[0]; // 如果有==后面的内容就用后面的，否则用前面的
+        option.value = actualValue; // 实际值使用==后面的内容，如果没有则使用整个字符串
+        option.textContent = displayText; // 显示==前面的内容
+        styleSelect.appendChild(option);
+    });
+}
+            
+            // 填充空间选项
+            const spaceSelect = document.getElementById(`${section}-space`);
+            if (spaceSelect) {
+                wordBank.spaces[section].forEach(space => {
+                    const option = document.createElement('option');
+                    option.value = space;
+                    option.textContent = space;
+                    spaceSelect.appendChild(option);
+                });
+            }
+            
+            // 填充灯光选项
+            const lightingSelect = document.getElementById(`${section}-lighting`);
+            if (lightingSelect) {
+                wordBank.lighting[section].forEach(light => {
+                    const option = document.createElement('option');
+                    option.value = light;
+                    option.textContent = light;
+                    lightingSelect.appendChild(option);
+                });
+            }
+            
+            // 填充视角选项
+            const perspectiveSelect = document.getElementById(`${section}-perspective`);
+            if (perspectiveSelect) {
+                wordBank.perspectives.forEach(perspective => {
+                    const option = document.createElement('option');
+                    option.value = perspective;
+                    option.textContent = perspective;
+                    perspectiveSelect.appendChild(option);
+                });
+            }
+            
+          // 填充景别选项（功能选项）
+const sceneSelect = document.getElementById(`${section}-scene`);
+if (sceneSelect) {
+    // 判断板块，使用不同的功能选项
+    const sceneOptions = (section === 'art') ? gongneng : commonGongneng;
+    
+    sceneOptions.forEach(item => {
+        const option = document.createElement('option');
+        // 处理显示文本和实际值
+        const parts = item.split('==');
+        const displayText = parts[0]; // 显示==前面的内容
+        const actualValue = parts[1] || parts[0]; // 如果有==后面的内容就用后面的，否则用前面的
+        option.value = actualValue; // 实际值使用==后面的内容，如果没有则使用整个字符串
+        option.textContent = displayText; // 显示==前面的内容
+        sceneSelect.appendChild(option);
+    });
+}
+            
+            // 填充镜头选项
+            const lensSelect = document.getElementById(`${section}-lens`);
+            if (lensSelect) {
+                wordBank.lenses.forEach(lens => {
+                    const option = document.createElement('option');
+                    option.value = lens;
+                    option.textContent = lens;
+                    lensSelect.appendChild(option);
+                });
+            }
+        });
+        
+        setupDynamicLoaders();
+        initializeSpecialRequirements();
+    }
+    
+   function clearDynamicOptions(section) {
+  const furnitureContainer = document.getElementById(`${section}-furniture`);
+  const modifiersContainer = document.getElementById(`${section}-modifiers`);
+  
+  if(furnitureContainer) {
+    furnitureContainer.innerHTML = '<span class="placeholder">请先选择风格和空间</span>';
+  }
+  if(modifiersContainer) {
+    modifiersContainer.innerHTML = '<span class="placeholder">请先选择风格和空间</span>';
+  }
+}
+    
+    // 生成提示词
+    const generateBtn = document.getElementById('generate-btn');
+    const resultSection = document.getElementById('result-section');
+    const promptOutput = document.getElementById('prompt-output');
+    const loading = document.getElementById('loading');
+    const notification = document.getElementById('notification');
+    
+   generateBtn.addEventListener('click', async () => {
+    // 获取当前活动面板
+    const activePanel = document.querySelector('.panel.active');
+    if (!activePanel) {
+        showNotification('请先选择版块', 'error');
+        return;
+    }
+    
+    const panelId = activePanel.id;
+    const section = panelId.split('-')[0]; // home, public, landscape, art
+    
+    // 获取所有值
+    const style = document.getElementById(`${section}-style`).value;
+    const space = document.getElementById(`${section}-space`).value;
+    const lighting = document.getElementById(`${section}-lighting`).value;
+    const perspective = document.getElementById(`${section}-perspective`).value;
+    const scene = document.getElementById(`${section}-scene`).value;
+    const lens = document.getElementById(`${section}-lens`).value;
+    const desc = document.getElementById(`${section}-desc`).value;
+    
+    // 获取选中的家具和修饰词
+    const furniture = [];
+    const modifiers = [];
+    activePanel.querySelectorAll(`#${section}-furniture .text-select-item.selected`).forEach(item => {
+        furniture.push(item.dataset.value || item.textContent);
+    });
+    
+    activePanel.querySelectorAll(`#${section}-modifiers .text-select-item.selected`).forEach(item => {
+        modifiers.push(item.dataset.value || item.textContent);
+    });
+    
+   
+   // 获取特殊要求
+const specialRequirements = [];
+activePanel.querySelectorAll(`#${section}-special .text-select-item.selected`).forEach(item => {
+    // 如果有==后面的值，使用后面的值；否则使用显示值
+    const value = item.dataset.value || item.textContent;
+    specialRequirements.push(value);
+});
+    
+    // 放宽验证：只要有任何一项被填写或选中就可以生成
+    const hasAnySelection = 
+        style || 
+        space || 
+        lighting || 
+        perspective || 
+        scene || 
+        lens || 
+        desc || 
+        furniture.length > 0 || 
+        modifiers.length > 0 || 
+        specialRequirements.length > 0;
+    
+    if (!hasAnySelection) {
+        showNotification('请至少填写一项内容！', 'error');
+        return;
+    }
+    
+    // 显示加载状态
+    loading.classList.add('show');
+    generateBtn.disabled = true;
+    generateBtn.classList.add('disabled');
+    
+    // 模拟API调用延迟
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    // 生成提示词（修改后的函数会处理空值）
+    const prompt = generatePrompt(section, style, space, furniture, modifiers, lighting, perspective, scene, lens, desc, specialRequirements);
+    
+    // 显示结果
+    promptOutput.textContent = prompt;
+    resultSection.style.display = 'block';
+    
+    // 滚动到结果区域
+    resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    // 隐藏加载状态
+    loading.classList.remove('show');
+    generateBtn.disabled = false;
+    generateBtn.classList.remove('disabled');
+    
+    showNotification('提示词生成成功！');
+});
+    
+ // 生成提示词的函数
+function generatePrompt(section, style, space, furniture, modifiers, lighting, perspective, scene, lens, desc, specialRequirements) {
+    let prompt = '';
+    
+    // 1. 处理特殊要求 - 确保使用正确的值
+    if (specialRequirements.length > 0) {
+        specialRequirements.forEach(req => {
+            // req已经是从dataset.value获取的，直接使用
+            prompt += req + '，';
+        });
+    }
+    
+    // 2. 版块和空间（如果有选择）
+    if (space) {
+        const sectionNames = {
+            home: '家装',
+            public: '公装',
+            landscape: '景观',
+            art: '艺术'
+        };
+        
+        const spaceName = wordBank.spaceNames[section][space] || `${space}图片`;
+        prompt += `设计一个${sectionNames[section]}${spaceName}，`;
+    }
+    
+    // 3. 元素（如果有选择）
+    if (furniture.length > 0) {
+        const furnitureText = furniture.join('、');
+        prompt += `重点突出${furnitureText}`;
+        
+        // 如果furniture有内容但后面没有逗号，加一个逗号
+        if (!prompt.endsWith('，')) {
+            prompt += '，';
+        }
+    }
+    
+    // 4. 附加描述（如果有）
+    if (desc) {
+        prompt += ` ${desc}，`;
+    }
+    
+    // 5. 风格（如果有选择） - 使用显示文本
+    if (style) {
+        const styleSelect = document.getElementById(`${section}-style`);
+        let styleDisplay = style;
+        if (styleSelect) {
+            const option = styleSelect.options[styleSelect.selectedIndex];
+            if (option.textContent) {
+                styleDisplay = option.textContent.split('==')[0] || option.textContent;
+            }
+        }
+        prompt += `${styleDisplay}，`;
+    }
+    
+    // 6. 视角（如果有选择）
+    if (perspective) {
+        prompt += `${perspective}，`;
+    }
+    
+    // 7. 画面景别（功能类型）
+    if (scene) {
+        const sceneSelect = document.getElementById(`${section}-scene`);
+        let sceneDisplay = scene;
+        if (sceneSelect) {
+            const option = sceneSelect.options[sceneSelect.selectedIndex];
+            if (option.textContent) {
+                sceneDisplay = option.textContent.split('==')[0] || option.textContent;
+            }
+        }
+        prompt += `${sceneDisplay}，`;
+    }
+    
+    // 8. 灯光（如果有选择）
+    if (lighting) {
+        prompt += `运用${lighting}与人工照明的完美融合，打造富有层次的光环境，`;
+    }
+    
+    // 9. 设计修饰词（如果有选择）
+    if (modifiers.length > 0) {
+        const modifiersText = modifiers.join('、');
+        prompt += `营造${modifiersText}的氛围，`;
+    }
+    
+    // 10. 随机感受词和固定文字部分（如果前面有内容）
+    if (prompt.length > 0) {
+        const feelings = ['身心放松', '心旷神怡', '舒适惬意', '宁静致远', '灵感迸发', '专注投入'];
+        const randomFeeling = feelings[Math.floor(Math.random() * feelings.length)];
+        prompt += `让人${randomFeeling}，`;
+        prompt += wordBank.fixedText;
+    }
+    
+    // 11. 画风类型（如果有选择）
+    if (lens) {
+        prompt += ` 使用${lens}画风。`;
+    }
+    
+    // 12. 优化词（如果前面有内容）
+    if (prompt.length > 0 && wordBank.optimizationWords[section]) {
+        const randomOptimizations = wordBank.optimizationWords[section]
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 2)
+            .join('，');
+        prompt += ` ${randomOptimizations}。`;
+    }
+    
+    // 13. 通用优化词（如果前面有内容）
+    if (prompt.length > 0 && wordBank.commonOptimizations) {
+        const randomCommon = wordBank.commonOptimizations
+            .sort(() => 0.5 - Math.random())
+            .slice(0, 3)
+            .join('，');
+        prompt += ` ${randomCommon}。`;
+    }
+    
+    // 如果什么都没选，返回默认提示
+    if (prompt.trim() === '') {
+        prompt = '请至少选择一个选项或填写附加描述来生成提示词。';
+    }
+    
+    return prompt;
+}
+    
+    // 复制功能
+    const copyBtn = document.getElementById('copy-btn');
+    copyBtn.addEventListener('click', () => {
+        const prompt = promptOutput.textContent;
+        if (!prompt || prompt === '可编辑，点击复制') return;
+        
+        navigator.clipboard.writeText(prompt).then(() => {
+            showNotification('提示词已复制到剪贴板！');
+        }).catch(() => {
+            // 降级方案
+            const textArea = document.createElement('textarea');
+            textArea.value = prompt;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            showNotification('提示词已复制到剪贴板！');
+        });
+    });
+    
+    // 保存记录
+    const saveBtn = document.getElementById('save-btn');
+    saveBtn.addEventListener('click', () => {
+        const prompt = promptOutput.textContent;
+        if (!prompt || prompt === '可编辑，点击复制') return;
+        
+        // 获取当前活动面板信息
+        const activePanel = document.querySelector('.panel.active');
+        const panelId = activePanel.id;
+        const section = panelId.split('-')[0];
+        const sectionNames = {
+            home: '家装设计',
+            public: '公装设计',
+            landscape: '景观设计',
+            art: '绘画创作'
+        };
+        
+        // 创建历史记录对象
+        const record = {
+            id: Date.now(),
+            section: sectionNames[section],
+            prompt: prompt,
+            timestamp: new Date().toLocaleString('zh-CN')
+        };
+        
+        // 从localStorage获取现有记录
+        let history = JSON.parse(localStorage.getItem('aiPromptHistory') || '[]');
+        history.unshift(record);
+        
+        // 最多保存15条记录
+        if (history.length > 15) {
+            history = history.slice(0, 15);
+        }
+        
+        // 保存到localStorage
+        localStorage.setItem('aiPromptHistory', JSON.stringify(history));
+        
+        // 更新历史记录显示
+        renderHistory();
+        
+        showNotification('提示词已保存！');
+    });
+    
+    // 导出功能
+    const exportBtn = document.getElementById('export-btn');
+    exportBtn.addEventListener('click', () => {
+        const history = JSON.parse(localStorage.getItem('aiPromptHistory') || '[]');
+        if (history.length === 0) {
+            showNotification('暂无记录可导出', 'error');
+            return;
+        }
+        
+        const exportData = history.map(r => `【${r.section}】${r.timestamp}\n${r.prompt}\n\n`).join('='.repeat(50) + '\n\n');
+        const blob = new Blob([exportData], { type: 'text/plain;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `AI绘画提示词记录_${new Date().toISOString().slice(0, 10)}.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+        
+        showNotification('记录已导出！');
+    });
+    
+    // 清空历史记录
+    const clearHistoryBtn = document.getElementById('clear-history');
+    clearHistoryBtn.addEventListener('click', () => {
+        if (confirm('确定要清空所有历史记录吗？此操作不可恢复！')) {
+            localStorage.removeItem('aiPromptHistory');
+            renderHistory();
+            showNotification('历史记录已清空');
+        }
+    });
+    
+    // 渲染历史记录
+    function renderHistory() {
+        const historyList = document.getElementById('history-list');
+        const history = JSON.parse(localStorage.getItem('aiPromptHistory') || '[]');
+        
+        if (history.length === 0) {
+            historyList.innerHTML = `
                 <div class="empty-state">
                     <i class="fas fa-inbox"></i>
                     <p>暂无历史记录，请生成并保存提示词</p>
                 </div>
-            `;return;}_0x9a860a['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']=_0xaaa['\u006D\u0061\u0070'](record=>`
+            `;
+            return;
+        }
+        
+        historyList.innerHTML = history.map(record => `
             <div class="history-item">
-                <span class="tag">${record['\u0073\u0065\u0063\u0074\u0069\u006F\u006E']}</span>
-                <div class="prompt">${record['\u0070\u0072\u006F\u006D\u0070\u0074']}</div>
-                <div class="timestamp">${record['\u0074\u0069\u006D\u0065\u0073\u0074\u0061\u006D\u0070']}</div>
+                <span class="tag">${record.section}</span>
+                <div class="prompt">${record.prompt}</div>
+                <div class="timestamp">${record.timestamp}</div>
                 <div class="history-item-actions">
-                    <button class="btn edit-btn" data-id="${record['\u0069\u0064']}"><i class="fas fa-edit"></i> 编辑</button>
-                    <button class="btn copy-btn" data-id="${record['\u0069\u0064']}"><i class="fas fa-copy"></i> 复制</button>
-                    <button class="btn delete-btn" data-id="${record['\u0069\u0064']}"><i class="fas fa-trash"></i> 删除</button>
+                    <button class="btn edit-btn" data-id="${record.id}"><i class="fas fa-edit"></i> 编辑</button>
+                    <button class="btn copy-btn" data-id="${record.id}"><i class="fas fa-copy"></i> 复制</button>
+                    <button class="btn delete-btn" data-id="${record.id}"><i class="fas fa-trash"></i> 删除</button>
                 </div>
             </div>
-        `)['\u006A\u006F\u0069\u006E']('');_0x9a860a['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072\u0041\u006C\u006C']("\u002E\u0065\u0064\u0069\u0074\u002D\u0062\u0074\u006E")['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](btn=>{btn['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("kcilc".split("").reverse().join(""),function(){var _0x7g65f;const _0x6e_0x692=parseInt(this['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0069\u0064']);_0x7g65f=(380248^380250)+(390808^390809);const _0x45b=_0xaaa['\u0066\u0069\u006E\u0064'](r=>r['\u0069\u0064']===_0x6e_0x692);if(_0x45b){_0x213f4f['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=_0x45b['\u0070\u0072\u006F\u006D\u0070\u0074'];_0xa_0x9d6['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="kcolb".split("").reverse().join("");_0xa_0x9d6['\u0073\u0063\u0072\u006F\u006C\u006C\u0049\u006E\u0074\u006F\u0056\u0069\u0065\u0077']({"behavior":"\u0073\u006D\u006F\u006F\u0074\u0068",'\u0062\u006C\u006F\u0063\u006B':"\u0073\u0074\u0061\u0072\u0074"});_0x84ba("\u5DF2\u52A0\u8F7D\u5386\u53F2\u8BB0\u5F55\uFF0C\u53EF\u4EE5\u518D\u6B21\u7F16\u8F91");}});});_0x9a860a['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072\u0041\u006C\u006C']("\u002E\u0063\u006F\u0070\u0079\u002D\u0062\u0074\u006E")['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](btn=>{btn['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("kcilc".split("").reverse().join(""),function(){var _0xc839fe=(372750^372745)+(983098^983090);const _0x7c97e=parseInt(this['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0069\u0064']);_0xc839fe=900295^900290;var _0x9f_0x181=(114530^114534)+(405081^405073);const _0xc4c89g=_0xaaa['\u0066\u0069\u006E\u0064'](r=>r['\u0069\u0064']===_0x7c97e);_0x9f_0x181=(971298^971306)+(747201^747204);if(_0xc4c89g){navigator['\u0063\u006C\u0069\u0070\u0062\u006F\u0061\u0072\u0064']['\u0077\u0072\u0069\u0074\u0065\u0054\u0065\u0078\u0074'](_0xc4c89g['\u0070\u0072\u006F\u006D\u0070\u0074'])['\u0074\u0068\u0065\u006E'](()=>{_0x84ba("\u63D0\u793A\u8BCD\u5DF2\u590D\u5236\uFF01");});}});});_0x9a860a['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072\u0041\u006C\u006C']("\u002E\u0064\u0065\u006C\u0065\u0074\u0065\u002D\u0062\u0074\u006E")['\u0066\u006F\u0072\u0045\u0061\u0063\u0068'](btn=>{btn['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",function(){const _0x5g2=parseInt(this['\u0064\u0061\u0074\u0061\u0073\u0065\u0074']['\u0069\u0064']);if(confirm("\u786E\u5B9A\u8981\u5220\u9664\u8FD9\u6761\u8BB0\u5F55\u5417\uFF1F")){var _0xe69a;const _0x4f7ab=_0xaaa['\u0066\u0069\u006C\u0074\u0065\u0072'](r=>r['\u0069\u0064']!==_0x5g2);_0xe69a=(658752^658761)+(902626^902634);localStorage['\u0073\u0065\u0074\u0049\u0074\u0065\u006D']("yrotsiHtpmorPia".split("").reverse().join(""),JSON['\u0073\u0074\u0072\u0069\u006E\u0067\u0069\u0066\u0079'](_0x4f7ab));_0x67bc7f();_0x84ba("\u9664\u5220\u5DF2\u5F55\u8BB0".split("").reverse().join(""));}});});}function _0x84ba(message,type="\u0073\u0075\u0063\u0063\u0065\u0073\u0073"){const _0xc9c=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("noitacifiton".split("").reverse().join(""));if(!_0xc9c){console['\u006C\u006F\u0067'](":\u77E5\u901A".split("").reverse().join(""),message);return;}_0xc9c['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=message;_0xc9c['\u0063\u006C\u0061\u0073\u0073\u004E\u0061\u006D\u0065']=`notification ${type} show`;setTimeout(()=>{_0xc9c['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0072\u0065\u006D\u006F\u0076\u0065']("\u0073\u0068\u006F\u0077");},278370^275674);}_0x67bc7f();});
+        `).join('');
+        
+        // 为按钮添加事件
+        historyList.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                const record = history.find(r => r.id === id);
+                if (record) {
+                    promptOutput.textContent = record.prompt;
+                    resultSection.style.display = 'block';
+                    resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    showNotification('已加载历史记录，可以再次编辑');
+                }
+            });
+        });
+        
+        historyList.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                const record = history.find(r => r.id === id);
+                if (record) {
+                    navigator.clipboard.writeText(record.prompt).then(() => {
+                        showNotification('提示词已复制！');
+                    });
+                }
+            });
+        });
+        
+        historyList.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = parseInt(this.dataset.id);
+                if (confirm('确定要删除这条记录吗？')) {
+                    const newHistory = history.filter(r => r.id !== id);
+                    localStorage.setItem('aiPromptHistory', JSON.stringify(newHistory));
+                    renderHistory();
+                    showNotification('记录已删除');
+                }
+            });
+        });
+    }
+    
+    // 显示通知
+  // 显示通知
+function showNotification(message, type = 'success') {
+    const notification = document.getElementById('notification');
+    
+    if (!notification) {
+        console.log('通知:', message); // 备用方案
+        return;
+    }
+    
+    notification.textContent = message;
+    notification.className = `notification ${type} show`;
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+    
+    // 初始化历史记录
+    renderHistory();
+});
