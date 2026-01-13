@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
             clearDynamicOptions(tab.dataset.panel);
         });
     });
-   
+   // 创建一个辅助函数来规范化风格名称（去除"风格"后缀，便于匹配）
    // 创建一个辅助函数来规范化风格名称（去除"风格"后缀，便于匹配）
 function normalizeStyleName(styleName) {
   if (!styleName) return '';
@@ -55,12 +55,13 @@ function normalizeStyleName(styleName) {
     styleName = parts[0]; // 使用显示部分
   }
   
-   // 如果是常见风格但没带"风格"后缀，加上
+  // 确保风格名称统一（可选）
+  // 如果是常见风格但没带"风格"后缀，加上
   const commonStyles = ['现代简约', '新中式', '日式', '北欧', '轻奢', '工业', '传统中式', '生态自然', '油画', '水彩', '素描', '中国', '抽象'];
   
   for (const commonStyle of commonStyles) {
     if (styleName.includes(commonStyle) && !styleName.includes('风格')) {
-        return commonStyle + '风格';
+      return commonStyle + '风格';
     }
   }
   
@@ -464,36 +465,21 @@ function generatePrompt(section, style, space, furniture, modifiers, lighting, p
         prompt += ` ${desc}，`;
     }
     
-    // 5. 风格（如果有选择） - 使用显示文本
-    if (style) {
-        const styleSelect = document.getElementById(`${section}-style`);
-        let styleDisplay = style;
-        if (styleSelect) {
-            const option = styleSelect.options[styleSelect.selectedIndex];
-            if (option.textContent) {
-                styleDisplay = option.textContent.split('==')[0] || option.textContent;
-            }
-        }
-        prompt += `${styleDisplay}，`;
-    }
+  
+   // 5. 风格（如果有选择） - 使用==后面的实际值
+if (style) {
+    prompt += `${style}风格，`;
+}
     
     // 6. 视角（如果有选择）
     if (perspective) {
         prompt += `${perspective}，`;
     }
     
-    // 7. 画面景别（功能类型）
-    if (scene) {
-        const sceneSelect = document.getElementById(`${section}-scene`);
-        let sceneDisplay = scene;
-        if (sceneSelect) {
-            const option = sceneSelect.options[sceneSelect.selectedIndex];
-            if (option.textContent) {
-                sceneDisplay = option.textContent.split('==')[0] || option.textContent;
-            }
-        }
-        prompt += `${sceneDisplay}，`;
-    }
+    // 7. 功能类型
+   if (scene) {
+    prompt += `${scene}，`;
+}
     
     // 8. 灯光（如果有选择）
     if (lighting) {
