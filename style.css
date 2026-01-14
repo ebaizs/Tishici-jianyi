@@ -104,11 +104,11 @@ body {
 
 .bg-card {
     background: var(--bg-card);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow);
-    padding: var(--space-md); /* 减少内边距 */
-    margin-bottom: var(--space-md); /* 减少卡片之间的间距 */
+    padding: var(--space-sm) !important; /* 改为 sm */
+    margin-bottom: var(--space-sm) !important; /* 改为 sm */
     transition: all 0.3s ease;
 }
 
@@ -833,8 +833,9 @@ body {
 }
 
 /* ==================== 色绘设计页面样式 ==================== */
+/* 色绘设计页面样式 */
 .paint-content {
-    padding: var(--space-md); /* 减少内边距 */
+    padding: var(--space-sm) !important; /* 进一步减少内边距 */
 }
 /* 工具栏 - 强制一行显示，无滚动条 */
 .toolbar-container {
@@ -922,18 +923,19 @@ body {
 }
 
 /* ==================== 上传图片和画笔调整区域优化 ==================== */
+/* 上传和画笔工具栏容器 - 减少内边距 */
 .flex-nowrap-container {
     display: flex;
     align-items: center;
-    padding: var(--space-sm); /* 减少内边距 */
+    padding: var(--space-xs) !important; /* 改为 xs */
     background: var(--bg-secondary);
-    border-radius: var(--radius);
-    margin-bottom: var(--space-sm); /* 减少下边距 */
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-xs) !important; /* 改为 xs */
     flex-wrap: nowrap;
     overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    gap: var(--space-md);
+    gap: var(--space-sm);
 }
 
 .flex-nowrap-container::-webkit-scrollbar {
@@ -1048,23 +1050,18 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
 .upload-image-btn:active {
     transform: translateY(0);
 }
-/* 画布容器样式 */
+/* 画布容器样式 - 减少外边距 */
 .canvas-container {
     position: relative;
-    margin: var(--space-lg) 0;
+    margin: var(--space-sm) 0 !important; /* 减少为 sm */
     border: 2px solid var(--border-color);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius);
     overflow: hidden;
     background: var(--bg-primary);
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
-    box-shadow: var(--shadow-lg);
-    /* 阻止触摸滚动 */
-    touch-action: none;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
+    box-shadow: var(--shadow);
 }
 
 /* 画布本身 */
@@ -1083,15 +1080,16 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
 }
 
 /* ==================== 颜色工具栏优化 ==================== */
+/* 颜色工具栏 - 减少内边距 */
 .color-toolbar {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-md);
+    gap: var(--space-xs);
+    padding: var(--space-sm) !important; /* 改为 sm */
     background: var(--bg-secondary);
-    border-radius: var(--radius);
-    margin-bottom: var(--space-md);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--space-sm);
 }
 
 /* 第一行容器 - 一行显示所有内容 */

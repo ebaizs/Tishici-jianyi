@@ -1,5 +1,3 @@
-// 在 huihua.js 中添加全局变量
-let touchStartedOnCanvas = false;
 // huihua.js - 色绘设计系统
 (function() {
     'use strict';
@@ -12,6 +10,8 @@ let touchStartedOnCanvas = false;
     let canvas = null;
     let ctx = null;
     let isSystemInitialized = false;
+    let lastTouchY = 0;
+    let isTouchMoving = false;
     
     function initializePaintSystem() {
         console.log('初始化色绘设计系统');
@@ -39,7 +39,9 @@ let touchStartedOnCanvas = false;
             imageScale: 1,
             undoStack: [],
             redoStack: [],
-            originalImageSize: { width: 0, height: 0 }
+            originalImageSize: { width: 0, height: 0 },
+            isTouchActive: false,
+            touchIdentifier: null
         };
         
         // 获取DOM元素
@@ -76,89 +78,90 @@ let touchStartedOnCanvas = false;
         }
     }
     
- // 初始化画布
-function initCanvas() {
-    if (!canvas) return;
-    
-    // 保存当前画布内容
-    let imageData = null;
-    if (ctx) {
-        imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    }
-    
-    // 确保画布尺寸正确
-    const container = canvas.parentElement;
-    if (!container) return;
-    
-    const maxWidth = container.clientWidth - 4;
-    const maxHeight = maxWidth * 0.75;
-    
-    const oldWidth = canvas.width;
-    const oldHeight = canvas.height;
-    
-    // 只有尺寸确实发生变化时才重新设置
-    if (Math.abs(oldWidth - maxWidth) > 2 || Math.abs(oldHeight - maxHeight) > 2) {
-        console.log(`调整画布尺寸: ${oldWidth}x${oldHeight} -> ${maxWidth}x${maxHeight}`);
+    // 初始化画布
+    function initCanvas() {
+        if (!canvas) return;
         
-        // 创建临时画布保存内容
-        const tempCanvas = document.createElement('canvas');
-        const tempCtx = tempCanvas.getContext('2d');
-        tempCanvas.width = oldWidth;
-        tempCanvas.height = oldHeight;
-        
-        if (imageData) {
-            tempCtx.putImageData(imageData, 0, 0);
+        // 保存当前画布内容
+        let imageData = null;
+        if (ctx) {
+            imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         }
         
-        // 设置新尺寸
-        canvas.width = maxWidth;
-        canvas.height = maxHeight;
+        // 确保画布尺寸正确
+        const container = canvas.parentElement;
+        if (!container) return;
         
-        // 恢复画布内容
-        if (ctx && imageData) {
-            ctx.save();
+        const maxWidth = container.clientWidth - 4;
+        const maxHeight = maxWidth * 0.75;
+        
+        const oldWidth = canvas.width;
+        const oldHeight = canvas.height;
+        
+        // 只有尺寸确实发生变化时才重新设置
+        if (Math.abs(oldWidth - maxWidth) > 2 || Math.abs(oldHeight - maxHeight) > 2) {
+            console.log(`调整画布尺寸: ${oldWidth}x${oldHeight} -> ${maxWidth}x${maxHeight}`);
             
-            if (state.backgroundImage) {
-                // 如果有背景图片，重新绘制
-                const img = state.backgroundImage;
-                const isLargeScreen = window.innerWidth >= 1024;
-                const shouldRotate = state.originalImageSize.width > state.originalImageSize.height && !isLargeScreen;
-                const { width, height } = resizeCanvasToFitImage(img, shouldRotate);
+            // 创建临时画布保存内容
+            const tempCanvas = document.createElement('canvas');
+            const tempCtx = tempCanvas.getContext('2d');
+            tempCanvas.width = oldWidth;
+            tempCanvas.height = oldHeight;
+            
+            if (imageData) {
+                tempCtx.putImageData(imageData, 0, 0);
+            }
+            
+            // 设置新尺寸
+            canvas.width = maxWidth;
+            canvas.height = maxHeight;
+            
+            // 恢复画布内容
+            if (ctx && imageData) {
+                ctx.save();
                 
-                if (shouldRotate) {
-                    ctx.translate(canvas.width / 2, canvas.height / 2);
-                    ctx.rotate(Math.PI / 2);
-                    ctx.drawImage(img, -height / 2, -width / 2, height, width);
-                    ctx.restore();
+                if (state.backgroundImage) {
+                    // 如果有背景图片，重新绘制
+                    const img = state.backgroundImage;
+                    const isLargeScreen = window.innerWidth >= 1024;
+                    const shouldRotate = state.originalImageSize.width > state.originalImageSize.height && !isLargeScreen;
+                    const { width, height } = resizeCanvasToFitImage(img, shouldRotate);
+                    
+                    if (shouldRotate) {
+                        ctx.translate(canvas.width / 2, canvas.height / 2);
+                        ctx.rotate(Math.PI / 2);
+                        ctx.drawImage(img, -height / 2, -width / 2, height, width);
+                        ctx.restore();
+                    } else {
+                        const x = (canvas.width - width) / 2;
+                        const y = (canvas.height - height) / 2;
+                        ctx.drawImage(img, x, y, width, height);
+                    }
                 } else {
-                    const x = (canvas.width - width) / 2;
-                    const y = (canvas.height - height) / 2;
-                    ctx.drawImage(img, x, y, width, height);
+                    // 如果没有背景图片，用白色填充
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
                 }
-            } else {
-                // 如果没有背景图片，用白色填充
-                ctx.fillStyle = 'white';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                
+                // 绘制之前的绘制内容
+                if (state && state.drawingHistory && state.drawingHistory.length > 0) {
+                    const lastState = state.drawingHistory[state.drawingHistory.length - 1];
+                    ctx.putImageData(lastState, 0, 0);
+                }
+                
+                ctx.restore();
             }
-            
-            // 绘制之前的绘制内容
-            if (state && state.drawingHistory && state.drawingHistory.length > 0) {
-                const lastState = state.drawingHistory[state.drawingHistory.length - 1];
-                ctx.putImageData(lastState, 0, 0);
-            }
-            
-            ctx.restore();
+        }
+        
+        // 设置画布样式
+        if (ctx) {
+            ctx.lineCap = 'square';
+            ctx.lineJoin = 'miter';
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
         }
     }
     
-    // 设置画布样式
-    if (ctx) {
-        ctx.lineCap = 'square';
-        ctx.lineJoin = 'miter';
-        ctx.imageSmoothingEnabled = true;
-        ctx.imageSmoothingQuality = 'high';
-    }
-}
     // 初始化颜色
     function initColors() {
         updateColorList();
@@ -264,54 +267,80 @@ function initCanvas() {
     }
     
     // 开始绘图
-function startDrawing(e) {
-    // 阻止默认行为，防止滚动
-    if (e.type.includes('touch')) {
-        e.preventDefault();
-    }
-    
-    const { x, y } = getCanvasCoordinates(e);
-    state.isDrawing = true;
-    state.lastX = x;
-    state.lastY = y;
-    
-    if (state.currentTool === 'brush') {
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        drawOnCanvas(x, y);
-        saveDrawingState();
-    }
-}
-
-// 绘图
-function draw(e) {
-    if (!state.isDrawing || !ctx) return;
-    
-    // 阻止默认行为，防止滚动
-    if (e.type.includes('touch')) {
-        e.preventDefault();
-    }
-    
-    const { x, y } = getCanvasCoordinates(e);
-    
-    if (state.currentTool === 'brush') {
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        state.lastX = x;
-        state.lastY = y;
-    }
-}
-
-// 停止绘图
-function stopDrawing(e) {
-    if (state.isDrawing && ctx) {
+    function startDrawing(e) {
+        // 阻止默认行为，防止滚动
         if (e.type.includes('touch')) {
             e.preventDefault();
+            // 记录触摸标识符
+            if (e.touches.length === 1) {
+                state.touchIdentifier = e.touches[0].identifier;
+                state.isTouchActive = true;
+            }
         }
-        state.isDrawing = false;
-        ctx.beginPath();
+        
+        const { x, y } = getCanvasCoordinates(e);
+        state.isDrawing = true;
+        state.lastX = x;
+        state.lastY = y;
+        
+        if (state.currentTool === 'brush') {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            drawOnCanvas(x, y);
+            saveDrawingState();
+        }
     }
-}
+    
+    // 绘图
+    function draw(e) {
+        if (!state.isDrawing || !ctx) return;
+        
+        // 阻止默认行为，防止滚动
+        if (e.type.includes('touch')) {
+            e.preventDefault();
+            // 检查是否是同一个触摸点
+            if (state.touchIdentifier !== null) {
+                let touchFound = false;
+                for (let i = 0; i < e.touches.length; i++) {
+                    if (e.touches[i].identifier === state.touchIdentifier) {
+                        touchFound = true;
+                        break;
+                    }
+                }
+                if (!touchFound) {
+                    stopDrawing(e);
+                    return;
+                }
+            }
+        }
+        
+        const { x, y } = getCanvasCoordinates(e);
+        
+        if (state.currentTool === 'brush') {
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            state.lastX = x;
+            state.lastY = y;
+        }
+    }
+    
+    // 停止绘图
+    function stopDrawing(e) {
+        if (e && e.type.includes('touch')) {
+            e.preventDefault();
+        }
+        
+        if (state.isDrawing && ctx) {
+            state.isDrawing = false;
+            ctx.beginPath();
+        }
+        
+        // 重置触摸状态
+        if (state.isTouchActive) {
+            state.isTouchActive = false;
+            state.touchIdentifier = null;
+        }
+    }
     
     // 在画布上绘制
     function drawOnCanvas(x, y) {
@@ -335,14 +364,6 @@ function stopDrawing(e) {
         ctx.globalCompositeOperation = 'source-over';
     }
     
-    // 停止绘图
-    function stopDrawing() {
-        if (state.isDrawing && ctx) {
-            state.isDrawing = false;
-            ctx.beginPath();
-        }
-    }
-    
     // 获取画布坐标
     function getCanvasCoordinates(e) {
         if (!canvas) return { x: 0, y: 0 };
@@ -354,11 +375,29 @@ function stopDrawing(e) {
         let clientX, clientY;
         
         if (e.type.includes('touch')) {
-            clientX = e.touches[0].clientX;
-            clientY = e.touches[0].clientY;
+            // 找到正确的触摸点
+            if (state.touchIdentifier !== null) {
+                for (let i = 0; i < e.touches.length; i++) {
+                    if (e.touches[i].identifier === state.touchIdentifier) {
+                        clientX = e.touches[i].clientX;
+                        clientY = e.touches[i].clientY;
+                        break;
+                    }
+                }
+            }
+            // 如果没找到指定的触摸点，使用第一个
+            if (clientX === undefined && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
         } else {
             clientX = e.clientX;
             clientY = e.clientY;
+        }
+        
+        // 确保坐标有效
+        if (clientX === undefined || clientY === undefined) {
+            return { x: state.lastX, y: state.lastY };
         }
         
         const x = (clientX - rect.left) * scaleX;
@@ -413,47 +452,47 @@ function stopDrawing(e) {
         return { width, height, shouldRotate };
     }
     
-// 调整画布大小以适应图片（支持旋转）
-function resizeCanvasToFitImage(img, shouldRotate = false) {
-    if (!canvas) return { width: 0, height: 0 };
-    
-    const container = canvas.parentElement;
-    const maxWidth = container.clientWidth - 4;
-    const maxHeight = maxWidth * 0.75;
-    
-    state.originalImageSize = { width: img.width, height: img.height };
-    
-    let width = img.width;
-    let height = img.height;
-    
-    // 如果需要旋转，交换宽高
-    if (shouldRotate) {
-        [width, height] = [height, width];
+    // 调整画布大小以适应图片（支持旋转）
+    function resizeCanvasToFitImage(img, shouldRotate = false) {
+        if (!canvas) return { width: 0, height: 0 };
+        
+        const container = canvas.parentElement;
+        const maxWidth = container.clientWidth - 4;
+        const maxHeight = maxWidth * 0.75;
+        
+        state.originalImageSize = { width: img.width, height: img.height };
+        
+        let width = img.width;
+        let height = img.height;
+        
+        // 如果需要旋转，交换宽高
+        if (shouldRotate) {
+            [width, height] = [height, width];
+        }
+        
+        // 简单缩放
+        if (width > 1024 || height > 1024) {
+            const ratio = Math.min(1024 / width, 1024 / height);
+            width = Math.floor(width * ratio);
+            height = Math.floor(height * ratio);
+        }
+        
+        if (width > maxWidth) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+        }
+        
+        if (height > maxHeight) {
+            width = (width * maxHeight) / height;
+            height = maxHeight;
+        }
+        
+        // 设置画布尺寸
+        canvas.width = width;
+        canvas.height = height;
+        
+        return { width, height };
     }
-    
-    // 简单缩放
-    if (width > 1024 || height > 1024) {
-        const ratio = Math.min(1024 / width, 1024 / height);
-        width = Math.floor(width * ratio);
-        height = Math.floor(height * ratio);
-    }
-    
-    if (width > maxWidth) {
-        height = (height * maxWidth) / width;
-        width = maxWidth;
-    }
-    
-    if (height > maxHeight) {
-        width = (width * maxHeight) / height;
-        height = maxHeight;
-    }
-    
-    // 设置画布尺寸
-    canvas.width = width;
-    canvas.height = height;
-    
-    return { width, height };
-}
     
     // 撤销操作
     function undo() {
@@ -504,56 +543,58 @@ function resizeCanvasToFitImage(img, shouldRotate = false) {
         }
         return color;
     }
- // 处理图片上传
-function handleImageUpload(e) {
-    const file = e.target.files[0];
-    if (!file || !canvas || !ctx) return;
     
-    if (!file.type.match('image.*')) {
-        showToast('请选择图片文件');
-        return;
+    // 处理图片上传
+    function handleImageUpload(e) {
+        const file = e.target.files[0];
+        if (!file || !canvas || !ctx) return;
+        
+        if (!file.type.match('image.*')) {
+            showToast('请选择图片文件');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                // 检测屏幕尺寸，大屏不旋转
+                const isLargeScreen = window.innerWidth >= 1024;
+                const shouldRotate = img.width > img.height && !isLargeScreen;
+                
+                // 根据是否需要旋转来调整画布大小
+                const { width, height } = resizeCanvasToFitImage(img, shouldRotate);
+                
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                if (shouldRotate) {
+                    // 小屏时横屏图片旋转
+                    ctx.save();
+                    ctx.translate(canvas.width / 2, canvas.height / 2);
+                    ctx.rotate(Math.PI / 2);
+                    ctx.drawImage(img, -height / 2, -width / 2, height, width);
+                    ctx.restore();
+                    
+                    showToast('图片上传成功，已自动缩放并旋转（小屏优化）');
+                } else {
+                    // 大屏时不旋转，保持原图方向
+                    const x = (canvas.width - width) / 2;
+                    const y = (canvas.height - height) / 2;
+                    ctx.drawImage(img, x, y, width, height);
+                    
+                    showToast('图片上传成功，已自动缩放' + (width > height ? '（保持横屏）' : ''));
+                }
+                
+                state.backgroundImage = img;
+                state.imageScale = width / img.width;
+                
+                saveDrawingState();
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
     }
     
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const img = new Image();
-        img.onload = function() {
-            // 检测屏幕尺寸，大屏不旋转
-            const isLargeScreen = window.innerWidth >= 1024;
-            const shouldRotate = img.width > img.height && !isLargeScreen;
-            
-            // 根据是否需要旋转来调整画布大小
-            const { width, height } = resizeCanvasToFitImage(img, shouldRotate);
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            if (shouldRotate) {
-                // 小屏时横屏图片旋转
-                ctx.save();
-                ctx.translate(canvas.width / 2, canvas.height / 2);
-                ctx.rotate(Math.PI / 2);
-                ctx.drawImage(img, -height / 2, -width / 2, height, width);
-                ctx.restore();
-                
-                showToast('图片上传成功，已自动缩放并旋转（小屏优化）');
-            } else {
-                // 大屏时不旋转，保持原图方向
-                const x = (canvas.width - width) / 2;
-                const y = (canvas.height - height) / 2;
-                ctx.drawImage(img, x, y, width, height);
-                
-                showToast('图片上传成功，已自动缩放' + (width > height ? '（保持横屏）' : ''));
-            }
-            
-            state.backgroundImage = img;
-            state.imageScale = width / img.width;
-            
-            saveDrawingState();
-        };
-        img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-}
     // 检测画布中使用的颜色
     function detectCanvasColors() {
         if (!canvas || !ctx) return [];
@@ -682,70 +723,72 @@ function handleImageUpload(e) {
         showToast('提示词已保存');
     }
     
-  // 反向旋转和保存图片（反向旋转导图）
-function rotateAndSave() {
-    if (!canvas) return;
+    // 反向旋转和保存图片（反向旋转导图）
+    function rotateAndSave() {
+        if (!canvas) return;
+        
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        // 交换宽高
+        tempCanvas.width = canvas.height;
+        tempCanvas.height = canvas.width;
+        
+        tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+        
+        // 改为反向旋转（逆时针90度）
+        tempCtx.rotate(-Math.PI / 2);
+        
+        // 绘制图像（注意偏移量调整）
+        tempCtx.drawImage(canvas, -canvas.width / 2, -canvas.height / 2);
+        
+        // 添加水印
+        tempCtx.font = '12px Arial';
+        tempCtx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        tempCtx.textAlign = 'right';
+        tempCtx.fillText('AI色绘设计助手', tempCanvas.width - 10, tempCanvas.height - 10);
+        
+        // 创建下载链接
+        const link = document.createElement('a');
+        link.download = `AI绘画_反向旋转_${new Date().getTime()}.png`;
+        link.href = tempCanvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showToast('图片已反向旋转并保存');
+    }
     
-    const tempCanvas = document.createElement('canvas');
-    const tempCtx = tempCanvas.getContext('2d');
+    // 保存图片（不旋转）
+    function saveImage() {
+        if (!canvas) return;
+        
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        
+        tempCanvas.width = canvas.width;
+        tempCanvas.height = canvas.height;
+        
+        // 直接绘制，不旋转
+        tempCtx.drawImage(canvas, 0, 0);
+        
+        // 添加水印
+        tempCtx.font = '12px Arial';
+        tempCtx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+        tempCtx.textAlign = 'right';
+        tempCtx.fillText('AI色绘设计助手', tempCanvas.width - 10, tempCanvas.height - 10);
+        
+        // 创建下载链接
+        const link = document.createElement('a');
+        link.download = `AI绘画_原图_${new Date().getTime()}.png`;
+        link.href = tempCanvas.toDataURL('image/png');
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showToast('图片已保存（原图）');
+    }
     
-    // 交换宽高
-    tempCanvas.width = canvas.height;
-    tempCanvas.height = canvas.width;
-    
-    tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
-    
-    // 改为反向旋转（逆时针90度）
-    tempCtx.rotate(-Math.PI / 2);
-    
-    // 绘制图像（注意偏移量调整）
-    tempCtx.drawImage(canvas, -canvas.width / 2, -canvas.height / 2);
-    
-    // 添加水印
-    tempCtx.font = '12px Arial';
-    tempCtx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    tempCtx.textAlign = 'right';
-    tempCtx.fillText('AI色绘设计助手', tempCanvas.width - 10, tempCanvas.height - 10);
-    
-    // 创建下载链接
-    const link = document.createElement('a');
-    link.download = `AI绘画_反向旋转_${new Date().getTime()}.png`;
-    link.href = tempCanvas.toDataURL('image/png');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    showToast('图片已反向旋转并保存');
-}
-   // 保存图片（不旋转）
-function saveImage() {
-    if (!canvas) return;
-    
-    const tempCanvas = document.createElement('canvas');
-    const tempCtx = tempCanvas.getContext('2d');
-    
-    tempCanvas.width = canvas.width;
-    tempCanvas.height = canvas.height;
-    
-    // 直接绘制，不旋转
-    tempCtx.drawImage(canvas, 0, 0);
-    
-    // 添加水印
-    tempCtx.font = '12px Arial';
-    tempCtx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    tempCtx.textAlign = 'right';
-    tempCtx.fillText('AI色绘设计助手', tempCanvas.width - 10, tempCanvas.height - 10);
-    
-    // 创建下载链接
-    const link = document.createElement('a');
-    link.download = `AI绘画_原图_${new Date().getTime()}.png`;
-    link.href = tempCanvas.toDataURL('image/png');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    showToast('图片已保存（原图）');
-}
     // 优化到AI功能
     function optimizeToAI() {
         const promptTextarea = document.getElementById('promptTextarea');
@@ -830,23 +873,7 @@ function saveImage() {
         const saveImageBtn = document.getElementById('saveImageBtn');
         const rotateSaveBtn = document.getElementById('rotateSaveBtn');
         const optimizeBtn = document.getElementById('optimizeBtn');
-          // 画布事件
-    if (canvas) {
-        // 鼠标事件保持不变
-        canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('mouseup', stopDrawing);
-        canvas.addEventListener('mouseleave', stopDrawing);
         
-        // 改进的触摸事件处理
-        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-        canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-        canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
-        canvas.addEventListener('touchcancel', handleTouchCancel, { passive: false });
-        
-        // 防止画布被拖动
-        canvas.addEventListener('dragstart', (e) => e.preventDefault());
-    }
         if (brushTool) brushTool.addEventListener('click', () => setTool('brush'));
         if (clearBrushTool) clearBrushTool.addEventListener('click', activateClearBrush);
         if (clearTool) clearTool.addEventListener('click', clearCanvas);
@@ -880,19 +907,19 @@ function saveImage() {
             });
         }
         
-       // 上传图片
-const uploadBtn = document.getElementById('uploadBtn');
-const imageUpload = document.getElementById('imageUpload');
-
-if (uploadBtn) {
-    uploadBtn.addEventListener('click', () => {
-        if (imageUpload) imageUpload.click();
-    });
-}
-
-if (imageUpload) {
-    imageUpload.addEventListener('change', handleImageUpload);
-}
+        // 上传图片
+        const uploadBtn = document.getElementById('uploadBtn');
+        const imageUpload = document.getElementById('imageUpload');
+        
+        if (uploadBtn) {
+            uploadBtn.addEventListener('click', () => {
+                if (imageUpload) imageUpload.click();
+            });
+        }
+        
+        if (imageUpload) {
+            imageUpload.addEventListener('change', handleImageUpload);
+        }
         
         // 提示词相关
         const generatePromptBtn = document.getElementById('generatePromptBtn');
@@ -909,110 +936,108 @@ if (imageUpload) {
             savePromptBtn.addEventListener('click', savePrompt);
         }
         
-    // 触摸事件
-if (canvas) {
-    // 阻止画布区域的默认触摸行为，防止滚动
-    canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        startDrawing(e);
-    }, { passive: false });
-    
-    canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        draw(e);
-    }, { passive: false });
-    
-    canvas.addEventListener('touchend', (e) => {
-        e.preventDefault();
-        stopDrawing(e);
-    }, { passive: false });
-    
-    canvas.addEventListener('touchcancel', (e) => {
-        e.preventDefault();
-        stopDrawing(e);
-    }, { passive: false });
-}
-
-// 阻止画布区域的默认触摸行为，防止滚动
-canvas.addEventListener('touchstart', function(e) {
-    if (e.target === canvas) {
-        e.preventDefault();
-    }
-}, { passive: false });
-
-canvas.addEventListener('touchmove', function(e) {
-    if (e.target === canvas) {
-        e.preventDefault();
-    }
-}, { passive: false });
- // 添加专门的触摸处理函数
-function handleTouchStart(e) {
-    if (e.touches.length === 1) { // 只处理单指触摸
-        touchStartedOnCanvas = true;
-        e.preventDefault();
-        startDrawing(e);
-    }
-}
-
-function handleTouchMove(e) {
-    if (touchStartedOnCanvas && e.touches.length === 1) {
-        e.preventDefault();
-        draw(e);
-    }
-}
-
-function handleTouchEnd(e) {
-    if (touchStartedOnCanvas) {
-        e.preventDefault();
-        stopDrawing(e);
-        touchStartedOnCanvas = false;
-    }
-}
-
-function handleTouchCancel(e) {
-    if (touchStartedOnCanvas) {
-        e.preventDefault();
-        stopDrawing(e);
-        touchStartedOnCanvas = false;
-    }
-}       
-// 窗口调整大小事件 - 添加防抖
-let resizeTimeout;
-window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        console.log('窗口大小调整，重新初始化画布');
-        initCanvas();
+        // 画布事件
+        if (canvas) {
+            // 鼠标事件
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+            
+            // 触摸事件 - 使用被动监听器防止滚动
+            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+            canvas.addEventListener('touchcancel', handleTouchCancel, { passive: false });
+            
+            // 防止画布被拖动
+            canvas.addEventListener('dragstart', (e) => e.preventDefault());
+        }
         
-        if (state && state.backgroundImage) {
-            const img = state.backgroundImage;
-            // 检测屏幕尺寸，大屏不旋转
-            const isLargeScreen = window.innerWidth >= 1024;
-            const shouldRotate = state.originalImageSize.width > state.originalImageSize.height && !isLargeScreen;
+        // 窗口调整大小事件 - 添加防抖
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                console.log('窗口大小调整，重新初始化画布');
+                initCanvas();
+                
+                if (state && state.backgroundImage) {
+                    const img = state.backgroundImage;
+                    // 检测屏幕尺寸，大屏不旋转
+                    const isLargeScreen = window.innerWidth >= 1024;
+                    const shouldRotate = state.originalImageSize.width > state.originalImageSize.height && !isLargeScreen;
+                    
+                    // 根据是否需要旋转来调整画布大小
+                    const { width, height } = resizeCanvasToFitImage(img, shouldRotate);
+                    
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    if (shouldRotate) {
+                        // 小屏时横屏图片旋转
+                        ctx.save();
+                        ctx.translate(canvas.width / 2, canvas.height / 2);
+                        ctx.rotate(Math.PI / 2);
+                        ctx.drawImage(img, -height / 2, -width / 2, height, width);
+                        ctx.restore();
+                    } else {
+                        // 大屏时不旋转，保持原图方向
+                        const x = (canvas.width - width) / 2;
+                        const y = (canvas.height - height) / 2;
+                        ctx.drawImage(img, x, y, width, height);
+                    }
+                    
+                    saveDrawingState();
+                }
+            }, 250);
+        });
+    }
+    
+    // 触摸事件处理函数
+    function handleTouchStart(e) {
+        if (e.touches.length === 1) {
+            e.preventDefault();
+            startDrawing(e);
+            // 记录触摸点位置，用于检测是否滚动
+            lastTouchY = e.touches[0].clientY;
+            isTouchMoving = false;
+        }
+    }
+    
+    function handleTouchMove(e) {
+        if (e.touches.length === 1) {
+            e.preventDefault();
             
-            // 根据是否需要旋转来调整画布大小
-            const { width, height } = resizeCanvasToFitImage(img, shouldRotate);
+            // 检测是否是滚动行为（垂直移动超过5px）
+            const currentY = e.touches[0].clientY;
+            const deltaY = Math.abs(currentY - lastTouchY);
             
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            if (shouldRotate) {
-                // 小屏时横屏图片旋转
-                ctx.save();
-                ctx.translate(canvas.width / 2, canvas.height / 2);
-                ctx.rotate(Math.PI / 2);
-                ctx.drawImage(img, -height / 2, -width / 2, height, width);
-                ctx.restore();
-            } else {
-                // 大屏时不旋转，保持原图方向
-                const x = (canvas.width - width) / 2;
-                const y = (canvas.height - height) / 2;
-                ctx.drawImage(img, x, y, width, height);
+            if (deltaY > 5) {
+                isTouchMoving = true;
             }
             
-            saveDrawingState();
+            // 如果不是明显的滚动行为，则绘图
+            if (!isTouchMoving || state.isDrawing) {
+                draw(e);
+                lastTouchY = currentY;
+            }
         }
-    }, 250); // 250ms防抖
-});
+    }
+    
+    function handleTouchEnd(e) {
+        if (e.touches.length === 0) {
+            e.preventDefault();
+            stopDrawing(e);
+            isTouchMoving = false;
+        }
+    }
+    
+    function handleTouchCancel(e) {
+        if (e.touches.length === 0) {
+            e.preventDefault();
+            stopDrawing(e);
+            isTouchMoving = false;
+        }
     }
     
     // 添加toast动画
