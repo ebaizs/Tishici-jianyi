@@ -1,3 +1,5 @@
+// 在 huihua.js 中添加全局变量
+let touchStartedOnCanvas = false;
 // huihua.js - 色绘设计系统
 (function() {
     'use strict';
@@ -828,7 +830,23 @@ function saveImage() {
         const saveImageBtn = document.getElementById('saveImageBtn');
         const rotateSaveBtn = document.getElementById('rotateSaveBtn');
         const optimizeBtn = document.getElementById('optimizeBtn');
+          // 画布事件
+    if (canvas) {
+        // 鼠标事件保持不变
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
         
+        // 改进的触摸事件处理
+        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+        canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+        canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+        canvas.addEventListener('touchcancel', handleTouchCancel, { passive: false });
+        
+        // 防止画布被拖动
+        canvas.addEventListener('dragstart', (e) => e.preventDefault());
+    }
         if (brushTool) brushTool.addEventListener('click', () => setTool('brush'));
         if (clearBrushTool) clearBrushTool.addEventListener('click', activateClearBrush);
         if (clearTool) clearTool.addEventListener('click', clearCanvas);
@@ -927,7 +945,37 @@ canvas.addEventListener('touchmove', function(e) {
         e.preventDefault();
     }
 }, { passive: false });
-        
+ // 添加专门的触摸处理函数
+function handleTouchStart(e) {
+    if (e.touches.length === 1) { // 只处理单指触摸
+        touchStartedOnCanvas = true;
+        e.preventDefault();
+        startDrawing(e);
+    }
+}
+
+function handleTouchMove(e) {
+    if (touchStartedOnCanvas && e.touches.length === 1) {
+        e.preventDefault();
+        draw(e);
+    }
+}
+
+function handleTouchEnd(e) {
+    if (touchStartedOnCanvas) {
+        e.preventDefault();
+        stopDrawing(e);
+        touchStartedOnCanvas = false;
+    }
+}
+
+function handleTouchCancel(e) {
+    if (touchStartedOnCanvas) {
+        e.preventDefault();
+        stopDrawing(e);
+        touchStartedOnCanvas = false;
+    }
+}       
 // 窗口调整大小事件 - 添加防抖
 let resizeTimeout;
 window.addEventListener('resize', () => {
