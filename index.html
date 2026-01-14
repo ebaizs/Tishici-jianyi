@@ -509,10 +509,7 @@
                                     <i class="fas fa-paint-brush"></i>
                                     <div class="text-xs mt-2">画笔</div>
                                 </button>
-                                <button id="clearBrushTool" class="tool-btn large clear-btn rounded-xl" data-testid="clear-brush-tool">
-                                    <i class="fas fa-eraser"></i>
-                                    <div class="text-xs mt-2">清除画笔</div>
-                                </button>
+                              
                                 <button id="clearTool" class="tool-btn large clear-btn rounded-xl" data-testid="clear-tool">
                                     <i class="fas fa-trash-alt"></i>
                                     <div class="text-xs mt-2">清空画布</div>
@@ -532,65 +529,64 @@
                             </div>
                         </div>
 
-                        <!-- 上传图片和画笔调整 -->
-                        <div class="bg-card rounded-lg shadow-md p-4 mb-6">
-                            <div class="flex-nowrap-container">
-                                <!-- 选择文件按钮 -->
-                                <div class="upload-btn-container">
-                                    <input type="file" id="imageUpload" accept="image/*" class="hidden" data-testid="image-upload">
-                                    <button id="uploadBtn" class="upload-image-btn" data-testid="upload-btn">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <span>上传图片</span>
-                                    </button>
-                                </div>
-                                
-                                <!-- 画笔预览 -->
-                                <div class="flex-shrink-0">
-                                    <div class="brush-preview-large">
-                                        <div id="brushPreviewBox" style="width: 30px; height: 30px; background: #000000;"></div>
-                                    </div>
-                                </div>
-                                
-                                <!-- 画笔大小调整 -->
-                                <div class="flex-1 min-w-0">
-                                    <div class="flex items-center justify-between mb-1">
-                                        <span class="text-xs text-label">画笔大小:</span>
-                                        <span id="brushSizeValue" class="text-sm font-bold">14px</span>
-                                    </div>
-                                    <input type="range" id="brushSize" min="5" max="50" value="20" class="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" data-testid="brush-size">
-                                </div>
-                            </div>
-                            
-                            <!-- 画布 -->
-                            <div class="canvas-container">
-                                <canvas id="drawingCanvas" width="800" height="600"></canvas>
-                            </div>
-                        </div>
+                   <!-- 上传和画笔工具栏 -->
+<div class="bg-card rounded-lg shadow-md p-4 mb-4"> <!-- 改为 mb-4 更紧凑 -->
+    <div class="flex-nowrap-container">
+        <!-- 上传图片按钮 -->
+         <!-- 在"上传图片"按钮后面添加隐藏的文件输入 -->
+<input type="file" id="imageUpload" accept="image/*" style="display: none;">
+        <button id="uploadBtn" class="upload-image-btn" data-testid="upload-btn">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>上传图片</span>
+        </button>
+        
+        <!-- 画笔预览 -->
+        <div class="brush-preview-large">
+            <div id="brushPreviewBox" style="width: 30px; height: 30px; background: #000000;"></div>
+        </div>
+        
+        <!-- 画笔大小调整 -->
+        <div class="brush-adjust-area">
+            <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-label">画笔大小:</span>
+                <span id="brushSizeValue" class="text-sm font-bold">14px</span>
+            </div>
+            <input type="range" id="brushSize" min="5" max="50" value="20" class="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" data-testid="brush-size">
+        </div>
+    </div>
+</div>
+
+<!-- 画布容器 -->
+<div class="bg-card rounded-lg shadow-md p-4 mb-4"> <!-- 改为 mb-4 更紧凑 -->
+    <div class="canvas-container">
+        <canvas id="drawingCanvas" width="800" height="600"></canvas>
+    </div>
+</div>
 <!-- 颜色工具栏 -->
 <div class="bg-card rounded-lg shadow-md p-4 mb-6">
     <div class="color-toolbar">
         <!-- 第一行：颜色预览、输入框、随机颜色按钮 -->
-        <div class="color-toolbar-row1">
-            <!-- 颜色预览 -->
-            <div class="flex items-center gap-2 flex-shrink-0">
-                <i class="fas fa-eye-dropper text-lg text-purple-500"></i>
-                <div id="currentColorPreview" class="color-preview-large" style="background: rgb(0, 0, 0);"></div>
-            </div>
-            
-            <!-- 颜色名输入框 -->
-            <input type="text" id="colorNameInput" placeholder="输入颜色..." 
-                   class="color-input-large border border-custom text-sm" data-testid="color-name-input">
-            
-            <!-- 随机颜色按钮 -->
-            <button id="randomColorBtn" class="color-random-btn random-color-btn text-white flex items-center justify-center gap-2">
-                <i class="fas fa-random btn-icon text-sm"></i>
-                <span>随机颜色添加</span>
-            </button>
-             <button id="generatePromptBtn" class="generate-prompt-btn text-white py-2 rounded-lg font-medium text-sm flex items-center justify-center gap-2">
-                <i class="fas fa-magic"></i>
-                <span>智能生成提示词</span>
-            </button>
-        </div>
+     <div class="color-toolbar-row1">
+    <!-- 颜色预览 -->
+    <div id="currentColorPreview" class="color-preview-large" style="background: rgb(0, 0, 0);"></div>
+    
+    <!-- 颜色名输入框（固定14字符宽度） -->
+    <input type="text" id="colorNameInput" placeholder="颜色名" 
+           class="color-input-large border border-custom text-sm" data-testid="color-name-input"
+           style="width: 140px; flex-shrink: 0;">
+    
+    <!-- 随机颜色按钮 -->
+    <button id="randomColorBtn" class="color-random-btn random-color-btn text-white flex items-center justify-center gap-2">
+        <i class="fas fa-random btn-icon text-sm"></i>
+        <span>随机颜色添加</span>
+    </button>
+    
+    <!-- 智能生成提示词按钮（加大） -->
+    <button id="generatePromptBtn" class="generate-prompt-btn text-white py-2 rounded-lg font-medium text-sm flex items-center justify-center gap-2" style="flex: 1;">
+        <i class="fas fa-magic"></i>
+        <span>智能生成提示词</span>
+    </button>
+</div>
     </div>
     
     <!-- 颜色列表 -->

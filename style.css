@@ -102,14 +102,13 @@ body {
     width: 100%;
 }
 
-/* 卡片样式 */
 .bg-card {
     background: var(--bg-card);
     border-radius: var(--radius-lg);
     border: 1px solid var(--border-color);
     box-shadow: var(--shadow);
-    padding: var(--space-lg);
-    margin-bottom: var(--space-lg);
+    padding: var(--space-md); /* 减少内边距 */
+    margin-bottom: var(--space-md); /* 减少卡片之间的间距 */
     transition: all 0.3s ease;
 }
 
@@ -835,9 +834,8 @@ body {
 
 /* ==================== 色绘设计页面样式 ==================== */
 .paint-content {
-    padding: var(--space-lg);
+    padding: var(--space-md); /* 减少内边距 */
 }
-
 /* 工具栏 - 强制一行显示，无滚动条 */
 .toolbar-container {
     display: flex;
@@ -927,10 +925,10 @@ body {
 .flex-nowrap-container {
     display: flex;
     align-items: center;
-    padding: var(--space-md);
+    padding: var(--space-sm); /* 减少内边距 */
     background: var(--bg-secondary);
     border-radius: var(--radius);
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-sm); /* 减少下边距 */
     flex-wrap: nowrap;
     overflow-x: auto;
     -ms-overflow-style: none;
@@ -1051,7 +1049,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     transform: translateY(0);
 }
 
-/* 画布容器 */
+/* 在画布容器样式后添加 */
 .canvas-container {
     position: relative;
     margin: var(--space-lg) 0;
@@ -1063,12 +1061,19 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     margin-left: auto;
     margin-right: auto;
     box-shadow: var(--shadow-lg);
+    /* 添加以下代码防止触摸滚动 */
+    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+    touch-action: pan-x pan-y; /* 允许平移，但阻止缩放手势 */
 }
 
 #drawingCanvas {
     display: block;
     cursor: crosshair;
-    touch-action: none;
+    touch-action: none; /* 完全禁用画布上的触摸操作，由JS控制 */
+    -webkit-user-select: none; /* 防止文本选择 */
+    user-select: none;
+    -webkit-tap-highlight-color: transparent; /* 移除点击高亮 */
     width: 100%;
     height: auto;
     background: white;
@@ -1223,16 +1228,17 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
 /* 提示词文本区域 */
 .prompt-textarea {
     width: 100%;
-    min-height: 140px;
-    max-height: 300px;
+    height: 140px; /* 固定高度 */
+    min-height: 140px; /* 最小高度相同 */
+    max-height: 140px; /* 最大高度相同 */
     padding: var(--space-lg);
     border: 2px solid var(--border-color);
     border-radius: var(--radius);
     font-size: 0.95rem;
     background: var(--bg-primary);
     color: var(--text-primary);
-    resize: vertical;
-    overflow-y: auto;
+    resize: none; /* 禁止调整大小 */
+    overflow-y: auto; /* 允许垂直滚动 */
     white-space: pre-wrap;
     word-wrap: break-word;
     transition: all 0.3s;
