@@ -1053,24 +1053,35 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
 .upload-image-btn:active {
     transform: translateY(0);
 }
-/* 画布容器居中样式 */
+/* 在 style.css 中添加或修改以下样式 */
 .canvas-container {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    min-height: 400px; /* 确保最小高度 */
-}
-
-/* 画布本身 */
-#drawingCanvas {
-    display: block;
-    cursor: crosshair;
-    touch-action: none;
+    background: #f5f5f5 !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
     width: 100% !important;
     height: auto !important;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* 保持比例 */
+    max-width: 100% !important;
+}
+/* 在 style.css 的 .tool-btn 相关样式中添加旋转按钮样式 */
+.tool-btn.rotate-image-btn {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad, #6c3483) !important;
+    color: white !important;
+    border-color: #9b59b6 !important;
+}
+#drawingCanvas {
+    display: block !important;
+    cursor: crosshair !important;
+    touch-action: none !important;
+    image-rendering: -webkit-optimize-contrast !important;
+    image-rendering: crisp-edges !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
 }
 
 /* ==================== 颜色工具栏优化 ==================== */
