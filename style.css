@@ -841,6 +841,8 @@ body {
 .toolbar-container {
     display: flex;
     flex-wrap: nowrap; /* 强制一行显示 */
+    justify-content: center;
+    align-items: center;
     gap: var(--space-sm);
     padding-bottom: var(--space-xs);
     -ms-overflow-style: none; /* IE和Edge隐藏滚动条 */
@@ -850,6 +852,7 @@ body {
 
 .toolbar-container::-webkit-scrollbar {
     display: none; /* Chrome隐藏滚动条 */
+
 }
 
 .tool-btn {
@@ -1050,18 +1053,12 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
 .upload-image-btn:active {
     transform: translateY(0);
 }
-/* 画布容器样式 - 减少外边距 */
+/* 画布容器居中样式 */
 .canvas-container {
-    position: relative;
-    margin: var(--space-sm) 0 !important; /* 减少为 sm */
-    border: 2px solid var(--border-color);
-    border-radius: var(--radius);
-    overflow: hidden;
-    background: var(--bg-primary);
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: var(--shadow);
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 400px; /* 确保最小高度 */
 }
 
 /* 画布本身 */
@@ -1069,14 +1066,11 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     display: block;
     cursor: crosshair;
     touch-action: none;
-    width: 100%;
-    height: auto;
-    background: white;
-    /* 阻止默认触摸行为 */
-    -webkit-touch-callout: none;
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    user-select: none;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* 保持比例 */
 }
 
 /* ==================== 颜色工具栏优化 ==================== */
