@@ -262,33 +262,54 @@ function initCanvas() {
     }
     
     // 开始绘图
-    function startDrawing(e) {
-        const { x, y } = getCanvasCoordinates(e);
-        state.isDrawing = true;
-        state.lastX = x;
-        state.lastY = y;
-        
-        if (state.currentTool === 'brush') {
-            ctx.beginPath();
-            ctx.moveTo(x, y);
-            drawOnCanvas(x, y);
-            saveDrawingState();
-        }
+function startDrawing(e) {
+    // 阻止默认行为，防止滚动
+    if (e.type.includes('touch')) {
+        e.preventDefault();
     }
     
-    // 绘图
-    function draw(e) {
-        if (!state.isDrawing || !ctx) return;
-        
-        const { x, y } = getCanvasCoordinates(e);
-        
-        if (state.currentTool === 'brush') {
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            state.lastX = x;
-            state.lastY = y;
-        }
+    const { x, y } = getCanvasCoordinates(e);
+    state.isDrawing = true;
+    state.lastX = x;
+    state.lastY = y;
+    
+    if (state.currentTool === 'brush') {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        drawOnCanvas(x, y);
+        saveDrawingState();
     }
+}
+
+// 绘图
+function draw(e) {
+    if (!state.isDrawing || !ctx) return;
+    
+    // 阻止默认行为，防止滚动
+    if (e.type.includes('touch')) {
+        e.preventDefault();
+    }
+    
+    const { x, y } = getCanvasCoordinates(e);
+    
+    if (state.currentTool === 'brush') {
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        state.lastX = x;
+        state.lastY = y;
+    }
+}
+
+// 停止绘图
+function stopDrawing(e) {
+    if (state.isDrawing && ctx) {
+        if (e.type.includes('touch')) {
+            e.preventDefault();
+        }
+        state.isDrawing = false;
+        ctx.beginPath();
+    }
+}
     
     // 在画布上绘制
     function drawOnCanvas(x, y) {
@@ -870,55 +891,42 @@ if (imageUpload) {
             savePromptBtn.addEventListener('click', savePrompt);
         }
         
-    // 画布事件
+    // 触摸事件
 if (canvas) {
-    // 鼠标事件
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mouseleave', stopDrawing);
-    
-    // 触摸事件 - 增强版本
+    // 阻止画布区域的默认触摸行为，防止滚动
     canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // 阻止默认行为
-        e.stopPropagation(); // 阻止事件冒泡
-        
-        // 如果是多点触摸，只处理第一个点
-        if (e.touches.length === 1) {
-            startDrawing(e);
-        }
+        e.preventDefault();
+        startDrawing(e);
     }, { passive: false });
     
     canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault(); // 阻止默认行为
-        e.stopPropagation(); // 阻止事件冒泡
-        
-        // 如果是多点触摸，只处理第一个点
-        if (e.touches.length === 1) {
-            draw(e);
-        }
+        e.preventDefault();
+        draw(e);
     }, { passive: false });
     
     canvas.addEventListener('touchend', (e) => {
-        e.preventDefault(); // 阻止默认行为
-        e.stopPropagation(); // 阻止事件冒泡
+        e.preventDefault();
         stopDrawing(e);
     }, { passive: false });
     
     canvas.addEventListener('touchcancel', (e) => {
-        e.preventDefault(); // 阻止默认行为
-        e.stopPropagation(); // 阻止事件冒泡
+        e.preventDefault();
         stopDrawing(e);
     }, { passive: false });
-    
-    // 防止页面滚动时影响画布
-    canvas.addEventListener('touchmove', (e) => {
-        // 只有在绘画状态下才阻止滚动
-        if (state && state.isDrawing) {
-            e.preventDefault();
-        }
-    }, { passive: false });
 }
+
+// 阻止画布区域的默认触摸行为，防止滚动
+canvas.addEventListener('touchstart', function(e) {
+    if (e.target === canvas) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+canvas.addEventListener('touchmove', function(e) {
+    if (e.target === canvas) {
+        e.preventDefault();
+    }
+}, { passive: false });
         
 // 窗口调整大小事件 - 添加防抖
 let resizeTimeout;
