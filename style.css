@@ -1643,23 +1643,12 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
         font-size: 10px !important;
     }
     
-    /* 颜色工具栏 - 小屏时生成提示词按钮只显示图标 */
-    .generate-prompt-btn {
-        padding: 10px !important;
-        min-width: 36px;
-        width: 36px;
-        max-width: 36px;
-    }
-    .generate-prompt-btn span {
-        display: none;
-    }
-    .generate-prompt-btn i {
-        margin: 0;
-    }
+  
     
     /* 颜色输入框在小屏时缩小 */
     .color-input-large {
-        min-width: 80px;
+        min-width: 120px;
+        max-width:200px ;
         padding: 8px 10px !important;
         font-size: 0.85rem !important;
     }
