@@ -62,9 +62,18 @@
             initEventListeners();
             setTool('brush');
             
-            // 设置画布初始状态
-            ctx.fillStyle = 'white';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          // 在 initializePaintSystem 函数中找到初始化画布的部分
+        // 设置画布初始状态
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+// 确保画布在容器中居中
+const container = canvas.parentElement;
+if (container) {
+    container.style.display = 'flex';
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'center';
+}
             
             // 更新画笔预览
             updateBrushPreview();
