@@ -86,17 +86,23 @@
 
 /* 基础元素样式 */
 body {
-    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
     color: var(--text-primary);
     line-height: 1.6;
-    min-height: 100vh;
     font-size: 14px;
     overflow-x: hidden;
+    /* 移除背景色，由容器控制 */
+    background: transparent;
 }
-
+.global-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+}
 /* 容器 - PC端限制最大宽度 */
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: var(--space-md);
     width: 100%;
@@ -199,7 +205,7 @@ body {
     border: none;
     border-radius: var(--radius);
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 50;
     cursor: pointer;
     margin-top: var(--space-md);
     transition: all 0.3s;
@@ -305,7 +311,7 @@ body {
     border-radius: 25px;
     cursor: pointer;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 50;
     transition: all 0.3s;
     display: flex;
     align-items: center;
@@ -404,7 +410,7 @@ body {
     text-align: center;
     padding: 14px 16px;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 50;
     color: var(--text-secondary);
     transition: all 0.3s ease;
     border-bottom: 3px solid transparent;
@@ -457,7 +463,7 @@ body {
 .form-group label {
     display: block;
     margin-bottom: 6px;
-    font-weight: 600;
+    font-weight: 50;
     color: var(--text-primary);
     font-size: 0.95rem;
     display: flex;
@@ -568,7 +574,7 @@ body {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
     border-color: var(--secondary);
-    font-weight: 600;
+    font-weight: 50;
     box-shadow: var(--shadow-md);
 }
 
@@ -598,7 +604,7 @@ body {
     padding: 12px 24px;
     border-radius: var(--radius);
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: 50;
     cursor: pointer;
     transition: all 0.3s ease;
     display: inline-flex;
@@ -656,7 +662,11 @@ body {
 .loading.show {
     display: block;
 }
-
+.tool-btn.redo-btn {
+    background: linear-gradient(135deg, #20c997, #0ca678) !important;
+    color: white !important;
+    border-color: #20c997 !important;
+}
 .spinner {
     border: 3px solid rgba(0, 0, 0, 0.1);
     border-radius: 50%;
@@ -779,7 +789,7 @@ body {
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 0.7rem;
-    font-weight: 600;
+    font-weight: 50;
     margin-bottom: var(--space-sm);
     background: var(--bg-tertiary);
     color: var(--text-primary);
@@ -871,7 +881,7 @@ body {
     align-items: center;
     justify-content: center;
     gap: 4px;
-    font-weight: 600;
+    font-weight: 50;
     box-shadow: var(--shadow);
     white-space: nowrap;
 }
@@ -893,7 +903,7 @@ body {
 .tool-btn .text-xs {
     font-size: 11px !important;
     margin-top: 4px;
-    font-weight: 600;
+    font-weight: 50;
 }
 
 .tool-btn i {
@@ -1032,7 +1042,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     border: none !important;
     padding: 12px 16px !important;
     border-radius: var(--radius) !important;
-    font-weight: 600;
+    font-weight: 50;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -1144,7 +1154,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     border: none !important;
     padding: 10px 16px !important;
     border-radius: var(--radius) !important;
-    font-weight: 600;
+    font-weight: 50;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -1164,7 +1174,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     border: none !important;
     padding: 10px 16px !important; /* 与随机颜色按钮保持相同padding */
     border-radius: var(--radius) !important;
-    font-weight: 600;
+    font-weight: 50;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -1279,7 +1289,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     padding: 14px 12px !important;
     border-radius: var(--radius) !important;
     font-size: 0.95rem !important;
-    font-weight: 600;
+    font-weight: 50;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -1443,17 +1453,14 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     
     /* 上传图片和画笔调整区域 */
     .upload-btn-container {
-        min-width: 120px;
+        min-width: 80px;
     }
     
     .brush-adjust-area {
         min-width: 180px;
     }
     
-    /* 上传按钮在中屏时只显示图标 */
-    .upload-image-btn span {
-        display: none;
-    }
+   
     
     .upload-image-btn {
         min-width: 50px;
@@ -1598,25 +1605,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
         padding: var(--space-md);
     }
     
-    /* 上传按钮在小屏时只显示图标 */
-    .upload-btn-container {
-        min-width: 60px;
-        max-width: 60px;
-    }
-    
-    .upload-image-btn {
-        min-width: 50px;
-        padding: 10px !important;
-    }
-    
-    .upload-image-btn span {
-        display: none; /* 隐藏文字 */
-    }
-    
-    .upload-image-btn i {
-        margin: 0;
-        font-size: 18px;
-    }
+
     
     .brush-preview-large {
         width: 40px;
@@ -1727,18 +1716,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
         font-size: 0.75rem;
     }
     
-    /* 超小屏幕选项卡只显示图标 */
-    .tab span {
-        display: none;
-    }
     
-    .tab i {
-        font-size: 16px;
-    }
-    
-    .tab {
-        padding: 8px 12px;
-    }
     
     /* 色绘设计工具栏进一步压缩 */
     .tool-btn {
@@ -1819,6 +1797,16 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
         width: 35px;
         height: 35px;
     }
+     .button-row .btn {
+        min-width: 90px;
+        padding: 8px 10px;
+        font-size: 0.8rem;
+    }
+    
+    .button-row .btn i {
+        font-size: 12px;
+        margin-right: 4px;
+    }
 }
 
 /* ====== 大屏（1200px+）响应式 ====== */
@@ -1863,3 +1851,61 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
         color: black !important;
     }
 }
+/* 修改现有样式 */
+.button-row {
+    display: flex;
+    flex-wrap: nowrap; /* 强制不换行 */
+    gap: var(--space-sm);
+    width: 100%;
+    overflow-x: auto; /* 允许横向滚动 */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding: var(--space-sm) 0;
+}
+
+.button-row::-webkit-scrollbar {
+    display: none;
+}
+
+.button-row .btn {
+    flex: 1; /* 平均分配宽度 */
+    min-width: 120px; /* 设置最小宽度 */
+    white-space: nowrap; /* 文字不换行 */
+}
+
+
+
+
+
+
+/* 调整生成按钮样式 */
+.button-row .btn.generate {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    order: 2; /* 确保生成按钮在中间 */
+}
+
+.button-row .btn.save {
+    background: var(--success);
+    order: 1;
+}
+
+.button-row .btn.copy {
+    background: #6f42c1;
+    order: 3;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .button-row {
+        gap: var(--space-xs); /* 小屏时缩小间隙 */
+    }
+    
+    .button-row .btn {
+        min-width: 100px; /* 小屏时缩小最小宽度 */
+        padding: 10px 12px;
+        font-size: 0.85rem;
+    }
+    
+   
+}
+

@@ -1,3 +1,11 @@
+    // 应用状态管理
+    let state = null;
+    let canvas = null;
+    let ctx = null;
+    let isSystemInitialized = false;
+    let lastTouchY = 0;
+    let isTouchMoving = false;
+    let resizeTimeout = null; // 添加这行
 // huihua.js - 色绘设计系统
 (function() {
     'use strict';
@@ -25,13 +33,13 @@
         // 初始化状态
         state = {
             currentTool: 'brush',
-            currentColor: '#000000',
+            currentColor: '#233cdf',
             brushSize: 20,
             isDrawing: false,
             lastX: 0,
             lastY: 0,
             colors: [
-                { name: '清除', color: '#000000' }
+                { name: '清除', color: '#c42323' }
             ],
             drawingHistory: [],
             maxHistorySteps: 20,
@@ -42,6 +50,9 @@
             originalImageSize: { width: 0, height: 0 },
             isTouchActive: false,
             touchIdentifier: null,
+            undoStack: [],
+            redoStack: [],
+            maxUndoSteps: 5, // 最大撤销/重做步数
             isImageFixed: false       // 新增：图片是否已固定
         };
         
@@ -89,79 +100,50 @@ if (container) {
     }
     
     // 初始化画布
-    function initCanvas() {
-        if (!canvas) return;
+  function initCanvas() {
+    if (!canvas) return;
+    
+    const container = canvas.parentElement;
+    if (!container) return;
+    
+    // 设置初始尺寸
+    const maxWidth = container.clientWidth - 4;
+    const initialHeight = 300; // 初始高度300px
+    
+    // 如果有背景图片，根据图片比例调整高度
+    if (state.backgroundImage) {
+        const img = state.backgroundImage;
+        const ratio = img.width / img.height;
+        let displayHeight = initialHeight;
+        let displayWidth = displayHeight * ratio;
         
-        // 保存当前画布内容
-        let imageData = null;
-        if (ctx) {
-            imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        // 如果计算出的宽度大于最大宽度，重新计算
+        if (displayWidth > maxWidth) {
+            displayWidth = maxWidth;
+            displayHeight = displayWidth / ratio;
         }
         
-        // 确保画布尺寸正确
-        const container = canvas.parentElement;
-        if (!container) return;
-        
-        const maxWidth = container.clientWidth - 4;
-        const maxHeight = maxWidth * 0.75;
-        
-        const oldWidth = canvas.width;
-        const oldHeight = canvas.height;
-        
-        // 只有尺寸确实发生变化时才重新设置
-        if (Math.abs(oldWidth - maxWidth) > 2 || Math.abs(oldHeight - maxHeight) > 2) {
-            console.log(`调整画布尺寸: ${oldWidth}x${oldHeight} -> ${maxWidth}x${maxHeight}`);
-            
-            // 创建临时画布保存内容
-            const tempCanvas = document.createElement('canvas');
-            const tempCtx = tempCanvas.getContext('2d');
-            tempCanvas.width = oldWidth;
-            tempCanvas.height = oldHeight;
-            
-            if (imageData) {
-                tempCtx.putImageData(imageData, 0, 0);
-            }
-            
-            // 设置新尺寸
-            canvas.width = maxWidth;
-            canvas.height = maxHeight;
-            
-            // 恢复画布内容
-            if (ctx && imageData) {
-                ctx.save();
-                
-                if (state.backgroundImage) {
-                    // 如果有背景图片，重新绘制
-                    const img = state.backgroundImage;
-                    const isLargeScreen = window.innerWidth >= 1024;
-                    const shouldRotate = state.originalImageSize.width > state.originalImageSize.height && !isLargeScreen;
-                    const { width, height } = resizeCanvasToFitImage(img, shouldRotate);
-                   } else {
-                    // 如果没有背景图片，用白色填充
-                    ctx.fillStyle = 'white';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                }
-                
-                // 绘制之前的绘制内容
-                if (state && state.drawingHistory && state.drawingHistory.length > 0) {
-                    const lastState = state.drawingHistory[state.drawingHistory.length - 1];
-                    ctx.putImageData(lastState, 0, 0);
-                }
-                
-                ctx.restore();
-            }
-        }
-        
-        // 设置画布样式
-        if (ctx) {
-            ctx.lineCap = 'square';
-            ctx.lineJoin = 'miter';
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
-        }
-         // 添加这行代码到函数末尾
-    updateCanvasScaling();
+        canvas.width = displayWidth;
+        canvas.height = displayHeight;
+    } else {
+        canvas.width = maxWidth;
+        canvas.height = initialHeight;
     }
+    
+    // 设置画布内容
+    if (ctx) {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // 如果有背景图片，绘制它
+        if (state.backgroundImage) {
+            const img = state.backgroundImage;
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+    }
+    
+    updateCanvasScaling();
+}
     
     // 初始化颜色
     function initColors() {
@@ -254,18 +236,24 @@ if (container) {
             }
         }
     }
+  // 修改 saveDrawingState 函数：
+function saveDrawingState() {
+    if (!canvas || !ctx) return;
     
-    // 保存绘图状态
-    function saveDrawingState() {
-        if (!canvas || !ctx) return;
-        
-        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        state.drawingHistory.push(imageData);
-        
-        if (state.drawingHistory.length > state.maxHistorySteps) {
-            state.drawingHistory.shift();
-        }
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    state.drawingHistory.push(imageData);
+    
+    if (state.drawingHistory.length > state.maxHistorySteps) {
+        state.drawingHistory.shift();
     }
+    
+    // 保存到撤销栈（自动清空重做栈）
+    state.undoStack.push(imageData);
+    if (state.undoStack.length > state.maxUndoSteps) {
+        state.undoStack.shift();
+    }
+    state.redoStack = []; // 新操作后清空重做栈
+}
     
     // 开始绘图
     function startDrawing(e) {
@@ -347,7 +335,7 @@ if (container) {
     function drawOnCanvas(x, y) {
         if (!ctx) return;
         
-        if (state.currentColor === '#000000') {
+        if (state.currentColor === '#ff0000') {
             // 清除模式
             ctx.globalCompositeOperation = 'destination-out';
             ctx.strokeStyle = 'rgba(0,0,0,1)';
@@ -411,28 +399,33 @@ if (container) {
 function clearCanvas() {
     if (!canvas || !ctx) return;
     
-    if (confirm('确定要清空画布吗？')) {
+    if (confirm('确定要清空画布的所有画笔痕迹吗？背景图片将保留。')) {
+        // 清除整个画布
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // 重新绘制背景图片（如果存在）
         if (state.backgroundImage) {
             const img = state.backgroundImage;
-            const { width, height } = calculateImageSize(img);
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            const x = (canvas.width - width) / 2;
-            const y = (canvas.height - height) / 2;
-            ctx.drawImage(img, x, y, width, height);
+            const x = 0;
+            const y = 0;
+            ctx.drawImage(img, x, y, canvas.width, canvas.height);
         } else {
+            // 如果没有背景图片，用白色填充
             ctx.fillStyle = 'white';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }
         
+        // 清空历史记录和撤销/重做栈
         state.drawingHistory = [];
-        state.isImageFixed = false; // 清除图片固定状态
-        showToast('画布已清空');
+        state.undoStack = [];
+        state.redoStack = [];
+        
+        // 保存当前状态（只有背景图片）
         saveDrawingState();
+        
+        showToast('画笔痕迹已清空，背景图片保留');
     }
 }
-    
     
     
 function resizeCanvasToFitImage(img) {
@@ -475,18 +468,32 @@ function resizeCanvasToFitImage(img) {
     
     return { width, height };
 }
-    // 撤销操作
-    function undo() {
-        if (!ctx) return;
+    // 修改 undo 函数：
+function undo() {
+    if (!ctx) return;
+    
+    if (state.undoStack.length > 1) { // 保留一个基础状态（背景图片）
+        // 将当前状态保存到重做栈
+        const currentState = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        state.redoStack.push(currentState);
         
-        if (state.drawingHistory.length > 0) {
-            const lastState = state.drawingHistory.pop();
-            ctx.putImageData(lastState, 0, 0);
-            showToast('已撤销上一步操作');
-        } else {
-            showToast('没有可撤销的操作');
+        // 限制重做栈大小
+        if (state.redoStack.length > state.maxUndoSteps) {
+            state.redoStack.shift();
         }
+        
+        // 从撤销栈恢复状态（保留第一个状态作为基础）
+        const undoState = state.undoStack.pop();
+        ctx.putImageData(undoState, 0, 0);
+        
+        showToast('已撤销上一步操作');
+    } else if (state.undoStack.length === 1) {
+        // 已经撤回到基础状态（只有背景图片）
+        showToast('已撤回到初始状态');
+    } else {
+        showToast('没有可撤销的操作');
     }
+}
     
     // 添加随机颜色
     function addRandomColor() {
@@ -524,9 +531,7 @@ function resizeCanvasToFitImage(img) {
         }
         return color;
     }
-    
-// 替换原有的 handleImageUpload 函数
-function handleImageUpload(e) {
+ function handleImageUpload(e) {
     const file = e.target.files[0];
     if (!file || !canvas || !ctx) return;
     
@@ -539,67 +544,43 @@ function handleImageUpload(e) {
     reader.onload = function(event) {
         const img = new Image();
         img.onload = function() {
-            // 计算缩放比例 - 提高小屏分辨率
+            // 计算图片宽高比
+            const imgRatio = img.width / img.height;
             const container = canvas.parentElement;
-            const maxWidth = container ? container.clientWidth : 800;
+            const maxWidth = container ? container.clientWidth - 4 : 800;
             
-            // 根据屏幕尺寸调整分辨率缩放因子
-            const screenWidth = window.innerWidth;
-            let scaleFactor = 1;
+            // 固定高度为300px，根据比例计算宽度
+            let newWidth = 300 * imgRatio; // 高度300px，根据比例计算宽度
+            let newHeight = 300;
             
-            if (screenWidth < 768) { // 小屏幕设备
-                scaleFactor = 2; // 提高分辨率
-            } else if (screenWidth < 1024) { // 中屏幕设备
-                scaleFactor = 1.5;
+            // 如果计算出的宽度超过最大宽度，重新计算
+            if (newWidth > maxWidth) {
+                newWidth = maxWidth;
+                newHeight = maxWidth / imgRatio;
             }
             
-            // 计算显示尺寸（保持比例）
-            let displayWidth, displayHeight;
-            const scale = Math.min(
-                maxWidth / img.width,
-                (maxWidth * 0.75) / img.height
-            );
-            
-            // 应用缩放因子
-            displayWidth = Math.floor(img.width * scale * scaleFactor);
-            displayHeight = Math.floor(img.height * scale * scaleFactor);
-            
-            // 限制最大尺寸（防止内存溢出）
-            const MAX_SIZE = 2048;
-            if (displayWidth > MAX_SIZE || displayHeight > MAX_SIZE) {
-                const reduceScale = Math.min(
-                    MAX_SIZE / displayWidth,
-                    MAX_SIZE / displayHeight
-                );
-                displayWidth = Math.floor(displayWidth * reduceScale);
-                displayHeight = Math.floor(displayHeight * reduceScale);
-            }
-            
-            // 设置画布尺寸（高分辨率）
-            canvas.width = displayWidth;
-            canvas.height = displayHeight;
+            // 设置画布新尺寸
+            canvas.width = Math.floor(newWidth);
+            canvas.height = Math.floor(newHeight);
             
             // 清除画布并绘制图片
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
             
-            // 居中绘制图片
-            const x = 0;
-            const y = 0;
-            ctx.drawImage(img, x, y, displayWidth, displayHeight);
-            
+            // 保存图片信息和状态
             state.backgroundImage = img;
-            state.imageScale = scale * scaleFactor;
+            state.imageScale = newWidth / img.width; // 这里使用 newWidth / img.width
             state.originalImageSize = {
                 width: img.width,
                 height: img.height
             };
             state.isImageFixed = true;
             
-            // 更新画笔坐标系统
+            // 更新缩放信息和保存状态
             updateCanvasScaling();
-            
             saveDrawingState();
-            showToast('图片上传成功，已优化显示效果');
+            
+            showToast('图片上传成功，已自动调整尺寸');
         };
         img.src = event.target.result;
     };
@@ -699,13 +680,13 @@ function getCanvasCoordinates(e) {
         let prompt = '';
         const colorDescriptions = [];
         
-        const clearColor = usedColors.find(c => c.color === '#000000' || c.name === '清除');
+        const clearColor = usedColors.find(c => c.color === '#ff0000' || c.name === '清除');
         if (clearColor) {
-            colorDescriptions.push('将#000000颜色区域的物体清除');
+            colorDescriptions.push('将#ff0000颜色区域的物体清除');
         }
         
         usedColors.forEach(colorObj => {
-            if (colorObj.color !== '#000000' && colorObj.name !== '清除') {
+            if (colorObj.color !== '#ff0000' && colorObj.name !== '清除') {
                 colorDescriptions.push(`在${colorObj.color}颜色区域添加${colorObj.name}`);
             }
         });
@@ -878,7 +859,7 @@ function getCanvasCoordinates(e) {
     
     // 清除画笔功能
     function activateClearBrush() {
-        state.currentColor = '#000000';
+        state.currentColor = '#ff0000';
         updateColorPreview();
         updateColorList();
         setTool('brush');
@@ -922,10 +903,34 @@ function getCanvasCoordinates(e) {
             }
         }, 2000);
     }
+    // 在 undo 函数后面添加 redo 函数：
+function redo() {
+    if (!ctx) return;
     
+    if (state.redoStack.length > 0) {
+        // 将当前状态保存到撤销栈
+        const currentState = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        state.undoStack.push(currentState);
+        
+        // 限制撤销栈大小
+        if (state.undoStack.length > state.maxUndoSteps) {
+            state.undoStack.shift();
+        }
+        
+        // 从重做栈恢复状态
+        const redoState = state.redoStack.pop();
+        ctx.putImageData(redoState, 0, 0);
+        
+        showToast('已重做');
+    } else {
+        showToast('没有可重做的操作');
+    }
+}
     // 初始化事件监听器
     function initEventListeners() {
         // 工具按钮
+        const redoTool = document.getElementById('redoTool');
+if (redoTool) redoTool.addEventListener('click', redo);
         const brushTool = document.getElementById('brushTool');
         const clearBrushTool = document.getElementById('clearBrushTool');
         const clearTool = document.getElementById('clearTool');
@@ -1014,9 +1019,12 @@ function getCanvasCoordinates(e) {
             canvas.addEventListener('dragstart', (e) => e.preventDefault());
         }
         
-  // 修改窗口调整大小事件处理
+ // 修改窗口调整大小事件处理
 window.addEventListener('resize', () => {
-    clearTimeout(resizeTimeout);
+    if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+    }
+    
     resizeTimeout = setTimeout(() => {
         console.log('窗口大小调整');
         

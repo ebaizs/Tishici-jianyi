@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <div class="global-container">
     <!-- 登录界面 -->
     <div id="login-container">
         <div class="login-box">
@@ -29,7 +30,7 @@
             <div id="login-error" class="login-error"></div>
             
             <div style="margin-top: 20px; font-size: 12px; color: #999;">
-                <p>技术支持：山东睿岩网络 · 13515383180</p>
+                <p>技术支持：泰安立诺装饰 · 13515383180</p>
             </div>
         </div>
     </div>
@@ -440,38 +441,37 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="action-bar">
-                        <button class="btn generate" id="generate-btn">
-                            <i class="fas fa-magic"></i> 智能生成提示词
-                        </button>
-                    </div>
-                    
                     <!-- 通知容器 -->
-                    <div class="notification" id="notification"></div>
-                    
+<div class="notification" id="notification"></div>
+
+<!-- 新的按钮栏（放在结果区域前面） -->
+<div class="action-bar new-action-bar">
+    <div class="button-row">
+        <button class="btn generate" id="generate-btn">
+            <i class="fas fa-magic"></i> 智能生成提示词
+        </button>
+        <button class="btn save" id="save-btn">
+            <i class="fas fa-save"></i> 保存
+        </button>        
+        <button class="btn copy" id="copy-btn">
+            <i class="fas fa-copy"></i> 复制
+        </button>
+    </div>
+</div>
                     <!-- 加载状态 -->
                     <div class="loading" id="loading">
                         <div class="spinner"></div>
                         <div>正在智能生成提示词...</div>
                     </div>
                     
-                    <!-- 结果区域 -->
-                    <div class="result-section" id="result-section" style="display: none;">
-                        <h3><i class="fas fa-lightbulb"></i> 生成的AI绘画提示词</h3>
-                        <div class="prompt-output" id="prompt-output" contenteditable="true" placeholder="生成的提示词将显示在这里...">
-                            <span class="copy-hint">可编辑，点击复制</span>
-                        </div>
-                        
-                        <div class="action-buttons">
-                            <button class="btn save" id="save-btn">
-                                <i class="fas fa-save"></i> 保存
-                            </button>
-                            <button class="btn copy" id="copy-btn">
-                                <i class="fas fa-copy"></i> 复制
-                            </button>
-                        </div>
-                    </div>
+                   <!-- 结果区域 -->
+<div class="result-section" id="result-section" style="display: none;">
+    <h3><i class="fas fa-lightbulb"></i> 生成的AI绘画提示词</h3>
+    <div class="prompt-output" id="prompt-output" contenteditable="true" placeholder="生成的提示词将显示在这里...">
+        <span class="copy-hint">可编辑，点击复制</span>
+    </div>
+    <!-- 注：按钮已移动到上方 -->
+</div>
                     
                     <!-- 历史记录区域 -->
                     <div class="history-section">
@@ -510,14 +510,18 @@
                                     <div class="text-xs mt-2">画笔</div>
                                 </button>
                               
-                                <button id="clearTool" class="tool-btn large clear-btn rounded-xl" data-testid="clear-tool">
-                                    <i class="fas fa-trash-alt"></i>
-                                    <div class="text-xs mt-2">清空画布</div>
-                                </button>
-                                <button id="undoTool" class="tool-btn large undo-btn rounded-xl" data-testid="undo-tool">
-                                    <i class="fas fa-undo-alt"></i>
-                                    <div class="text-xs mt-2">撤销</div>
-                                </button>
+                               <button id="clearTool" class="tool-btn large clear-btn rounded-xl" data-testid="clear-tool">
+    <i class="fas fa-trash-alt"></i>
+    <div class="text-xs mt-2">清空画布</div>
+</button>
+<button id="undoTool" class="tool-btn large undo-btn rounded-xl" data-testid="undo-tool">
+    <i class="fas fa-undo-alt"></i>
+    <div class="text-xs mt-2">撤销</div>
+</button>
+<button id="redoTool" class="tool-btn large redo-btn rounded-xl" data-testid="redo-tool">
+    <i class="fas fa-redo-alt"></i>
+    <div class="text-xs mt-2">重做</div>
+</button>
                                 <button id="saveImageBtn" class="tool-btn large save-image-btn rounded-xl" data-testid="save-image-btn">
                                     <i class="fas fa-download"></i>
                                     <div class="text-xs mt-2">保存图片</div>
@@ -559,7 +563,7 @@
 <!-- 画布容器 -->
 <div class="bg-card rounded-lg shadow-md p-4 mb-4"> <!-- 改为 mb-4 更紧凑 -->
     <div class="canvas-container">
-        <canvas id="drawingCanvas" width="800" height="600"></canvas>
+        <canvas id="drawingCanvas" width="800" height="300"></canvas>
     </div>
 </div>
 <!-- 颜色工具栏 -->
@@ -635,5 +639,6 @@
     <script src="tishici.js"></script>
     <script src="huihua.js"></script>
     <script src="app.js"></script>
+    </div> <!-- 关闭 .global-container -->
 </body>
 </html>
