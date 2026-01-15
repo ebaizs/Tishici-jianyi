@@ -163,58 +163,74 @@ function initCanvas() {
     updateCanvasScaling();
 }
 function adjustCanvasForImage(img) {
-    if (!canvas || !ctx || !img) return;
-    
-    const container = canvas.parentElement;
-    if (!container) return;
-    
-    const containerWidth = container.clientWidth;
-    if (containerWidth === 0) {
-        console.warn('容器宽度为0，使用默认宽度');
+    if (!canvas || !ctx || !img) {
+        console.error('adjustCanvasForImage: 缺少参数');
         return;
     }
     
-    // 获取容器的最大允许高度（从CSS继承或默认值）
-    const containerMaxHeight = 800; // 默认最大高度
+    const container = canvas.parentElement;
+    if (!container) {
+        console.error('adjustCanvasForImage: 容器未找到');
+        return;
+    }
+    
+    const containerWidth = container.clientWidth;
+    if (containerWidth === 0) {
+        console.warn('adjustCanvasForImage: 容器宽度为0，使用默认宽度');
+        // 使用一个默认宽度
+        const defaultWidth = 800;
+        container.style.width = `${defaultWidth}px`;
+    }
+    
+    console.log('adjustCanvasForImage: 开始', {
+        containerWidth: container.clientWidth,
+        imgWidth: img.width,
+        imgHeight: img.height,
+        imgRatio: img.width / img.height
+    });
+    
+    // 获取容器的最大允许高度
+    const containerMaxHeight = 800;
     const computedStyle = window.getComputedStyle(container);
     const cssMaxHeight = parseInt(computedStyle.maxHeight);
     const maxDisplayHeight = !isNaN(cssMaxHeight) && cssMaxHeight > 0 ? cssMaxHeight : containerMaxHeight;
     
+    console.log('adjustCanvasForImage: 高度限制', { cssMaxHeight, maxDisplayHeight });
+    
     // 计算新的显示尺寸
     let displayWidth, displayHeight;
     
-    if (img.width > img.height) {
-        // 横图
-        displayWidth = Math.min(containerWidth, 1024);
-        displayHeight = (img.height / img.width) * displayWidth;
-    } else {
-        // 竖图：先按宽度计算，再检查高度
-        displayWidth = Math.min(containerWidth, 1024);
-        displayHeight = (img.height / img.width) * displayWidth;
+    // 竖图处理逻辑
+    if (img.width < img.height) {
+        console.log('adjustCanvasForImage: 处理竖图');
+        // 竖图：高度为主要维度
+        displayHeight = Math.min(maxDisplayHeight, 600); // 竖图最大600px高度
+        displayWidth = (img.width / img.height) * displayHeight;
         
-        // 如果高度超过最大限制，重新计算
-        if (displayHeight > maxDisplayHeight) {
-            displayHeight = maxDisplayHeight;
-            displayWidth = (img.width / img.height) * displayHeight;
-            
-            // 确保宽度不超过容器
-            if (displayWidth > containerWidth) {
-                displayWidth = containerWidth;
-                displayHeight = (img.height / img.width) * displayWidth;
-            }
+        // 确保宽度不超过容器
+        if (displayWidth > container.clientWidth) {
+            displayWidth = container.clientWidth;
+            displayHeight = (img.height / img.width) * displayWidth;
         }
+    } else {
+        console.log('adjustCanvasForImage: 处理横图');
+        // 横图：宽度为主要维度
+        displayWidth = Math.min(container.clientWidth, 1024);
+        displayHeight = (img.height / img.width) * displayWidth;
     }
     
     // 确保最小尺寸
     displayWidth = Math.max(300, displayWidth);
     displayHeight = Math.max(200, displayHeight);
     
+    console.log('adjustCanvasForImage: 计算显示尺寸', { displayWidth, displayHeight });
+    
     // 计算实际像素尺寸
     const pixelRatio = state.devicePixelRatio;
     const actualWidth = Math.max(Math.floor(displayWidth * pixelRatio), 1);
     const actualHeight = Math.max(Math.floor(displayHeight * pixelRatio), 1);
     
-    console.log('调整画布尺寸:', { displayWidth, displayHeight, actualWidth, actualHeight });
+    console.log('adjustCanvasForImage: 实际像素尺寸', { actualWidth, actualHeight });
     
     // 创建临时画布保存当前内容
     const tempCanvas = document.createElement('canvas');
@@ -229,8 +245,17 @@ function adjustCanvasForImage(img) {
     canvas.style.width = `${displayWidth}px`;
     canvas.style.height = `${displayHeight}px`;
     
+    console.log('adjustCanvasForImage: 画布已更新', {
+        canvasWidth: canvas.width,
+        canvasHeight: canvas.height,
+        canvasStyleWidth: canvas.style.width,
+        canvasStyleHeight: canvas.style.height
+    });
+    
     // 恢复之前的内容
-    ctx.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, actualWidth, actualHeight);
+    if (tempCanvas.width > 0 && tempCanvas.height > 0) {
+        ctx.drawImage(tempCanvas, 0, 0, tempCanvas.width, tempCanvas.height, 0, 0, actualWidth, actualHeight);
+    }
     
     // 更新状态
     state.actualCanvasSize = { width: actualWidth, height: actualHeight };
@@ -247,10 +272,17 @@ function adjustCanvasForImage(img) {
     const offsetX = (actualWidth - drawWidth) / 2;
     const offsetY = (actualHeight - drawHeight) / 2;
     
+    console.log('adjustCanvasForImage: 绘制图片', {
+        scaleX, scaleY, stateImageScale: state.imageScale,
+        drawWidth, drawHeight, offsetX, offsetY
+    });
+    
     ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
     
     state.imageOffset = { x: offsetX, y: offsetY };
     state.imageDrawSize = { width: drawWidth, height: drawHeight };
+    
+    console.log('adjustCanvasForImage: 完成');
 }
     // 初始化颜色
     function initColors() {
@@ -259,40 +291,41 @@ function adjustCanvasForImage(img) {
     }
 
     // 更新颜色列表
-    function updateColorList() {
-        const colorList = document.getElementById('colorList');
-        if (!colorList) return;
+ function updateColorList() {
+    const colorList = document.getElementById('colorList');
+    if (!colorList) return;
 
-        colorList.innerHTML = '';
+    colorList.innerHTML = '';
 
-        state.colors.forEach((colorObj, index) => {
-            const colorElement = document.createElement('div');
-            colorElement.className = `color-item ${colorObj.color === state.currentColor ? 'active' : ''}`;
+    state.colors.forEach((colorObj, index) => {
+        const colorElement = document.createElement('div');
+        colorElement.className = `color-item ${colorObj.color === state.currentColor ? 'active' : ''}`;
 
-            colorElement.innerHTML = `
-                <div class="flex items-center gap-2">
-                    <div class="color-preview" style="background: ${colorObj.color};">
-                        ${colorObj.name === '清除' ? '<i class="fas fa-times text-white text-xs"></i>' : ''}
-                    </div>
-                    <span class="text-xs whitespace-nowrap" style="${colorObj.name === '清除' ? 'color: #ff9500' : ''}">${colorObj.name}</span>
+        // 修复HTML结构，使用简单的div而不是复杂的flex布局
+        colorElement.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <div class="color-preview" style="width: 24px; height: 24px; border-radius: 4px; border: 1px solid #ccc; background: ${colorObj.color}; display: flex; align-items: center; justify-content: center;">
+                    ${colorObj.name === '清除' ? '<i class="fas fa-times" style="color: white; font-size: 12px;"></i>' : ''}
                 </div>
-            `;
+                <span class="color-name" style="font-size: 12px; white-space: nowrap; ${colorObj.name === '清除' ? 'color: #ff9500' : ''}">${colorObj.name}</span>
+            </div>
+        `;
 
-            colorElement.addEventListener('click', () => {
-                state.currentColor = colorObj.color;
-                updateColorPreview();
-                updateColorList();
+        colorElement.addEventListener('click', () => {
+            state.currentColor = colorObj.color;
+            updateColorPreview();
+            updateColorList();
 
-                if (colorObj.name === '清除') {
-                    setTool('brush');
-                } else {
-                    setTool('brush');
-                }
-            });
-
-            colorList.appendChild(colorElement);
+            if (colorObj.name === '清除') {
+                setTool('brush');
+            } else {
+                setTool('brush');
+            }
         });
-    }
+
+        colorList.appendChild(colorElement);
+    });
+}
 
     // 更新颜色预览
     function updateColorPreview() {
@@ -793,56 +826,82 @@ function handleImageUpload(e) {
     reader.readAsDataURL(file);
 }
 
-// 修改 handleRotateImageUpload 函数
 function handleRotateImageUpload(e) {
     const file = e.target.files[0];
-    if (!file || !canvas || !ctx) return;
+    if (!file || !canvas || !ctx) {
+        console.error('handleRotateImageUpload: 缺少参数');
+        return;
+    }
+    
+    console.log('handleRotateImageUpload: 开始处理文件', file.name, file.type);
     
     if (!file.type.match('image.*')) {
         showToast('请选择图片文件');
-        // 重置input
         e.target.value = '';
         return;
     }
     
     const reader = new FileReader();
     reader.onload = function (event) {
+        console.log('handleRotateImageUpload: 文件读取完成');
         const img = new Image();
         img.onload = function () {
+            console.log('handleRotateImageUpload: 图片加载完成，尺寸:', img.width, img.height);
             // 创建旋转后的图片
             rotateAndLoadImage(img);
-            // 重置input
+        };
+        img.onerror = function () {
+            console.error('handleRotateImageUpload: 图片加载失败');
+            showToast('图片加载失败，请重试');
             e.target.value = '';
         };
         img.src = event.target.result;
     };
+    reader.onerror = function () {
+        console.error('handleRotateImageUpload: 文件读取失败');
+        showToast('文件读取失败，请重试');
+        e.target.value = '';
+    };
     reader.readAsDataURL(file);
 }
-    // 旋转并加载图片
-    function rotateAndLoadImage(img) {
-        // 创建临时画布进行旋转
-        const tempCanvas = document.createElement('canvas');
-        const tempCtx = tempCanvas.getContext('2d');
-
-        // 交换宽高以旋转90度
-        tempCanvas.width = img.height;
-        tempCanvas.height = img.width;
-
-        // 旋转90度
-        tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
-        tempCtx.rotate(Math.PI / 2);
-
-        // 绘制图像
-        tempCtx.drawImage(img, -img.width / 2, -img.height / 2);
-
-        // 创建旋转后的图片
-        const rotatedImg = new Image();
-        rotatedImg.onload = function () {
-            // 使用旋转后的图片
-            loadImageToCanvas(rotatedImg);
-        };
-        rotatedImg.src = tempCanvas.toDataURL('image/png');
+function rotateAndLoadImage(img) {
+    console.log('旋转图片，原始尺寸:', img.width, img.height);
+    
+    // 检查图片是否已加载
+    if (img.width === 0 || img.height === 0) {
+        console.error('图片尺寸为0，无法旋转');
+        showToast('图片加载失败，请重试');
+        return;
     }
+    
+    // 创建临时画布进行旋转
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+
+    // 交换宽高以旋转90度
+    tempCanvas.width = img.height;
+    tempCanvas.height = img.width;
+
+    console.log('旋转后画布尺寸:', tempCanvas.width, tempCanvas.height);
+
+    // 旋转90度
+    tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+    tempCtx.rotate(Math.PI / 2);
+    tempCtx.drawImage(img, -img.width / 2, -img.height / 2);
+
+    // 创建旋转后的图片
+    const rotatedImg = new Image();
+    rotatedImg.onload = function () {
+        console.log('旋转图片加载完成，尺寸:', rotatedImg.width, rotatedImg.height);
+        // 使用旋转后的图片
+        loadImageToCanvas(rotatedImg);
+    };
+    rotatedImg.onerror = function (error) {
+        console.error('旋转图片加载失败:', error);
+        showToast('图片旋转失败，请重试');
+    };
+    rotatedImg.src = tempCanvas.toDataURL('image/png');
+}
 function loadImageToCanvas(img) {
     if (!canvas || !ctx || !img) return;
     
