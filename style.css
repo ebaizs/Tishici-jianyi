@@ -1077,8 +1077,8 @@ body {
 
 /* 画布卡片 */
 .canvas-card {
-    padding: 12px !important;
-    margin-bottom: 8px !important;
+    padding: 2px !important;
+    margin-bottom: 1px !important;
 }
 
 /* 修改画布容器，减少高度和上下空间 */
@@ -1362,7 +1362,7 @@ body {
     }
     
     .canvas-container {
-        height: 600px;
+        height: 400px;
     }
     
     .prompt-action-buttons {
@@ -1398,7 +1398,7 @@ body {
     }
     
     .canvas-container {
-        height: 250px;
+        height: 200px;
     }
     
     .color-name-input {

@@ -1304,30 +1304,23 @@ function initEventListeners() {
         imageUpload.addEventListener('change', handleImageUpload);
     }
 
-    // 旋转导入按钮 - 修复版本
-    const rotateImportBtn = document.getElementById('rotateImportBtn');
-    let rotateImageUpload = document.getElementById('rotateImageUpload');
-    
-    if (!rotateImageUpload) {
-        rotateImageUpload = document.createElement('input');
-        rotateImageUpload.id = 'rotateImageUpload';
-        rotateImageUpload.type = 'file';
-        rotateImageUpload.accept = 'image/*';
-        rotateImageUpload.style.display = 'none';
-        document.body.appendChild(rotateImageUpload);
-        
-        rotateImageUpload.addEventListener('change', handleRotateImageUpload);
-    }
+     // 旋转导入按钮
+     const rotateImportBtn = document.getElementById('rotateImportBtn');
+     const rotateImageUpload = document.createElement('input');
+     rotateImageUpload.type = 'file';
+     rotateImageUpload.accept = 'image/*';
+     rotateImageUpload.style.display = 'none';
+     document.body.appendChild(rotateImageUpload);
 
-    if (rotateImportBtn) {
-        // 使用匿名函数避免引用问题
-        rotateImportBtn.addEventListener('click', () => {
-            if (rotateImageUpload) {
-                rotateImageUpload.value = '';
-                rotateImageUpload.click();
-            }
-        });
-    }
+     if (rotateImportBtn) {
+         rotateImportBtn.addEventListener('click', () => {
+             rotateImageUpload.click();
+         });
+     }
+
+     if (rotateImageUpload) {
+         rotateImageUpload.addEventListener('change', handleRotateImageUpload);
+     }
 
     // 提示词相关
     const generatePromptBtn = document.getElementById('generatePromptBtn');
