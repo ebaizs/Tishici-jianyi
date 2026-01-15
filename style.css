@@ -1035,10 +1035,11 @@ input[type="range"]#brushSize::-webkit-slider-thumb {
     background: #f5f5f5 !important;
     border: 1px solid #e0e0e0 !important;
     border-radius: 8px !important;
-    overflow: hidden !important;
+    overflow: auto !important; /* 添加滚动条 */
     width: 100% !important;
     height: auto !important;
     max-width: 100% !important;
+    max-height: 80vh !important; /* 限制最大高度 */
 }
 
 #drawingCanvas {
@@ -1047,22 +1048,23 @@ input[type="range"]#brushSize::-webkit-slider-thumb {
     touch-action: none !important;
     image-rendering: -webkit-optimize-contrast !important;
     image-rendering: crisp-edges !important;
-    width: 100% !important;
+    width: auto !important;
     height: auto !important;
-    max-width: 100% !important;
+    max-width: 100% !important; /* 确保不超过容器宽度 */
+    max-height: 100% !important;
     object-fit: contain !important;
 }
 
-/* 颜色工具栏 */
+/* 颜色工具栏 - 修改为紧凑显示 */
 .color-toolbar {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-xs);
-    padding: var(--space-sm) !important;
+    padding: 8px !important;  /* 减少内边距 */
     background: var(--bg-secondary);
     border-radius: var(--radius-sm);
-    margin-bottom: var(--space-sm);
+    margin-bottom: 8px !important;  /* 减少外边距 */
 }
 
 .color-toolbar-row1 {
@@ -1144,12 +1146,13 @@ input[type="range"]#brushSize::-webkit-slider-thumb {
     font-size: 0.9rem;
 }
 
-/* 颜色列表 */
+/* 颜色列表 - 修改为紧凑显示 */
 #colorList {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-sm);
-    margin-top: var(--space-md);
+    gap: 6px;  /* 减小间隙 */
+    margin-top: 8px !important;  /* 减小上边距 */
+    padding: 0 !important;  /* 移除内边距 */
 }
 
 .color-item {
@@ -1224,7 +1227,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb {
     box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
 }
 
-/* 底部按钮行 */
+/* 底部按钮行 - 修改为60%/20%/20%比例 */
 .bottom-buttons-row {
     display: flex;
     flex-wrap: nowrap;
@@ -1240,9 +1243,32 @@ input[type="range"]#brushSize::-webkit-slider-thumb {
     display: none;
 }
 
-.bottom-btn {
-    flex: 0 0 auto;
+/* 复制和保存按钮各占20% */
+.copy-prompt-btn,
+.save-record-btn {
+    flex: 1; /* 20% */
     min-width: 90px;
+    padding: 10px 12px !important;
+    border-radius: var(--radius) !important;
+    font-size: 0.85rem !important;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: none !important;
+    box-shadow: var(--shadow);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* 优化按钮占60% */
+.optimize-to-ai-btn {
+    flex: 3; /* 60% */
+    min-width: 150px;
     padding: 10px 12px !important;
     border-radius: var(--radius) !important;
     font-size: 0.85rem !important;
