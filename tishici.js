@@ -45,7 +45,7 @@
         console.log('初始化UI界面');
         
         // 填充所有下拉菜单
-        const sections = ['home', 'public', 'landscape', 'art'];
+        const sections = ['home', 'public', 'architecture', 'landscape', 'art'];
         
         sections.forEach(section => {
             // 填充风格选项
@@ -111,7 +111,7 @@
             const sceneSelect = document.getElementById(`${section}-scene`);
             if (sceneSelect) {
                 sceneSelect.innerHTML = '<option value="">请选择功能</option>';
-                const sceneOptions = (section === 'art') ? gongneng : commonGongneng;
+                const sceneOptions = (section === 'art') ? gongneng : indoorGongneng;
                 if (sceneOptions) {
                     sceneOptions.forEach(item => {
                         const option = document.createElement('option');
@@ -180,7 +180,7 @@
     
     // 设置动态加载器
 function setupDynamicLoaders() {
-    const sections = ['home', 'public', 'landscape', 'art'];
+    const sections = ['home', 'public', 'architecture', 'landscape', 'art'];
     
     sections.forEach(section => {
         const styleSelect = document.getElementById(`${section}-style`);
@@ -207,33 +207,63 @@ function setupDynamicLoaders() {
                 // 查找数据 - 优先使用选择的风格
                 let data = null;
                 
-                // 1. 使用显示文本查找
-                if (wordBank.details && wordBank.details[section]) {
-                    if (wordBank.details[section][styleDisplay] && wordBank.details[section][styleDisplay][space]) {
-                        data = wordBank.details[section][styleDisplay][space];
-                    }
-                    // 2. 使用实际值查找
-                    else if (wordBank.details[section][styleValue] && wordBank.details[section][styleValue][space]) {
-                        data = wordBank.details[section][styleValue][space];
-                    }
-                    // 3. 查找包含关键词的风格
-                    else {
-                        for (const styleKey in wordBank.details[section]) {
-                            if (styleKey.includes(styleDisplay) || styleDisplay.includes(styleKey)) {
-                                if (wordBank.details[section][styleKey][space]) {
-                                    data = wordBank.details[section][styleKey][space];
-                                    break;
-                                }
+               // 1. 使用显示文本查找
+            if (wordBank.details && wordBank.details[section]) {
+                if (wordBank.details[section][styleDisplay] && wordBank.details[section][styleDisplay][space]) {
+                    data = wordBank.details[section][styleDisplay][space];
+                }
+                // 2. 使用实际值查找
+                else if (wordBank.details[section][styleValue] && wordBank.details[section][styleValue][space]) {
+                    data = wordBank.details[section][styleValue][space];
+                }
+                // 3. 查找包含关键词的风格
+                else {
+                    for (const styleKey in wordBank.details[section]) {
+                        if (styleKey.includes(styleDisplay) || styleDisplay.includes(styleKey)) {
+                            if (wordBank.details[section][styleKey][space]) {
+                                data = wordBank.details[section][styleKey][space];
+                                break;
                             }
                         }
                     }
-                    
-                    // 4. 如果没有找到数据，使用默认风格
-                    if (!data) {
-                        let defaultStyleKey = '';
+                }
+                
+                // 4. 对于建筑和景观板块，使用默认风格
+                if (!data) {
+                    if (section === 'architecture') {
+                        // 使用意式现代主义作为默认风格
+                        const defaultStyle = 'A意式现代主义';
+                        if (wordBank.details[section][defaultStyle] && wordBank.details[section][defaultStyle][space]) {
+                            data = wordBank.details[section][defaultStyle][space];
+                        }
+                    } else if (section === 'landscape') {
+                        // 使用极简主义大地艺术作为默认风格
+                        const defaultStyle = 'A极简主义大地艺术';
+                        if (wordBank.details[section][defaultStyle] && wordBank.details[section][defaultStyle][space]) {
+                            data = wordBank.details[section][defaultStyle][space];
+                        }
+                    } else if (section === 'art') {
+                        // 艺术板块：查找任何非空元素
+                        for (const styleKey in wordBank.details[section]) {
+                            if (wordBank.details[section][styleKey] && 
+                                wordBank.details[section][styleKey][space]) {
+                                data = wordBank.details[section][styleKey][space];
+                                break;
+                            }
+                        }
+                    } else {
+                        // 其他板块：使用简约风格
+                        const modernStyles = ['A现代简约风格'];
+                        for (const modernStyle of modernStyles) {
+                            if (wordBank.details[section][modernStyle] && 
+                                wordBank.details[section][modernStyle][space]) {
+                                data = wordBank.details[section][modernStyle][space];
+                                break;
+                            }
+                        }
                         
-                        if (section === 'art') {
-                            // 绘画创作：查找任何非空元素
+                        // 如果还没有，使用第一个可用的风格
+                        if (!data) {
                             for (const styleKey in wordBank.details[section]) {
                                 if (wordBank.details[section][styleKey] && 
                                     wordBank.details[section][styleKey][space]) {
@@ -241,33 +271,10 @@ function setupDynamicLoaders() {
                                     break;
                                 }
                             }
-                        } else {
-                            // 其他三个板块：使用简约风格
-                            // 查找包含"简约"或"现代"的风格
-                            const modernStyles = ['A现代简约风格'];
-                            for (const modernStyle of modernStyles) {
-                                if (wordBank.details[section][modernStyle] && 
-                                    wordBank.details[section][modernStyle][space]) {
-                                    data = wordBank.details[section][modernStyle][space];
-                                    defaultStyleKey = modernStyle;
-                                    break;
-                                }
-                            }
-                            
-                            // 如果还没有，使用第一个可用的风格
-                            if (!data) {
-                                for (const styleKey in wordBank.details[section]) {
-                                    if (wordBank.details[section][styleKey] && 
-                                        wordBank.details[section][styleKey][space]) {
-                                        data = wordBank.details[section][styleKey][space];
-                                        defaultStyleKey = styleKey;
-                                        break;
-                                    }
-                                }
-                            }
                         }
                     }
                 }
+            }
                 
                 if (data && data.furniture && data.modifiers) {
                     // 有数据，显示特定风格元素
