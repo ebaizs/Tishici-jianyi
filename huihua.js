@@ -91,36 +91,21 @@ if (container) {
         }
     }
     
-    // 初始化画布
-  function initCanvas() {
+// 修改 initCanvas 函数
+function initCanvas() {
     if (!canvas) return;
     
     const container = canvas.parentElement;
     if (!container) return;
     
-    // 设置初始尺寸
-    const maxWidth = container.clientWidth - 4;
-    const initialHeight = 300; // 初始高度300px
+    // 设置画布为固定尺寸
+    canvas.width = 900;  // 固定宽度
+    canvas.height = 600; // 固定高度
     
-    // 如果有背景图片，根据图片比例调整高度
-    if (state.backgroundImage) {
-        const img = state.backgroundImage;
-        const ratio = img.width / img.height;
-        let displayHeight = initialHeight;
-        let displayWidth = displayHeight * ratio;
-        
-        // 如果计算出的宽度大于最大宽度，重新计算
-        if (displayWidth > maxWidth) {
-            displayWidth = maxWidth;
-            displayHeight = displayWidth / ratio;
-        }
-        
-        canvas.width = displayWidth;
-        canvas.height = displayHeight;
-    } else {
-        canvas.width = maxWidth;
-        canvas.height = initialHeight;
-    }
+    // 设置画布样式防止滚动
+    canvas.style.touchAction = 'none'; // 阻止触摸滚动
+    canvas.style.userSelect = 'none'; // 阻止文本选择
+    canvas.style.webkitUserSelect = 'none'; // Safari兼容
     
     // 设置画布内容
     if (ctx) {
@@ -136,7 +121,6 @@ if (container) {
     
     updateCanvasScaling();
 }
-    
     // 初始化颜色
     function initColors() {
         updateColorList();
@@ -589,39 +573,49 @@ function rotateAndLoadImage(img) {
     };
     rotatedImg.src = tempCanvas.toDataURL('image/png');
 }
-
-// 找到 loadImageToCanvas 函数，修改宽度强制为550px：
-
+// 修改 loadImageToCanvas 函数
 function loadImageToCanvas(img) {
-    const imgRatio = img.width / img.height;
-    
-    // 强制宽度为550px，计算高度
-    const FORCED_WIDTH = 550;
-    let newWidth = FORCED_WIDTH;
-    let newHeight = FORCED_WIDTH / imgRatio;
-    
-    // 如果计算出的高度超过800px，重新计算
-    if (newHeight > 800) {
-        newHeight = 800;
-        newWidth = newHeight * imgRatio;
-    }
+    // 固定画布尺寸
+    const fixedWidth = 900;
+    const fixedHeight = 600;
     
     // 设置画布新尺寸
-    canvas.width = Math.floor(newWidth);
-    canvas.height = Math.floor(newHeight);
+    canvas.width = fixedWidth;
+    canvas.height = fixedHeight;
     
     // 清除画布并绘制图片
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    
+    // 计算图片缩放以适应画布
+    const imgRatio = img.width / img.height;
+    const canvasRatio = fixedWidth / fixedHeight;
+    
+    let drawWidth, drawHeight, offsetX = 0, offsetY = 0;
+    
+    if (imgRatio > canvasRatio) {
+        // 图片更宽，按宽度缩放
+        drawWidth = fixedWidth;
+        drawHeight = fixedWidth / imgRatio;
+        offsetY = (fixedHeight - drawHeight) / 2;
+    } else {
+        // 图片更高，按高度缩放
+        drawHeight = fixedHeight;
+        drawWidth = fixedHeight * imgRatio;
+        offsetX = (fixedWidth - drawWidth) / 2;
+    }
+    
+    ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
     
     // 保存图片信息和状态
     state.backgroundImage = img;
-    state.imageScale = newWidth / img.width;
+    state.imageScale = drawWidth / img.width;
     state.originalImageSize = {
         width: img.width,
         height: img.height
     };
     state.isImageFixed = true;
+    state.imageOffset = { x: offsetX, y: offsetY };
+    state.imageDrawSize = { width: drawWidth, height: drawHeight };
     
     // 清空历史记录，只保留当前背景
     state.drawingHistory = [];
@@ -634,35 +628,39 @@ function loadImageToCanvas(img) {
     // 更新画布缩放信息
     updateCanvasScaling();
     
-    // 确保画布在容器中居中显示
-    const container = canvas.parentElement;
-    if (container) {
-        container.style.display = 'flex';
-        container.style.justifyContent = 'center';
-        container.style.alignItems = 'center';
-        container.style.overflow = 'auto'; // 添加滚动条以便查看完整画布
-    }
+    // 设置画布样式防止滚动
+    canvas.style.touchAction = 'none';
+    canvas.style.userSelect = 'none';
+    canvas.style.webkitUserSelect = 'none';
     
-    showToast('图片已旋转90度并导入，图片已锁定为背景（宽度: 550px）');
+    showToast('图片已导入，图片已锁定为背景（尺寸: 900×600px）');
 }
-// 在 getCanvasCoordinates 函数上方添加
+// 修改 updateCanvasScaling 函数
 function updateCanvasScaling() {
     if (!canvas) return;
     
     const rect = canvas.getBoundingClientRect();
+    
+    // 确保缩放比例不为0
+    const scaleX = rect.width > 0 ? canvas.width / rect.width : 1;
+    const scaleY = rect.height > 0 ? canvas.height / rect.height : 1;
+    
     state.canvasScale = {
-        x: canvas.width / rect.width,
-        y: canvas.height / rect.height,
+        x: scaleX,
+        y: scaleY,
         offsetX: rect.left,
-        offsetY: rect.top
+        offsetY: rect.top,
+        width: rect.width,
+        height: rect.height
     };
+    
+    console.log('更新画布缩放:', state.canvasScale);
 }
 
 // 修改 getCanvasCoordinates 函数
 function getCanvasCoordinates(e) {
     if (!canvas || !state.canvasScale) return { x: 0, y: 0 };
     
-    const rect = canvas.getBoundingClientRect();
     let clientX, clientY;
     
     if (e.type.includes('touch')) {
@@ -685,7 +683,12 @@ function getCanvasCoordinates(e) {
         clientY = e.clientY;
     }
     
-    // 计算精确的坐标（考虑缩放和偏移）
+    if (clientX === undefined || clientY === undefined) {
+        return { x: state.lastX, y: state.lastY };
+    }
+    
+    // 使用缓存的缩放信息计算坐标
+    const rect = canvas.getBoundingClientRect();
     const x = (clientX - rect.left) * (canvas.width / rect.width);
     const y = (clientY - rect.top) * (canvas.height / rect.height);
     
@@ -1077,100 +1080,97 @@ if (redoTool) redoTool.addEventListener('click', redo);
             savePromptBtn.addEventListener('click', savePrompt);
         }
         
-        // 画布事件
-        if (canvas) {
-            // 鼠标事件
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mouseleave', stopDrawing);
-            
-            // 触摸事件 - 使用被动监听器防止滚动
-            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-            canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
-            canvas.addEventListener('touchcancel', handleTouchCancel, { passive: false });
-            
-            // 防止画布被拖动
-            canvas.addEventListener('dragstart', (e) => e.preventDefault());
-        }
+          // 画布事件
+    if (canvas) {
+        // 设置画布样式防止滚动
+        canvas.style.touchAction = 'none';
+        canvas.style.userSelect = 'none';
+        canvas.style.webkitUserSelect = 'none';
         
- // 修改窗口调整大小事件处理
+        // 鼠标事件
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+        
+        // 触摸事件 - 使用被动监听器防止滚动
+        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+        canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+        canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+        canvas.addEventListener('touchcancel', handleTouchCancel, { passive: false });
+        
+        // 防止画布被拖动
+        canvas.addEventListener('dragstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        
+        // 防止右键菜单
+        canvas.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+    }
+        
+// 修改窗口调整大小事件处理
 window.addEventListener('resize', () => {
     if (resizeTimeout) {
         clearTimeout(resizeTimeout);
     }
     
     resizeTimeout = setTimeout(() => {
-        console.log('窗口大小调整');
+        console.log('窗口大小调整，更新画布缩放');
         
         // 更新画布缩放信息
         updateCanvasScaling();
         
-        // 如果有背景图片，重新绘制
-        if (state && state.backgroundImage) {
-            const img = state.backgroundImage;
-            const container = canvas.parentElement;
-            const maxWidth = container ? container.clientWidth : 800;
-            
-            // 重新计算缩放比例
-            const scale = Math.min(
-                maxWidth / state.originalImageSize.width,
-                (maxWidth * 0.75) / state.originalImageSize.height
-            );
-            
-            const displayWidth = Math.floor(state.originalImageSize.width * scale);
-            const displayHeight = Math.floor(state.originalImageSize.height * scale);
-            
-            // 更新画布尺寸
-            canvas.width = displayWidth;
-            canvas.height = displayHeight;
-            
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
-            
-            // 重新绘制历史记录
-            if (state.drawingHistory.length > 0) {
-                const lastState = state.drawingHistory[state.drawingHistory.length - 1];
-                ctx.putImageData(lastState, 0, 0);
-            }
-            
-            updateCanvasScaling();
-        }
+        // 不重新绘制画布内容，保持当前状态
+        // 仅更新缩放信息确保坐标计算正确
+        
     }, 250);
 });
     }
     
-    // 触摸事件处理函数
-    function handleTouchStart(e) {
-        if (e.touches.length === 1) {
+ // 修改触摸事件处理函数
+function handleTouchStart(e) {
+    if (e.touches.length === 1) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        startDrawing(e);
+        
+        // 记录触摸点位置，用于检测是否滚动
+        lastTouchY = e.touches[0].clientY;
+        isTouchMoving = false;
+        
+        // 锁定画布滚动
+        canvas.style.touchAction = 'none';
+    }
+}
+
+function handleTouchMove(e) {
+    if (e.touches.length === 1) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // 检测是否是滚动行为（垂直移动超过5px）
+        const currentY = e.touches[0].clientY;
+        const deltaY = Math.abs(currentY - lastTouchY);
+        
+        if (deltaY > 5) {
+            isTouchMoving = true;
+        }
+        
+        // 如果不是明显的滚动行为，则绘图
+        if (!isTouchMoving || state.isDrawing) {
+            draw(e);
+            lastTouchY = currentY;
+        } else {
+            // 如果是滚动行为，阻止默认行为但不绘图
             e.preventDefault();
-            startDrawing(e);
-            // 记录触摸点位置，用于检测是否滚动
-            lastTouchY = e.touches[0].clientY;
-            isTouchMoving = false;
         }
     }
-    
-    function handleTouchMove(e) {
-        if (e.touches.length === 1) {
-            e.preventDefault();
-            
-            // 检测是否是滚动行为（垂直移动超过5px）
-            const currentY = e.touches[0].clientY;
-            const deltaY = Math.abs(currentY - lastTouchY);
-            
-            if (deltaY > 5) {
-                isTouchMoving = true;
-            }
-            
-            // 如果不是明显的滚动行为，则绘图
-            if (!isTouchMoving || state.isDrawing) {
-                draw(e);
-                lastTouchY = currentY;
-            }
-        }
-    }
+}
     
     function handleTouchEnd(e) {
         if (e.touches.length === 0) {
