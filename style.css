@@ -1078,18 +1078,18 @@ body {
     margin-bottom: 8px !important;
 }
 
-/* 修改后： */
-.canvas-container {
+canvas-container {
     display: flex;
     justify-content: center;
     align-items: flex-start; /* 改为顶部对齐 */
     background: #f8f9fa;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
-    overflow: auto; /* 改为自动滚动 */
     width: 100%;
-    min-height: 600px; /* 最小高度 */
-    max-height: 800px; /* 最大高度限制 */
+    min-height: 200px; /* 设置最小高度 */
+    max-height: 800px; /* 设置最大高度，防止竖图过高 */
+    overflow: auto; /* 添加滚动条，如果内容超出 */
+    margin: 0 auto; /* 居中 */
 }
 
 /* 修改画布样式 */
@@ -1197,54 +1197,6 @@ body {
     gap: 6px;
 }
 
-/* 颜色预览小方块 */
-.color-preview {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
-    flex-shrink: 0; /* 防止被压缩 */
-}
-
-/* 颜色项 */
-.color-item {
-    display: inline-flex;
-    align-items: center;
-    padding: 6px 12px;
-    background: var(--bg-primary);
-    border: 2px solid var(--border-light);
-    border-radius: var(--radius);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.85rem;
-    color: var(--text-primary);
-    user-select: none;
-    gap: 8px;
-}
-
-.color-item:hover {
-    background: var(--bg-tertiary);
-    border-color: var(--border-dark);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
-.color-item.active {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    border-color: var(--secondary);
-    font-weight: 500;
-    box-shadow: var(--shadow-md);
-}
-
-.color-item.active .color-preview {
-    border-color: white;
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
-}
 /* 提示词卡片 */
 .prompt-card {
     padding: 12px !important;
@@ -1404,7 +1356,7 @@ body {
     }
     
     .canvas-container {
-        height: 300px;
+        height: 600px;
     }
     
     .prompt-action-buttons {

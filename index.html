@@ -621,18 +621,20 @@
     </div>
 
     <!-- 上传和画笔控制 -->
-    <div class="bg-card upload-toolbar-card">
-        <div class="upload-toolbar-content">
-            <!-- 上传按钮 -->
-            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-            <button id="uploadBtn" class="upload-image-btn" data-testid="upload-btn">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <span>上传图片</span>
-            </button>
-            <button id="rotateImportBtn" class="upload-image-btn rotate-import-btn" data-testid="rotate-import-btn">
-                <i class="fas fa-redo-alt"></i>
-                <span>竖图上传</span>
-            </button>
+   <div class="bg-card upload-toolbar-card">
+    <div class="upload-toolbar-content">
+        <!-- 上传按钮 -->
+        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+        <input type="file" id="rotateImageUpload" accept="image/*" style="display: none;">
+        
+        <button id="uploadBtn" class="upload-image-btn" data-testid="upload-btn">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>上传图片</span>
+        </button>
+        <button id="rotateImportBtn" class="upload-image-btn rotate-import-btn" data-testid="rotate-import-btn">
+            <i class="fas fa-redo-alt"></i>
+            <span>竖图上传</span>
+        </button>
             
             <!-- 画笔预览 -->
             <div class="brush-preview-large">
@@ -653,7 +655,7 @@
     <!-- 画布区域 -->
     <div class="bg-card canvas-card">
         <div class="canvas-container">
-            <canvas id="drawingCanvas" width="800" height="300"></canvas>
+            <canvas id="drawingCanvas" width="1024" height="200"></canvas>
         </div>
     </div>
 
