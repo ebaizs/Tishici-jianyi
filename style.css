@@ -1077,30 +1077,31 @@ body {
     padding: 12px !important;
     margin-bottom: 8px !important;
 }
-
-/* 修改后： */
+/* 添加到 canvas-container 样式中 */
 .canvas-container {
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* 改为顶部对齐 */
+    align-items: flex-start;
     background: #f8f9fa;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
-    overflow: auto; /* 改为自动滚动 */
+    overflow: hidden; /* 改为 hidden 防止滚动 */
     width: 100%;
-    min-height: 600px; /* 最小高度 */
-    max-height: 800px; /* 最大高度限制 */
+    min-height: 300px; /* 最小高度 */
+    max-height: 80vh; /* 最大高度为视口的80% */
+    padding: 0; /* 移除内边距 */
+    transition: height 0.3s ease; /* 添加高度过渡效果 */
 }
 
-/* 修改画布样式 */
+/* 画布样式 */
 #drawingCanvas {
     display: block;
     cursor: crosshair;
     touch-action: none;
     user-select: none;
-    width: auto; /* 改为自动，根据实际尺寸 */
-    height: auto; /* 改为自动，根据实际尺寸 */
     max-width: 100%; /* 限制最大宽度 */
+    max-height: 100%; /* 限制最大高度 */
+    object-fit: contain; /* 保持比例，完整显示 */
 }
 .color-input-row {
     display: flex;
@@ -1191,10 +1192,57 @@ body {
 }
 
 
+/* 颜色预览样式 */
+.color-preview {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 颜色项样式 */
+.color-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    margin: 2px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 12px;
+}
+
+.color-item:hover {
+    background: var(--bg-tertiary);
+    transform: translateY(-2px);
+}
+
+.color-item.active {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-color: var(--secondary);
+}
+
+.color-item.active .color-preview {
+    border-color: white;
+}
 .color-list {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+    padding: 8px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    border: 1px solid var(--border-light);
+    max-height: 150px;
+    overflow-y: auto;
 }
 
 /* 提示词卡片 */

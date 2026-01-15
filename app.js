@@ -1,13 +1,445 @@
-(function(){'use strict';var _0x6b786b;const _0x5d_0xa8a={'\u0069\u0073\u004C\u006F\u0067\u0067\u0065\u0064\u0049\u006E':false,'\u0075\u0073\u0065\u0072\u004E\u0061\u006D\u0065':null,'\u0075\u0073\u0065\u0072\u0052\u006F\u006C\u0065':null,'\u0063\u0075\u0072\u0072\u0065\u006E\u0074\u0050\u0061\u0067\u0065':"\u0070\u0072\u006F\u006D\u0070\u0074"};_0x6b786b="dlmdgm".split("").reverse().join("");var _0xf81d2c;const _0xc744c=[{"username":"\u0071\u0069\u0079\u0075","\u0070\u0061\u0073\u0073\u0077\u006F\u0072\u0064":"\u0038\u0034\u0031\u0038","name":"\u7CFB\u7EDF\u7BA1\u7406\u5458","\u0069\u0073\u004C\u006F\u0063\u0061\u006C":!![],"isAdmin":!![]}];_0xf81d2c=562265^562269;document['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0044\u004F\u004D\u0043\u006F\u006E\u0074\u0065\u006E\u0074\u004C\u006F\u0061\u0064\u0065\u0064",function(){console['\u006C\u006F\u0067']("...\u5316\u59CB\u521D\u7EDF\u7CFB\u5177\u5DE5\u753B\u7ED8IA".split("").reverse().join(""));const _0x998d7d=sessionStorage['\u0067\u0065\u0074\u0049\u0074\u0065\u006D']("nIdeggoLsi".split("").reverse().join(""));const _0x87fbg=sessionStorage['\u0067\u0065\u0074\u0049\u0074\u0065\u006D']("emaNresu".split("").reverse().join(""));if(_0x998d7d==="eurt".split("").reverse().join("")&&_0x87fbg){_0x5d_0xa8a['\u0069\u0073\u004C\u006F\u0067\u0067\u0065\u0064\u0049\u006E']=!![];_0x5d_0xa8a['\u0075\u0073\u0065\u0072\u004E\u0061\u006D\u0065']=_0x87fbg;_0x5d_0xa8a['\u0075\u0073\u0065\u0072\u0052\u006F\u006C\u0065']=sessionStorage['\u0067\u0065\u0074\u0049\u0074\u0065\u006D']("\u0075\u0073\u0065\u0072\u0052\u006F\u006C\u0065")||"resu".split("").reverse().join("");_0xa319ab();}else{_0xfc4ab();}_0xc415b();_0xg14ab();});function _0xfc4ab(){document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("reniatnoc-nigol".split("").reverse().join(""))['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u0066\u006C\u0065\u0078";document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u006D\u0061\u0069\u006E\u002D\u0063\u006F\u006E\u0074\u0061\u0069\u006E\u0065\u0072")['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u006E\u006F\u006E\u0065";_0x271b4c();}function _0x271b4c(){sessionStorage['\u0072\u0065\u006D\u006F\u0076\u0065\u0049\u0074\u0065\u006D']("\u0069\u0073\u004C\u006F\u0067\u0067\u0065\u0064\u0049\u006E");sessionStorage['\u0072\u0065\u006D\u006F\u0076\u0065\u0049\u0074\u0065\u006D']("emaNresu".split("").reverse().join(""));sessionStorage['\u0072\u0065\u006D\u006F\u0076\u0065\u0049\u0074\u0065\u006D']("eloRresu".split("").reverse().join(""));var _0xbba=(667051^667051)+(630395^630387);const _0xfe96b=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("nottub-nigol".split("").reverse().join(""));_0xbba=489230^489224;if(_0xfe96b){_0xfe96b['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",_0xef6b8e);}var _0xdec=(222115^222113)+(898423^898416);const _0xc40b=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("drowssap".split("").reverse().join(""));_0xdec=(769587^769585)+(806767^806765);if(_0xc40b){_0xc40b['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u006B\u0065\u0079\u0070\u0072\u0065\u0073\u0073",function(e){if(e['\u006B\u0065\u0079']==="\u0045\u006E\u0074\u0065\u0072"){_0xef6b8e();}});}var _0x5f497a;const _0x77b2ca=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("emanresu".split("").reverse().join(""));_0x5f497a=(743718^743726)+(553141^553138);if(_0x77b2ca){_0x77b2ca['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("sserpyek".split("").reverse().join(""),function(e){if(e['\u006B\u0065\u0079']==="retnE".split("").reverse().join("")){document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0070\u0061\u0073\u0073\u0077\u006F\u0072\u0064")['\u0066\u006F\u0063\u0075\u0073']();}});}}async function _0xef6b8e(){const _0x4c4ef=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0075\u0073\u0065\u0072\u006E\u0061\u006D\u0065")['\u0076\u0061\u006C\u0075\u0065']['\u0074\u0072\u0069\u006D']();var _0xd1a22c;const _0xbf244e=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("drowssap".split("").reverse().join(""))['\u0076\u0061\u006C\u0075\u0065'];_0xd1a22c=(922926^922925)+(442417^442419);var _0xg5a=(915592^915593)+(944081^944088);const _0xdb71gc=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("nottub-nigol".split("").reverse().join(""));_0xg5a=606587^606589;var _0x5d651e;const _0xde51g=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("gnidaol-nigol".split("").reverse().join(""));_0x5d651e="amfgge".split("").reverse().join("");const _0x8ece3g=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("rorre-nigol".split("").reverse().join(""));if(!_0x4c4ef||!_0xbf244e){_0x4561fg("\u7801\u5BC6\u548C\u540D\u6237\u7528\u5165\u8F93\u8BF7".split("").reverse().join(""),"\u0065\u0072\u0072\u006F\u0072");return;}_0xdb71gc['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u006E\u006F\u006E\u0065";_0xde51g['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="kcolb".split("").reverse().join("");_0x8ece3g['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']='';_0x8ece3g['\u0063\u006C\u0061\u0073\u0073\u004E\u0061\u006D\u0065']="\u006C\u006F\u0067\u0069\u006E\u002D\u0065\u0072\u0072\u006F\u0072";try{let _0x5c87eb=null;try{const _0x22c=await _0xe821cb();_0x5c87eb=_0x22c['\u0066\u0069\u006E\u0064'](u=>u['\u0075\u0073\u0065\u0072\u006E\u0061\u006D\u0065']===_0x4c4ef&&u['\u0070\u0061\u0073\u0073\u0077\u006F\u0072\u0064']===_0xbf244e);}catch(cloudError){console['\u0077\u0061\u0072\u006E'](":\u53F7\u8D26\u5730\u672C\u7528\u4F7F\uFF0C\u8D25\u5931\u8F7D\u52A0\u53F7\u8D26\u7AEF\u4E91".split("").reverse().join(""),cloudError);}if(!_0x5c87eb){_0x5c87eb=_0xc744c['\u0066\u0069\u006E\u0064'](u=>u['\u0075\u0073\u0065\u0072\u006E\u0061\u006D\u0065']===_0x4c4ef&&u['\u0070\u0061\u0073\u0073\u0077\u006F\u0072\u0064']===_0xbf244e);}if(_0x5c87eb){_0x7gg(_0x5c87eb);}else{_0x4561fg("\u7528\u6237\u540D\u6216\u5BC6\u7801\u9519\u8BEF","\u0065\u0072\u0072\u006F\u0072");_0xdb71gc['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u0062\u006C\u006F\u0063\u006B";_0xde51g['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="enon".split("").reverse().join("");}}catch(error){console['\u0065\u0072\u0072\u006F\u0072']("\u767B\u5F55\u8FC7\u7A0B\u51FA\u9519\u003A",error);_0x4561fg("\u5458\u7406\u7BA1\u7CFB\u8054\u6216\u63A5\u8FDE\u7EDC\u7F51\u67E5\u68C0\u8BF7\uFF0C\u8D25\u5931\u5F55\u767B".split("").reverse().join(""),"\u0065\u0072\u0072\u006F\u0072");_0xdb71gc['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u0062\u006C\u006F\u0063\u006B";_0xde51g['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u006E\u006F\u006E\u0065";}}async function _0xe821cb(_0xdea92a){_0xdea92a="\u0068\u0074\u0074\u0070\u0073\u003A\u002F\u002F\u0067\u0069\u0073\u0074\u002E\u0067\u0069\u0074\u0068\u0075\u0062\u0075\u0073\u0065\u0072\u0063\u006F\u006E\u0074\u0065\u006E\u0074\u002E\u0063\u006F\u006D\u002F\u0065\u0062\u0061\u0069\u007A\u0073\u002F\u0032\u0037\u0036\u0039\u0061\u0039\u0065\u0032\u0038\u0039\u0039\u0035\u0066\u0032\u0033\u0063\u0066\u0039\u0062\u0065\u0036\u0030\u0064\u0064\u0038\u0066\u0032\u0038\u0039\u0031\u0063\u0061\u002F\u0072\u0061\u0077\u002F\u006D\u0079\u002D\u007A\u0068\u0061\u006E\u0067\u0068\u0061\u006F\u002E\u006A\u0073";try{const _0x2d_0x4g9=await fetch(_0xdea92a);const _0xbcd18e=await _0x2d_0x4g9['\u0074\u0065\u0078\u0074']();const _0x_0xa30=_0x7d7ec(_0xbcd18e);return _0x_0xa30||[];}catch(error){console['\u0065\u0072\u0072\u006F\u0072']("\u52A0\u8F7D\u4E91\u7AEF\u8D26\u53F7\u5931\u8D25\u003A",error);throw error;}}function _0x7d7ec(jsContent){try{const _0x52e=[new RegExp('\u0063\u006F\u006E\u0073\u0074\u005C\u0073\u002B\u0062\u0075\u0069\u006C\u0074\u0049\u006E\u0055\u0073\u0065\u0072\u0073\u005C\u0073\u002A\u003D\u005C\u0073\u002A\u0028\u005C\u005B\u005B\u005C\u0073\u005C\u0053\u005D\u002A\u003F\u005C\u005D\u0029\u003B',""),new RegExp('\u0076\u0061\u0072\u005C\u0073\u002B\u0062\u0075\u0069\u006C\u0074\u0049\u006E\u0055\u0073\u0065\u0072\u0073\u005C\u0073\u002A\u003D\u005C\u0073\u002A\u0028\u005C\u005B\u005B\u005C\u0073\u005C\u0053\u005D\u002A\u003F\u005C\u005D\u0029\u003B',""),new RegExp('\u006C\u0065\u0074\u005C\u0073\u002B\u0062\u0075\u0069\u006C\u0074\u0049\u006E\u0055\u0073\u0065\u0072\u0073\u005C\u0073\u002A\u003D\u005C\u0073\u002A\u0028\u005C\u005B\u005B\u005C\u0073\u005C\u0053\u005D\u002A\u003F\u005C\u005D\u0029\u003B',""),new RegExp('\u0062\u0075\u0069\u006C\u0074\u0049\u006E\u0055\u0073\u0065\u0072\u0073\u005C\u0073\u002A\u003D\u005C\u0073\u002A\u0028\u005C\u005B\u005B\u005C\u0073\u005C\u0053\u005D\u002A\u003F\u005C\u005D\u0029\u003B',"")];let _0xfdcaga=null;for(const _0xg60ee of _0x52e){var _0x4af54a;const _0x9e_0xdb1=jsContent['\u006D\u0061\u0074\u0063\u0068'](_0xg60ee);_0x4af54a=(746930^746932)+(148835^148834);if(_0x9e_0xdb1){try{_0xfdcaga=JSON['\u0070\u0061\u0072\u0073\u0065'](_0x9e_0xdb1[728873^728872]['\u0072\u0065\u0070\u006C\u0061\u0063\u0065'](new RegExp(":)+w\\(".split("").reverse().join(""),'\u0067'),":\"1$\"".split("").reverse().join("")));break;}catch(parseError){continue;}}}if(!_0xfdcaga){try{const _0xbb9df=jsContent+"\u003B\u0020\u0072\u0065\u0074\u0075\u0072\u006E\u0020\u0062\u0075\u0069\u006C\u0074\u0049\u006E\u0055\u0073\u0065\u0072\u0073\u0020\u007C\u007C\u0020\u005B\u005D\u003B";var _0x39g=(317092^317089)+(693219^693219);const _0xb4009c=new Function(_0xbb9df);_0x39g=(986953^986952)+(678771^678779);_0xfdcaga=_0xb4009c();}catch(evalError){console['\u0065\u0072\u0072\u006F\u0072']("\u0065\u0076\u0061\u006C\u65B9\u5F0F\u4E5F\u5931\u8D25\u4E86\u003A",evalError);}}return _0xfdcaga||[];}catch(error){console['\u0065\u0072\u0072\u006F\u0072'](":\u8D25\u5931\u636E\u6570\u6237\u7528\u6790\u89E3".split("").reverse().join(""),error);return[];}}function _0x7gg(user){_0x5d_0xa8a['\u0069\u0073\u004C\u006F\u0067\u0067\u0065\u0064\u0049\u006E']=!![];_0x5d_0xa8a['\u0075\u0073\u0065\u0072\u004E\u0061\u006D\u0065']=user['\u006E\u0061\u006D\u0065'];_0x5d_0xa8a['\u0075\u0073\u0065\u0072\u0052\u006F\u006C\u0065']=user['\u0069\u0073\u0041\u0064\u006D\u0069\u006E']?"\u0061\u0064\u006D\u0069\u006E":"resu".split("").reverse().join("");sessionStorage['\u0073\u0065\u0074\u0049\u0074\u0065\u006D']("nIdeggoLsi".split("").reverse().join(""),"\u0074\u0072\u0075\u0065");sessionStorage['\u0073\u0065\u0074\u0049\u0074\u0065\u006D']("emaNresu".split("").reverse().join(""),user['\u006E\u0061\u006D\u0065']);sessionStorage['\u0073\u0065\u0074\u0049\u0074\u0065\u006D']("\u0075\u0073\u0065\u0072\u0052\u006F\u006C\u0065",user['\u0069\u0073\u0041\u0064\u006D\u0069\u006E']?"\u0061\u0064\u006D\u0069\u006E":"resu".split("").reverse().join(""));var _0x547afb;const _0x688da=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("rorre-nigol".split("").reverse().join(""));_0x547afb=426713^426716;_0x688da['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']="...\u7EDF\u7CFB\u5165\u8FDB\u5728\u6B63\uFF0C\u529F\u6210\u5F55\u767B".split("").reverse().join("");_0x688da['\u0063\u006C\u0061\u0073\u0073\u004E\u0061\u006D\u0065']="sseccus rorre-nigol".split("").reverse().join("");setTimeout(()=>{location['\u0072\u0065\u006C\u006F\u0061\u0064']();},847552^847328);}function _0x4561fg(message,type){const _0x3e70e=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("rorre-nigol".split("").reverse().join(""));if(_0x3e70e){_0x3e70e['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=message;_0x3e70e['\u0063\u006C\u0061\u0073\u0073\u004E\u0061\u006D\u0065']=`login-error ${type}`;}}function _0xa319ab(){const _0xg7e9ec=_0x5d_0xa8a['\u0075\u0073\u0065\u0072\u004E\u0061\u006D\u0065']||"\u6237\u7528".split("").reverse().join("");document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("reniatnoc-nigol".split("").reverse().join(""))['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u006E\u006F\u006E\u0065";document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("reniatnoc-niam".split("").reverse().join(""))['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u0062\u006C\u006F\u0063\u006B";var _0x71dg=(789684^789684)+(179387^179391);const _0x14e6bb=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0075\u0073\u0065\u0072\u002D\u0069\u006E\u0066\u006F");_0x71dg='\u006B\u006D\u0065\u006C\u006D\u0064';if(_0x14e6bb){_0x14e6bb['\u0069\u006E\u006E\u0065\u0072\u0048\u0054\u004D\u004C']=`
-            <span><i class="fas fa-user"></i> ${_0xg7e9ec}</span>
+// app.js - 主要调度程序（合并了登录功能）
+(function() {
+    'use strict';
+    
+    // 应用全局状态
+    const AppState = {
+        isLoggedIn: false,
+        userName: null,
+        userRole: null,
+        currentPage: 'prompt'
+    };
+    
+    // 本地默认用户（备用）
+    const defaultUsers = [
+        {
+            "username": "qiyu",
+            "password": "8418",
+            "name": "系统管理员",
+            "isLocal": true,
+            "isAdmin": true
+        }
+    ];
+    
+    // ==================== DOM加载初始化 ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('AI绘画工具系统初始化...');
+        
+        // 检查登录状态
+        const savedLogin = sessionStorage.getItem('isLoggedIn');
+        const savedName = sessionStorage.getItem('userName');
+        
+        if (savedLogin === 'true' && savedName) {
+            AppState.isLoggedIn = true;
+            AppState.userName = savedName;
+            AppState.userRole = sessionStorage.getItem('userRole') || 'user';
+            showMainApp();
+        } else {
+            showLoginPage();
+        }
+        
+        // 初始化页面切换功能
+        initPages();
+        
+        // 导出关键函数到全局作用域
+        exportFunctionsToGlobal();
+    });
+    
+    // ==================== 登录相关功能 ====================
+    function showLoginPage() {
+        document.getElementById('login-container').style.display = 'flex';
+        document.getElementById('main-container').style.display = 'none';
+        initLogin();
+    }
+    
+    function initLogin() {
+        // 清除之前的登录状态，强制每次都登录
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('userName');
+        sessionStorage.removeItem('userRole');
+        
+        // 绑定登录按钮事件
+        const loginButton = document.getElementById('login-button');
+        if (loginButton) {
+            loginButton.addEventListener('click', handleLogin);
+        }
+        
+        // 绑定回车键登录
+        const passwordInput = document.getElementById('password');
+        if (passwordInput) {
+            passwordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    handleLogin();
+                }
+            });
+        }
+        
+        const usernameInput = document.getElementById('username');
+        if (usernameInput) {
+            usernameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('password').focus();
+                }
+            });
+        }
+    }
+    
+    async function handleLogin() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        const loginButton = document.getElementById('login-button');
+        const loginLoading = document.getElementById('login-loading');
+        const loginError = document.getElementById('login-error');
+        
+        if (!username || !password) {
+            showLoginMessage('请输入用户名和密码', 'error');
+            return;
+        }
+        
+        loginButton.style.display = 'none';
+        loginLoading.style.display = 'block';
+        loginError.textContent = '';
+        loginError.className = 'login-error';
+        
+        try {
+            // 尝试从云端加载账号信息
+            let user = null;
+            
+            try {
+                const cloudUsers = await loadCloudUsers();
+                user = cloudUsers.find(u => u.username === username && u.password === password);
+            } catch (cloudError) {
+                console.warn('云端账号加载失败，使用本地账号:', cloudError);
+            }
+            
+            // 如果云端没有找到，检查本地用户
+            if (!user) {
+                user = defaultUsers.find(u => u.username === username && u.password === password);
+            }
+            
+            if (user) {
+                handleLoginSuccess(user);
+            } else {
+                showLoginMessage('用户名或密码错误', 'error');
+                loginButton.style.display = 'block';
+                loginLoading.style.display = 'none';
+            }
+        } catch (error) {
+            console.error('登录过程出错:', error);
+            showLoginMessage('登录失败，请检查网络连接或联系管理员', 'error');
+            loginButton.style.display = 'block';
+            loginLoading.style.display = 'none';
+        }
+    }
+    
+    async function loadCloudUsers() {
+        const cloudUrl = 'https://gist.githubusercontent.com/ebaizs/2769a9e28995f23cf9be60dd8f2891ca/raw/my-zhanghao.js';
+        
+        try {
+            const response = await fetch(cloudUrl);
+            const jsContent = await response.text();
+            const users = parseUsersFromJS(jsContent);
+            return users || [];
+        } catch (error) {
+            console.error('加载云端账号失败:', error);
+            throw error;
+        }
+    }
+    
+    function parseUsersFromJS(jsContent) {
+        try {
+            const patterns = [
+                /const\s+builtInUsers\s*=\s*(\[[\s\S]*?\]);/,
+                /var\s+builtInUsers\s*=\s*(\[[\s\S]*?\]);/,
+                /let\s+builtInUsers\s*=\s*(\[[\s\S]*?\]);/,
+                /builtInUsers\s*=\s*(\[[\s\S]*?\]);/
+            ];
+            
+            let usersArray = null;
+            
+            for (const pattern of patterns) {
+                const match = jsContent.match(pattern);
+                if (match) {
+                    try {
+                        usersArray = JSON.parse(match[1].replace(/(\w+):/g, '"$1":'));
+                        break;
+                    } catch (parseError) {
+                        continue;
+                    }
+                }
+            }
+            
+            if (!usersArray) {
+                try {
+                    const jsWithReturn = jsContent + '; return builtInUsers || [];';
+                    const getUsers = new Function(jsWithReturn);
+                    usersArray = getUsers();
+                } catch (evalError) {
+                    console.error('eval方式也失败了:', evalError);
+                }
+            }
+            
+            return usersArray || [];
+        } catch (error) {
+            console.error('解析用户数据失败:', error);
+            return [];
+        }
+    }
+    
+    function handleLoginSuccess(user) {
+        AppState.isLoggedIn = true;
+        AppState.userName = user.name;
+        AppState.userRole = user.isAdmin ? 'admin' : 'user';
+        
+        sessionStorage.setItem('isLoggedIn', 'true');
+        sessionStorage.setItem('userName', user.name);
+        sessionStorage.setItem('userRole', user.isAdmin ? 'admin' : 'user');
+        
+        const loginError = document.getElementById('login-error');
+        loginError.textContent = '登录成功，正在进入系统...';
+        loginError.className = 'login-error success';
+        
+        setTimeout(() => {
+            location.reload();
+        }, 800);
+    }
+    
+    function showLoginMessage(message, type) {
+        const loginError = document.getElementById('login-error');
+        if (loginError) {
+            loginError.textContent = message;
+            loginError.className = `login-error ${type}`;
+        }
+    }
+    
+    // ==================== 主应用功能 ====================
+  function showMainApp() {
+    const userName = AppState.userName || '用户';
+    
+    // 显示主应用，隐藏登录界面
+    document.getElementById('login-container').style.display = 'none';
+    document.getElementById('main-container').style.display = 'block';
+    
+    // 更新用户信息
+    const userInfo = document.getElementById('user-info');
+    if (userInfo) {
+        userInfo.innerHTML = `
+            <span><i class="fas fa-user"></i> ${userName}</span>
             <button onclick="logout()" class="logout-btn">
                 <i class="fas fa-sign-out-alt"></i> 退出
             </button>
-        `;}const _0xaad98b=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("egap-tpmorp".split("").reverse().join(""));var _0x74623b=(829945^829949)+(482696^482701);const _0xa9524g=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0070\u0061\u0069\u006E\u0074\u002D\u0070\u0061\u0067\u0065");_0x74623b=(200049^200056)+(906151^906151);if(_0xaad98b)_0xaad98b['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u006E\u006F\u006E\u0065";if(_0xa9524g)_0xa9524g['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u006E\u006F\u006E\u0065";if(_0x5d_0xa8a['\u0063\u0075\u0072\u0072\u0065\u006E\u0074\u0050\u0061\u0067\u0065']==="tpmorp".split("").reverse().join("")){if(_0xaad98b){_0xaad98b['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u0062\u006C\u006F\u0063\u006B";}_0x42b7a();}else if(_0x5d_0xa8a['\u0063\u0075\u0072\u0072\u0065\u006E\u0074\u0050\u0061\u0067\u0065']==="\u0070\u0061\u0069\u006E\u0074"){if(_0xa9524g){_0xa9524g['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="kcolb".split("").reverse().join("");}_0x06d();}}function _0x113a(){if(confirm("\u786E\u5B9A\u8981\u9000\u51FA\u767B\u5F55\u5417\uFF1F")){sessionStorage['\u0063\u006C\u0065\u0061\u0072']();localStorage['\u0072\u0065\u006D\u006F\u0076\u0065\u0049\u0074\u0065\u006D']("\u0061\u0069\u0050\u0072\u006F\u006D\u0070\u0074\u0048\u0069\u0073\u0074\u006F\u0072\u0079");location['\u0072\u0065\u006C\u006F\u0061\u0064']();}}function _0xc415b(){var _0xb2dc7a;const _0x23e=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("tpmorp-hctiws".split("").reverse().join(""));_0xb2dc7a=(140154^140159)+(847289^847281);const _0xa_0x328=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("tniap-hctiws".split("").reverse().join(""));if(!_0x23e||!_0xa_0x328){console['\u0077\u0061\u0072\u006E']("\u9875\u9762\u5207\u6362\u6309\u94AE\u672A\u627E\u5230\uFF0C\u5EF6\u8FDF\u521D\u59CB\u5316\u002E\u002E\u002E");setTimeout(_0xc415b,108362^108334);return;}_0x23e['\u0072\u0065\u0070\u006C\u0061\u0063\u0065\u0057\u0069\u0074\u0068'](_0x23e['\u0063\u006C\u006F\u006E\u0065\u004E\u006F\u0064\u0065'](!![]));_0xa_0x328['\u0072\u0065\u0070\u006C\u0061\u0063\u0065\u0057\u0069\u0074\u0068'](_0xa_0x328['\u0063\u006C\u006F\u006E\u0065\u004E\u006F\u0064\u0065'](!![]));const _0x69e5df=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0073\u0077\u0069\u0074\u0063\u0068\u002D\u0070\u0072\u006F\u006D\u0070\u0074");const _0xab2cd=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("tniap-hctiws".split("").reverse().join(""));_0x69e5df['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",function(){if(!this['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0063\u006F\u006E\u0074\u0061\u0069\u006E\u0073']("\u0061\u0063\u0074\u0069\u0076\u0065")){_0x69e5df['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("evitca".split("").reverse().join(""));_0xab2cd['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0072\u0065\u006D\u006F\u0076\u0065']("\u0061\u0063\u0074\u0069\u0076\u0065");document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0070\u0072\u006F\u006D\u0070\u0074\u002D\u0070\u0061\u0067\u0065")['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u0062\u006C\u006F\u0063\u006B";document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("egap-tniap".split("").reverse().join(""))['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u006E\u006F\u006E\u0065";_0x5d_0xa8a['\u0063\u0075\u0072\u0072\u0065\u006E\u0074\u0050\u0061\u0067\u0065']="tpmorp".split("").reverse().join("");_0x42b7a();}});_0xab2cd['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("\u0063\u006C\u0069\u0063\u006B",function(){if(!this['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0063\u006F\u006E\u0074\u0061\u0069\u006E\u0073']("evitca".split("").reverse().join(""))){_0xab2cd['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("evitca".split("").reverse().join(""));_0x69e5df['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0072\u0065\u006D\u006F\u0076\u0065']("\u0061\u0063\u0074\u0069\u0076\u0065");document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0070\u0061\u0069\u006E\u0074\u002D\u0070\u0061\u0067\u0065")['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="kcolb".split("").reverse().join("");document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0070\u0072\u006F\u006D\u0070\u0074\u002D\u0070\u0061\u0067\u0065")['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="enon".split("").reverse().join("");_0x5d_0xa8a['\u0063\u0075\u0072\u0072\u0065\u006E\u0074\u0050\u0061\u0067\u0065']="\u0070\u0061\u0069\u006E\u0074";_0x06d();}});if(_0x5d_0xa8a['\u0063\u0075\u0072\u0072\u0065\u006E\u0074\u0050\u0061\u0067\u0065']==="\u0070\u0072\u006F\u006D\u0070\u0074"){_0x69e5df['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("evitca".split("").reverse().join(""));_0xab2cd['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0072\u0065\u006D\u006F\u0076\u0065']("evitca".split("").reverse().join(""));}else{_0xab2cd['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0061\u0064\u0064']("\u0061\u0063\u0074\u0069\u0076\u0065");_0x69e5df['\u0063\u006C\u0061\u0073\u0073\u004C\u0069\u0073\u0074']['\u0072\u0065\u006D\u006F\u0076\u0065']("\u0061\u0063\u0074\u0069\u0076\u0065");}}function _0x42b7a(){const _0xa2_0xf5a=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0070\u0072\u006F\u006D\u0070\u0074\u002D\u0070\u0061\u0067\u0065");if(!_0xa2_0xf5a){console['\u0065\u0072\u0072\u006F\u0072']("\u63D0\u793A\u8BCD\u9875\u9762\u5BB9\u5668\u672A\u627E\u5230");return;}_0xa2_0xf5a['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u0062\u006C\u006F\u0063\u006B";if(_0xa2_0xf5a['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072']("\u002E\u0074\u0061\u0062\u0073")&&!_0xa2_0xf5a['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072']("\u002E\u0074\u0061\u0062\u0073")['\u0068\u0061\u0073\u0041\u0074\u0074\u0072\u0069\u0062\u0075\u0074\u0065']("\u0064\u0061\u0074\u0061\u002D\u0069\u006E\u0069\u0074\u0069\u0061\u006C\u0069\u007A\u0065\u0064")){_0xa2_0xf5a['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072']("\u002E\u0074\u0061\u0062\u0073")['\u0073\u0065\u0074\u0041\u0074\u0074\u0072\u0069\u0062\u0075\u0074\u0065']("\u0064\u0061\u0074\u0061\u002D\u0069\u006E\u0069\u0074\u0069\u0061\u006C\u0069\u007A\u0065\u0064","eurt".split("").reverse().join(""));if(typeof initializePromptSystem==="\u0066\u0075\u006E\u0063\u0074\u0069\u006F\u006E"){console['\u006C\u006F\u0067']("...\u7EDF\u7CFB\u6210\u751F\u8BCD\u793A\u63D0\u5316\u59CB\u521D\u5728\u6B63".split("").reverse().join(""));try{initializePromptSystem();}catch(error){console['\u0065\u0072\u0072\u006F\u0072']("\u63D0\u793A\u8BCD\u7CFB\u7EDF\u521D\u59CB\u5316\u5931\u8D25\u003A",error);}}else{console['\u0077\u0061\u0072\u006E']("\u0069\u006E\u0069\u0074\u0069\u0061\u006C\u0069\u007A\u0065\u0050\u0072\u006F\u006D\u0070\u0074\u0053\u0079\u0073\u0074\u0065\u006D\u0020\u51FD\u6570\u672A\u627E\u5230\uFF0C\u7B49\u5F85\u811A\u672C\u52A0\u8F7D");setTimeout(()=>{if(typeof initializePromptSystem==="\u0066\u0075\u006E\u0063\u0074\u0069\u006F\u006E"){initializePromptSystem();}},847213^847001);}}_0x11f();}function _0x06d(){var _0xcde24g=(671798^671794)+(907413^907421);const _0xb1cea=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("\u0070\u0061\u0069\u006E\u0074\u002D\u0070\u0061\u0067\u0065");_0xcde24g=(237226^237229)+(248655^248647);if(!_0xb1cea){console['\u0065\u0072\u0072\u006F\u0072']("\u8272\u7ED8\u8BBE\u8BA1\u9875\u9762\u5BB9\u5668\u672A\u627E\u5230");return;}_0xb1cea['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u0062\u006C\u006F\u0063\u006B";if(_0xb1cea['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072']("\u002E\u0063\u0061\u006E\u0076\u0061\u0073\u002D\u0063\u006F\u006E\u0074\u0061\u0069\u006E\u0065\u0072")&&!_0xb1cea['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072']("\u002E\u0063\u0061\u006E\u0076\u0061\u0073\u002D\u0063\u006F\u006E\u0074\u0061\u0069\u006E\u0065\u0072")['\u0068\u0061\u0073\u0041\u0074\u0074\u0072\u0069\u0062\u0075\u0074\u0065']("dezilaitini-atad".split("").reverse().join(""))){_0xb1cea['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072']("\u002E\u0063\u0061\u006E\u0076\u0061\u0073\u002D\u0063\u006F\u006E\u0074\u0061\u0069\u006E\u0065\u0072")['\u0073\u0065\u0074\u0041\u0074\u0074\u0072\u0069\u0062\u0075\u0074\u0065']("dezilaitini-atad".split("").reverse().join(""),"eurt".split("").reverse().join(""));if(typeof initializePaintSystem==="noitcnuf".split("").reverse().join("")){console['\u006C\u006F\u0067']("\u6B63\u5728\u521D\u59CB\u5316\u8272\u7ED8\u8BBE\u8BA1\u7CFB\u7EDF\u002E\u002E\u002E");try{initializePaintSystem();}catch(error){console['\u0065\u0072\u0072\u006F\u0072'](":\u8D25\u5931\u5316\u59CB\u521D\u7EDF\u7CFB\u8BA1\u8BBE\u7ED8\u8272".split("").reverse().join(""),error);}}else{console['\u0077\u0061\u0072\u006E']("\u0069\u006E\u0069\u0074\u0069\u0061\u006C\u0069\u007A\u0065\u0050\u0061\u0069\u006E\u0074\u0053\u0079\u0073\u0074\u0065\u006D\u0020\u51FD\u6570\u672A\u627E\u5230\uFF0C\u7B49\u5F85\u811A\u672C\u52A0\u8F7D");setTimeout(()=>{if(typeof initializePaintSystem==="\u0066\u0075\u006E\u0063\u0074\u0069\u006F\u006E"){initializePaintSystem();}},116881^117093);}}}function _0xa1cc(src){console['\u006C\u006F\u0067'](`脚本 ${src} 已预加载`);return Promise['\u0072\u0065\u0073\u006F\u006C\u0076\u0065']();}function _0x11f(){var _0x884ge=(866894^866889)+(660518^660515);const _0x57b99e=sessionStorage['\u0067\u0065\u0074\u0049\u0074\u0065\u006D']("tpmorPngiseDroloc".split("").reverse().join(""));_0x884ge=368877^368878;if(_0x57b99e){console['\u006C\u006F\u0067']("\u68C0\u6D4B\u5230\u6765\u81EA\u8272\u7ED8\u8BBE\u8BA1\u7684\u63D0\u793A\u8BCD\u003A",_0x57b99e);setTimeout(()=>{const _0xe73a=document['\u0071\u0075\u0065\u0072\u0079\u0053\u0065\u006C\u0065\u0063\u0074\u006F\u0072']("\u002E\u0070\u0061\u006E\u0065\u006C\u002E\u0061\u0063\u0074\u0069\u0076\u0065");if(_0xe73a){var _0xd9d2e=(958414^958408)+(207729^207737);const _0x9gg9ee=_0xe73a['\u0069\u0064'];_0xd9d2e=(786616^786616)+(331347^331355);const _0xgf2c9e=_0x9gg9ee['\u0073\u0070\u006C\u0069\u0074']("\u002D")[607055^607055];const _0x821g=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064'](`${_0xgf2c9e}-desc`);if(_0x821g){_0x821g['\u0076\u0061\u006C\u0075\u0065']=_0x57b99e;_0x11g("\u8BCD\u793A\u63D0\u5165\u5BFC\u8BA1\u8BBE\u7ED8\u8272\u4ECE\u5DF2".split("").reverse().join(""),"\u0073\u0075\u0063\u0063\u0065\u0073\u0073");}}sessionStorage['\u0072\u0065\u006D\u006F\u0076\u0065\u0049\u0074\u0065\u006D']("\u0063\u006F\u006C\u006F\u0072\u0044\u0065\u0073\u0069\u0067\u006E\u0050\u0072\u006F\u006D\u0070\u0074");},908081^907481);}}function _0x11g(message,type="\u0073\u0075\u0063\u0063\u0065\u0073\u0073"){var _0x47d1f=(192507^192508)+(519396^519395);let _0x7ee6f=document['\u0067\u0065\u0074\u0045\u006C\u0065\u006D\u0065\u006E\u0074\u0042\u0079\u0049\u0064']("noitacifiton-labolg".split("").reverse().join(""));_0x47d1f=(644108^644105)+(542006^542000);if(!_0x7ee6f){_0x7ee6f=document['\u0063\u0072\u0065\u0061\u0074\u0065\u0045\u006C\u0065\u006D\u0065\u006E\u0074']("\u0064\u0069\u0076");_0x7ee6f['\u0069\u0064']="\u0067\u006C\u006F\u0062\u0061\u006C\u002D\u006E\u006F\u0074\u0069\u0066\u0069\u0063\u0061\u0074\u0069\u006F\u006E";_0x7ee6f['\u0073\u0074\u0079\u006C\u0065']['\u0063\u0073\u0073\u0054\u0065\u0078\u0074']=`
+        `;
+    }
+    
+    // 根据当前状态显示页面，隐藏其他页面
+    const promptPage = document.getElementById('prompt-page');
+    const paintPage = document.getElementById('paint-page');
+    
+    if (promptPage) promptPage.style.display = 'none';
+    if (paintPage) paintPage.style.display = 'none';
+    
+    if (AppState.currentPage === 'prompt') {
+        if (promptPage) {
+            promptPage.style.display = 'block';
+        }
+        loadPromptPage();
+    } else if (AppState.currentPage === 'paint') {
+        if (paintPage) {
+            paintPage.style.display = 'block';
+        }
+        loadPaintPage();
+    }
+}
+    
+    function logout() {
+        if (confirm('确定要退出登录吗？')) {
+            sessionStorage.clear();
+            localStorage.removeItem('aiPromptHistory');
+            location.reload();
+        }
+    }
+    
+    // ==================== 页面管理功能 ====================
+    function initPages() {
+        // 获取页面切换按钮
+        const switchPromptBtn = document.getElementById('switch-prompt');
+        const switchPaintBtn = document.getElementById('switch-paint');
+        
+        if (!switchPromptBtn || !switchPaintBtn) {
+            console.warn('页面切换按钮未找到，延迟初始化...');
+            setTimeout(initPages, 100);
+            return;
+        }
+        
+        // 移除旧的事件监听器
+        switchPromptBtn.replaceWith(switchPromptBtn.cloneNode(true));
+        switchPaintBtn.replaceWith(switchPaintBtn.cloneNode(true));
+        
+        // 重新获取按钮
+        const newSwitchPromptBtn = document.getElementById('switch-prompt');
+        const newSwitchPaintBtn = document.getElementById('switch-paint');
+        
+       // 切换到提示词生成页面
+newSwitchPromptBtn.addEventListener('click', function() {
+    if (!this.classList.contains('active')) {
+        // 更新按钮状态
+        newSwitchPromptBtn.classList.add('active');
+        newSwitchPaintBtn.classList.remove('active');
+        
+        // 切换页面
+        document.getElementById('prompt-page').style.display = 'block';
+        document.getElementById('paint-page').style.display = 'none';
+        
+        // 更新状态并加载页面内容
+        AppState.currentPage = 'prompt';
+        loadPromptPage();
+    }
+});
+
+// 切换到色绘设计页面
+newSwitchPaintBtn.addEventListener('click', function() {
+    if (!this.classList.contains('active')) {
+        // 更新按钮状态
+        newSwitchPaintBtn.classList.add('active');
+        newSwitchPromptBtn.classList.remove('active');
+        
+        // 切换页面
+        document.getElementById('paint-page').style.display = 'block';
+        document.getElementById('prompt-page').style.display = 'none';
+        
+        // 更新状态并加载页面内容
+        AppState.currentPage = 'paint';
+        loadPaintPage();
+    }
+});
+        
+        // 初始激活提示词页面按钮
+        if (AppState.currentPage === 'prompt') {
+            newSwitchPromptBtn.classList.add('active');
+            newSwitchPaintBtn.classList.remove('active');
+        } else {
+            newSwitchPaintBtn.classList.add('active');
+            newSwitchPromptBtn.classList.remove('active');
+        }
+    }
+// ==================== 页面加载功能 ====================
+function loadPromptPage() {
+    const promptPage = document.getElementById('prompt-page');
+    if (!promptPage) {
+        console.error('提示词页面容器未找到');
+        return;
+    }
+    
+    // 显示页面
+    promptPage.style.display = 'block';
+    
+    // 检查是否已经初始化过
+    if (promptPage.querySelector('.tabs') && !promptPage.querySelector('.tabs').hasAttribute('data-initialized')) {
+        // 标记为已初始化
+        promptPage.querySelector('.tabs').setAttribute('data-initialized', 'true');
+        
+        // 初始化提示词系统
+        if (typeof initializePromptSystem === 'function') {
+            console.log('正在初始化提示词生成系统...');
+            try {
+                initializePromptSystem();
+            } catch (error) {
+                console.error('提示词系统初始化失败:', error);
+            }
+        } else {
+            console.warn('initializePromptSystem 函数未找到，等待脚本加载');
+            // 如果函数还没加载，等待一下
+            setTimeout(() => {
+                if (typeof initializePromptSystem === 'function') {
+                    initializePromptSystem();
+                }
+            }, 500);
+        }
+    }
+    
+    // 检查是否有从色绘设计传递的提示词
+    checkForColorDesignPrompt();
+}
+
+function loadPaintPage() {
+    const paintPage = document.getElementById('paint-page');
+    if (!paintPage) {
+        console.error('色绘设计页面容器未找到');
+        return;
+    }
+    
+    // 显示页面
+    paintPage.style.display = 'block';
+    
+    // 检查是否已经初始化过
+    if (paintPage.querySelector('.canvas-container') && !paintPage.querySelector('.canvas-container').hasAttribute('data-initialized')) {
+        // 标记为已初始化
+        paintPage.querySelector('.canvas-container').setAttribute('data-initialized', 'true');
+        
+        // 初始化色绘设计系统
+        if (typeof initializePaintSystem === 'function') {
+            console.log('正在初始化色绘设计系统...');
+            try {
+                initializePaintSystem();
+            } catch (error) {
+                console.error('色绘设计系统初始化失败:', error);
+            }
+        } else {
+            console.warn('initializePaintSystem 函数未找到，等待脚本加载');
+            // 如果函数还没加载，等待一下
+            setTimeout(() => {
+                if (typeof initializePaintSystem === 'function') {
+                    initializePaintSystem();
+                }
+            }, 500);
+        }
+    }
+}
+
+// 移除 loadScript 函数，因为不再需要动态加载
+function loadScript(src) {
+    console.log(`脚本 ${src} 已预加载`);
+    return Promise.resolve();
+}
+    
+    // ==================== 工具函数 ====================
+    function checkForColorDesignPrompt() {
+        const colorDesignPrompt = sessionStorage.getItem('colorDesignPrompt');
+        if (colorDesignPrompt) {
+            console.log('检测到来自色绘设计的提示词:', colorDesignPrompt);
+            
+            // 延迟执行确保DOM已加载
+            setTimeout(() => {
+                const activePanel = document.querySelector('.panel.active');
+                if (activePanel) {
+                    const panelId = activePanel.id;
+                    const section = panelId.split('-')[0];
+                    const descTextarea = document.getElementById(`${section}-desc`);
+                    
+                    if (descTextarea) {
+                        descTextarea.value = colorDesignPrompt;
+                        showNotification('已从色绘设计导入提示词', 'success');
+                    }
+                }
+                
+                // 清除存储
+                sessionStorage.removeItem('colorDesignPrompt');
+            }, 1000);
+        }
+    }
+    
+    function showNotification(message, type = 'success') {
+        // 检查是否已存在通知容器
+        let notification = document.getElementById('global-notification');
+        
+        if (!notification) {
+            notification = document.createElement('div');
+            notification.id = 'global-notification';
+            notification.style.cssText = `
                 position: fixed;
                 top: 20px;
                 right: 20px;
-                background: ${type==="rorre".split("").reverse().join("")?"\u0023\u0066\u0066\u0034\u0064\u0034\u0066":"a14c25#".split("").reverse().join("")};
+                background: ${type === 'error' ? '#ff4d4f' : '#52c41a'};
                 color: white;
                 padding: 12px 24px;
                 border-radius: 6px;
@@ -18,4 +450,49 @@
                 transition: all 0.3s ease;
                 max-width: 300px;
                 word-break: break-word;
-            `;document['\u0062\u006F\u0064\u0079']['\u0061\u0070\u0070\u0065\u006E\u0064\u0043\u0068\u0069\u006C\u0064'](_0x7ee6f);}_0x7ee6f['\u0074\u0065\u0078\u0074\u0043\u006F\u006E\u0074\u0065\u006E\u0074']=message;_0x7ee6f['\u0073\u0074\u0079\u006C\u0065']['\u0062\u0061\u0063\u006B\u0067\u0072\u006F\u0075\u006E\u0064']=type==="\u0065\u0072\u0072\u006F\u0072"?"f4d4ff#".split("").reverse().join(""):"\u0023\u0035\u0032\u0063\u0034\u0031\u0061";_0x7ee6f['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="kcolb".split("").reverse().join("");_0x7ee6f['\u006F\u0066\u0066\u0073\u0065\u0074\u0048\u0065\u0069\u0067\u0068\u0074'];setTimeout(()=>{_0x7ee6f['\u0073\u0074\u0079\u006C\u0065']['\u006F\u0070\u0061\u0063\u0069\u0074\u0079']="\u0031";_0x7ee6f['\u0073\u0074\u0079\u006C\u0065']['\u0074\u0072\u0061\u006E\u0073\u0066\u006F\u0072\u006D']=")0(Yetalsnart".split("").reverse().join("");},688437^688447);setTimeout(()=>{_0x7ee6f['\u0073\u0074\u0079\u006C\u0065']['\u006F\u0070\u0061\u0063\u0069\u0074\u0079']="\u0030";_0x7ee6f['\u0073\u0074\u0079\u006C\u0065']['\u0074\u0072\u0061\u006E\u0073\u0066\u006F\u0072\u006D']="\u0074\u0072\u0061\u006E\u0073\u006C\u0061\u0074\u0065\u0059\u0028\u002D\u0032\u0030\u0070\u0078\u0029";setTimeout(()=>{_0x7ee6f['\u0073\u0074\u0079\u006C\u0065']['\u0064\u0069\u0073\u0070\u006C\u0061\u0079']="\u006E\u006F\u006E\u0065";},947180^946880);},726193^728841);}function _0xg14ab(){window['\u0073\u0068\u006F\u0077\u004E\u006F\u0074\u0069\u0066\u0069\u0063\u0061\u0074\u0069\u006F\u006E']=_0x11g;window['\u006C\u006F\u0067\u006F\u0075\u0074']=_0x113a;window['\u006C\u006F\u0061\u0064\u0050\u0072\u006F\u006D\u0070\u0074\u0050\u0061\u0067\u0065']=_0x42b7a;window['\u006C\u006F\u0061\u0064\u0050\u0061\u0069\u006E\u0074\u0050\u0061\u0067\u0065']=_0x06d;window['\u0069\u006E\u0069\u0074\u0050\u0061\u0067\u0065\u0073']=_0xc415b;window['\u0073\u0068\u006F\u0077\u004D\u0061\u0069\u006E\u0041\u0070\u0070']=_0xa319ab;window['\u0068\u0061\u006E\u0064\u006C\u0065\u004C\u006F\u0067\u0069\u006E']=_0xef6b8e;window['\u0069\u006E\u0069\u0074\u004C\u006F\u0067\u0069\u006E']=_0x271b4c;}if(document['\u0072\u0065\u0061\u0064\u0079\u0053\u0074\u0061\u0074\u0065']==="\u006C\u006F\u0061\u0064\u0069\u006E\u0067"){document['\u0061\u0064\u0064\u0045\u0076\u0065\u006E\u0074\u004C\u0069\u0073\u0074\u0065\u006E\u0065\u0072']("dedaoLtnetnoCMOD".split("").reverse().join(""),_0xg14ab);}else{_0xg14ab();}})();
+            `;
+            document.body.appendChild(notification);
+        }
+        
+        notification.textContent = message;
+        notification.style.background = type === 'error' ? '#ff4d4f' : '#52c41a';
+        notification.style.display = 'block';
+        
+        // 触发重绘
+        notification.offsetHeight;
+        
+        // 显示动画
+        setTimeout(() => {
+            notification.style.opacity = '1';
+            notification.style.transform = 'translateY(0)';
+        }, 10);
+        
+        // 3秒后隐藏
+        setTimeout(() => {
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateY(-20px)';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 300);
+        }, 3000);
+    }
+    
+    // ==================== 全局函数导出 ====================
+    function exportFunctionsToGlobal() {
+        window.showNotification = showNotification;
+        window.logout = logout;
+        window.loadPromptPage = loadPromptPage;
+        window.loadPaintPage = loadPaintPage;
+        window.initPages = initPages;
+        window.showMainApp = showMainApp;
+        window.handleLogin = handleLogin;
+        window.initLogin = initLogin;
+    }
+    
+    // 立即执行初始化
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', exportFunctionsToGlobal);
+    } else {
+        exportFunctionsToGlobal();
+    }
+})();
