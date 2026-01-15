@@ -1051,7 +1051,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     gap: 8px;
     white-space: nowrap;
     box-shadow: var(--shadow);
-    width: 100%;
+    width: 90px;
     min-height: 36px; /* 与颜色按钮保持相同高度 */
 }
 
@@ -1063,6 +1063,16 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
 .upload-image-btn:active {
     transform: translateY(0);
 }
+
+/* 旋转导入按钮 */
+.rotate-import-btn {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad) !important;
+}
+
+.rotate-import-btn:hover {
+    background: linear-gradient(135deg, #8e44ad, #732d91) !important;
+}
+
 /* 在 style.css 中添加或修改以下样式 */
 .canvas-container {
     display: flex !important;
@@ -1111,7 +1121,7 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
 .color-toolbar-row1 {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
     width: 100%;
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -1136,45 +1146,46 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
 
 /* 颜色输入框 */
 .color-input-large {
-    flex: 1;
-    min-width: 100px;
-    padding: 10px 12px !important;
+    flex: 0 0 80px; /* 固定宽度 */
+    padding: 8px 10px !important;
     border: 2px solid var(--border-color) !important;
     border-radius: var(--radius) !important;
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
     background: var(--bg-primary) !important;
     color: var(--text-primary) !important;
     transition: all 0.3s;
+    height: 36px;
 }
 
 /* 随机颜色按钮 */
 .color-random-btn {
-    background: linear-gradient(135deg, #6610f2, #5a0bd9, #ec4899) !important;
+    background: linear-gradient(135deg, #6610f2, #5a0bd9) !important;
     color: white !important;
     border: none !important;
-    padding: 10px 16px !important;
+    padding: 8px 12px !important;
     border-radius: var(--radius) !important;
-    font-weight: 50;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 4px;
     white-space: nowrap;
     flex-shrink: 0;
     box-shadow: var(--shadow);
-    height: 36px; /* 固定高度与生成提示词按钮同步 */
+    height: 36px;
+    font-size: 0.85rem;
 }
 
-/* 生成提示词按钮 - 优化后 */
+/* 生成提示词按钮 - 加大 */
 .generate-prompt-btn {
-    background: linear-gradient(135deg, var(--success), #0ca678, #066446) !important;
+    background: linear-gradient(135deg, var(--success), #0ca678) !important;
     color: white !important;
     border: none !important;
-    padding: 10px 16px !important; /* 与随机颜色按钮保持相同padding */
+    padding: 8px 16px !important;
     border-radius: var(--radius) !important;
-    font-weight: 50;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -1184,9 +1195,11 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
     white-space: nowrap;
     flex-shrink: 0;
     box-shadow: var(--shadow);
-    height: 36px; /* 固定高度与随机颜色按钮同步 */
+    height: 36px;
+    flex: 1; /* 占据剩余空间 */
+    min-width: 120px;
+    font-size: 0.9rem;
 }
-
 /* 颜色列表 */
 #colorList {
     display: flex;
@@ -1284,18 +1297,18 @@ input[type="range"]#brushSize::-webkit-slider-thumb:hover {
 }
 
 .bottom-btn {
-    flex: 1; /* 平均分配宽度 */
-    min-width: 100px; /* 设置最小宽度 */
-    padding: 14px 12px !important;
+    flex: 0 0 auto; /* 不自动伸缩 */
+    min-width: 90px; /* 缩小最小宽度 */
+    padding: 10px 12px !important;
     border-radius: var(--radius) !important;
-    font-size: 0.95rem !important;
-    font-weight: 50;
+    font-size: 0.85rem !important;
+    font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 6px;
     border: none !important;
     box-shadow: var(--shadow);
     white-space: nowrap;

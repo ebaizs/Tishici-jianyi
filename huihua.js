@@ -6,21 +6,13 @@
     let lastTouchY = 0;
     let isTouchMoving = false;
     let resizeTimeout = null; // 添加这行
+    let rotateImportTimeout = null;
 // huihua.js - 色绘设计系统
 (function() {
     'use strict';
     
     // 确保函数在全局作用域可用
     window.initializePaintSystem = initializePaintSystem;
-    
-    // 应用状态管理
-    let state = null;
-    let canvas = null;
-    let ctx = null;
-    let isSystemInitialized = false;
-    let lastTouchY = 0;
-    let isTouchMoving = false;
-    
     function initializePaintSystem() {
         console.log('初始化色绘设计系统');
         
@@ -531,7 +523,27 @@ function undo() {
         }
         return color;
     }
- function handleImageUpload(e) {
+    function handleImageUpload(e) {
+        const file = e.target.files[0];
+        if (!file || !canvas || !ctx) return;
+        
+        if (!file.type.match('image.*')) {
+            showToast('请选择图片文件');
+            return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const img = new Image();
+            img.onload = function() {
+                loadImageToCanvas(img);
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+// 旋转导入图片
+function handleRotateImageUpload(e) {
     const file = e.target.files[0];
     if (!file || !canvas || !ctx) return;
     
@@ -544,47 +556,78 @@ function undo() {
     reader.onload = function(event) {
         const img = new Image();
         img.onload = function() {
-            // 计算图片宽高比
-            const imgRatio = img.width / img.height;
-            const container = canvas.parentElement;
-            const maxWidth = container ? container.clientWidth - 4 : 800;
-            
-            // 固定高度为300px，根据比例计算宽度
-            let newWidth = 300 * imgRatio; // 高度300px，根据比例计算宽度
-            let newHeight = 300;
-            
-            // 如果计算出的宽度超过最大宽度，重新计算
-            if (newWidth > maxWidth) {
-                newWidth = maxWidth;
-                newHeight = maxWidth / imgRatio;
-            }
-            
-            // 设置画布新尺寸
-            canvas.width = Math.floor(newWidth);
-            canvas.height = Math.floor(newHeight);
-            
-            // 清除画布并绘制图片
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            
-            // 保存图片信息和状态
-            state.backgroundImage = img;
-            state.imageScale = newWidth / img.width; // 这里使用 newWidth / img.width
-            state.originalImageSize = {
-                width: img.width,
-                height: img.height
-            };
-            state.isImageFixed = true;
-            
-            // 更新缩放信息和保存状态
-            updateCanvasScaling();
-            saveDrawingState();
-            
-            showToast('图片上传成功，已自动调整尺寸');
+            // 创建旋转后的图片
+            rotateAndLoadImage(img);
         };
         img.src = event.target.result;
     };
     reader.readAsDataURL(file);
+}
+
+// 旋转并加载图片
+function rotateAndLoadImage(img) {
+    // 创建临时画布进行旋转
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    
+    // 交换宽高以旋转90度
+    tempCanvas.width = img.height;
+    tempCanvas.height = img.width;
+    
+    // 旋转90度
+    tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+    tempCtx.rotate(Math.PI / 2);
+    
+    // 绘制图像
+    tempCtx.drawImage(img, -img.width / 2, -img.height / 2);
+    
+    // 创建旋转后的图片
+    const rotatedImg = new Image();
+    rotatedImg.onload = function() {
+        // 使用旋转后的图片
+        loadImageToCanvas(rotatedImg);
+    };
+    rotatedImg.src = tempCanvas.toDataURL('image/png');
+}
+
+// 加载图片到画布（共用函数）
+function loadImageToCanvas(img) {
+    const imgRatio = img.width / img.height;
+    const container = canvas.parentElement;
+    const maxWidth = container ? container.clientWidth - 4 : 800;
+    
+    // 固定高度为600px，根据比例计算宽度
+    let newWidth = 600* imgRatio;
+    let newHeight = 600;
+    
+    // 如果计算出的宽度超过最大宽度，重新计算
+    if (newWidth > maxWidth) {
+        newWidth = maxWidth;
+        newHeight = maxWidth / imgRatio;
+    }
+    
+    // 设置画布新尺寸
+    canvas.width = Math.floor(newWidth);
+    canvas.height = Math.floor(newHeight);
+    
+    // 清除画布并绘制图片
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    
+    // 保存图片信息和状态
+    state.backgroundImage = img;
+    state.imageScale = newWidth / img.width;
+    state.originalImageSize = {
+        width: img.width,
+        height: img.height
+    };
+    state.isImageFixed = true;
+    
+    // 更新缩放信息和保存状态
+    updateCanvasScaling();
+    saveDrawingState();
+    
+    showToast('图片已旋转90度并导入，图片已固定为背景');
 }
 // 在 getCanvasCoordinates 函数上方添加
 function updateCanvasScaling() {
@@ -986,6 +1029,23 @@ if (redoTool) redoTool.addEventListener('click', redo);
             imageUpload.addEventListener('change', handleImageUpload);
         }
         
+        // 旋转导入按钮
+            const rotateImportBtn = document.getElementById('rotateImportBtn');
+            const rotateImageUpload = document.createElement('input');
+            rotateImageUpload.type = 'file';
+            rotateImageUpload.accept = 'image/*';
+            rotateImageUpload.style.display = 'none';
+            document.body.appendChild(rotateImageUpload);
+
+            if (rotateImportBtn) {
+                rotateImportBtn.addEventListener('click', () => {
+                    rotateImageUpload.click();
+                });
+            }
+
+            if (rotateImageUpload) {
+                rotateImageUpload.addEventListener('change', handleRotateImageUpload);
+            }
         // 提示词相关
         const generatePromptBtn = document.getElementById('generatePromptBtn');
         const copyPromptBtn = document.getElementById('copyPromptBtn');

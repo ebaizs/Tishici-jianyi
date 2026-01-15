@@ -536,13 +536,16 @@
                    <!-- 上传和画笔工具栏 -->
 <div class="bg-card rounded-lg shadow-md p-4 mb-4"> <!-- 改为 mb-4 更紧凑 -->
     <div class="flex-nowrap-container">
-        <!-- 上传图片按钮 -->
-         <!-- 在"上传图片"按钮后面添加隐藏的文件输入 -->
+      <!-- 上传图片按钮 -->
 <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-        <button id="uploadBtn" class="upload-image-btn" data-testid="upload-btn">
-            <i class="fas fa-cloud-upload-alt"></i>
-            <span>上传图片</span>
-        </button>
+<button id="uploadBtn" class="upload-image-btn" data-testid="upload-btn">
+    <i class="fas fa-cloud-upload-alt"></i>
+    <span>上传图片</span>
+</button>
+<button id="rotateImportBtn" class="upload-image-btn rotate-import-btn" data-testid="rotate-import-btn">
+    <i class="fas fa-redo-alt"></i>
+    <span>旋转导入</span>
+</button>
         
         <!-- 画笔预览 -->
         <div class="brush-preview-large">
