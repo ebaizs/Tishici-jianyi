@@ -30,7 +30,7 @@
             <div id="login-error" class="login-error"></div>
             
             <div style="margin-top: 20px; font-size: 12px; color: #999;">
-                <p>技术支持：泰安立诺装饰 · 15662061321</p>
+                <p>技术支持：泰安立诺装饰 · 13515383180</p>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@
         <div class="main-header">
             <div class="header-left">
                 <h1><i class="fas fa-paint-brush"></i> AI绘画工具</h1>
-                <p>技术支持：泰安立诺装饰 · 15662061321</p>
+                <p>山东睿岩网络 · 技术支持13515383180</p>
             </div>
             
             <div class="header-right">
@@ -76,13 +76,9 @@
                         <i class="fas fa-building"></i>
                         <span>公装设计</span>
                     </div>
-                    <div class="tab architecture" data-panel="architecture">
-                        <i class="fas fa-city"></i>
-                        <span>建筑设计</span>
-                    </div>
                     <div class="tab landscape" data-panel="landscape">
                         <i class="fas fa-tree"></i>
-                        <span>景观设计</span>
+                        <span>建筑景观</span>
                     </div>
                     <div class="tab art" data-panel="art">
                         <i class="fas fa-palette"></i>
@@ -264,91 +260,6 @@
                         </div>
                     </div>
                     
-<!-- 建筑设计面板 -->
-<div class="panel architecture-panel" id="architecture-panel">
-    <div class="form-row">
-        <div class="form-group">
-            <label for="architecture-scene"><i class="fas fa-camera"></i> 功能类型</label>
-            <select id="architecture-scene">
-                <option value="">请选择功能</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="architecture-style"><i class="fas fa-palette"></i> 设计风格</label>
-            <select id="architecture-style">
-                <option value="">请选择风格</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="architecture-space"><i class="fas fa-building"></i> 建筑类型</label>
-            <select id="architecture-space">
-                <option value="">请选择建筑类型</option>
-            </select>
-        </div>
-    </div>
-    
-    <div class="form-section">
-        <div class="section-title">
-            <i class="fas fa-building"></i> 建筑元素（可多选）
-        </div>
-        <div class="dynamic-checkboxes" id="architecture-furniture">
-            <span class="placeholder">请先选择风格和建筑类型</span>
-        </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group">
-            <label for="architecture-perspective"><i class="fas fa-eye"></i> 观察视角</label>
-            <select id="architecture-perspective">
-                <option value="">请选择视角</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-            <label for="architecture-lighting"><i class="fas fa-lightbulb"></i> 灯光类型</label>
-            <select id="architecture-lighting">
-                <option value="">请选择灯光</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="architecture-lens"><i class="fas fa-video"></i> 画风类型</label>
-            <select id="architecture-lens">
-                <option value="">请选择画风</option>
-            </select>
-        </div>
-    </div>
-    
-    <div class="form-section">
-        <div class="section-title">
-            <i class="fas fa-star"></i> 设计修饰词（可多选）
-        </div>
-        <div class="dynamic-checkboxes" id="architecture-modifiers">
-            <span class="placeholder">请先选择风格和建筑类型</span>
-        </div>
-    </div>
-    
-    <div class="form-section">
-        <div class="section-title">
-            <i class="fas fa-edit"></i> 附加描述
-        </div>
-        <div class="form-group">
-            <textarea id="architecture-desc" rows="3" placeholder="请输入附加描述，例如：现代感强烈、标志性建筑、城市地标等..."></textarea>
-        </div>
-    </div>
-    
-    <div class="form-section">
-        <div class="section-title">
-            <i class="fas fa-exchange-alt"></i> 转换要求
-        </div>
-        <div class="special-checkboxes" id="architecture-special">
-            <!-- 动态生成选项 -->
-        </div>
-    </div>
-</div>
-
                     <!-- 景观设计面板 -->
                     <div class="panel landscape-panel" id="landscape-panel">
                         <div class="form-row">
@@ -536,13 +447,12 @@
 <!-- 新的按钮栏（放在结果区域前面） -->
 <div class="action-bar new-action-bar">
     <div class="button-row">
-       
-        <button class="btn save" id="save-btn">
-            <i class="fas fa-save"></i> 保存
-        </button>        
         <button class="btn generate" id="generate-btn">
             <i class="fas fa-magic"></i> 智能生成提示词
         </button>
+        <button class="btn save" id="save-btn">
+            <i class="fas fa-save"></i> 保存
+        </button>        
         <button class="btn copy" id="copy-btn">
             <i class="fas fa-copy"></i> 复制
         </button>
@@ -587,125 +497,142 @@
                 </div>
             </div>
             
-     <!-- 色绘设计页面 -->
-<div id="paint-page" class="page" style="display: none;">
-    <!-- 移除所有外层容器，直接使用 bg-card -->
-    <!-- 工具栏 -->
-    <div class="bg-card toolbar-card">
-        <div class="toolbar-container">
-            <button id="brushTool" class="tool-btn large active rounded-xl" data-testid="brush-tool">
-                <i class="fas fa-paint-brush"></i>
-                <div class="text-xs mt-2">画笔</div>
-            </button>
-            <button id="clearTool" class="tool-btn large clear-btn rounded-xl" data-testid="clear-tool">
-                <i class="fas fa-trash-alt"></i>
-                <div class="text-xs mt-2">清空画布</div>
-            </button>
-            <button id="undoTool" class="tool-btn large undo-btn rounded-xl" data-testid="undo-tool">
-                <i class="fas fa-undo-alt"></i>
-                <div class="text-xs mt-2">撤销</div>
-            </button>
-            <button id="redoTool" class="tool-btn large redo-btn rounded-xl" data-testid="redo-tool">
-                <i class="fas fa-redo-alt"></i>
-                <div class="text-xs mt-2">重做</div>
-            </button>
-            <button id="saveImageBtn" class="tool-btn large save-image-btn rounded-xl" data-testid="save-image-btn">
-                <i class="fas fa-download"></i>
-                <div class="text-xs mt-2">保存图片</div>
-            </button>
-            <button id="rotateSaveBtn" class="tool-btn large rotate-save-btn rounded-xl" data-testid="rotate-save-btn">
-                <i class="fas fa-retweet"></i>
-                <div class="text-xs mt-2">回正导图</div>
-            </button>
+            <!-- 色绘设计页面 -->
+            <div id="paint-page" class="page" style="display: none;">
+                <!-- 这里直接嵌入原huihua.html的内容 -->
+                <div class="content-container">
+                    <div class="paint-content">
+                        <!-- 工具栏 -->
+                        <div class="bg-card rounded-lg shadow-md p-4 mb-6">
+                            <div class="toolbar-container">
+                                <button id="brushTool" class="tool-btn large active rounded-xl" data-testid="brush-tool">
+                                    <i class="fas fa-paint-brush"></i>
+                                    <div class="text-xs mt-2">画笔</div>
+                                </button>
+                              
+                               <button id="clearTool" class="tool-btn large clear-btn rounded-xl" data-testid="clear-tool">
+    <i class="fas fa-trash-alt"></i>
+    <div class="text-xs mt-2">清空画布</div>
+</button>
+<button id="undoTool" class="tool-btn large undo-btn rounded-xl" data-testid="undo-tool">
+    <i class="fas fa-undo-alt"></i>
+    <div class="text-xs mt-2">撤销</div>
+</button>
+<button id="redoTool" class="tool-btn large redo-btn rounded-xl" data-testid="redo-tool">
+    <i class="fas fa-redo-alt"></i>
+    <div class="text-xs mt-2">重做</div>
+</button>
+                                <button id="saveImageBtn" class="tool-btn large save-image-btn rounded-xl" data-testid="save-image-btn">
+                                    <i class="fas fa-download"></i>
+                                    <div class="text-xs mt-2">保存图片</div>
+                                </button>
+                                <button id="rotateSaveBtn" class="tool-btn large rotate-save-btn rounded-xl" data-testid="rotate-save-btn">
+                                    <i class="fas fa-retweet"></i>
+                                    <div class="text-xs mt-2">回正导图</div>
+                                </button>
+                            </div>
+                        </div>
+
+                   <!-- 上传和画笔工具栏 -->
+<div class="bg-card rounded-lg shadow-md p-4 mb-4"> <!-- 改为 mb-4 更紧凑 -->
+    <div class="flex-nowrap-container">
+        <!-- 上传图片按钮 -->
+         <!-- 在"上传图片"按钮后面添加隐藏的文件输入 -->
+<input type="file" id="imageUpload" accept="image/*" style="display: none;">
+        <button id="uploadBtn" class="upload-image-btn" data-testid="upload-btn">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>上传图片</span>
+        </button>
+        
+        <!-- 画笔预览 -->
+        <div class="brush-preview-large">
+            <div id="brushPreviewBox" style="width: 30px; height: 30px; background: #000000;"></div>
+        </div>
+        
+        <!-- 画笔大小调整 -->
+        <div class="brush-adjust-area">
+            <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-label">画笔大小:</span>
+                <span id="brushSizeValue" class="text-sm font-bold">14px</span>
+            </div>
+            <input type="range" id="brushSize" min="5" max="50" value="20" class="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer" data-testid="brush-size">
         </div>
     </div>
+</div>
 
-    <!-- 上传和画笔控制 -->
-    <div class="bg-card upload-toolbar-card">
-        <div class="upload-toolbar-content">
-            <!-- 上传按钮 -->
-            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
-            <button id="uploadBtn" class="upload-image-btn" data-testid="upload-btn">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <span>上传图片</span>
-            </button>
-            <button id="rotateImportBtn" class="upload-image-btn rotate-import-btn" data-testid="rotate-import-btn">
-                <i class="fas fa-redo-alt"></i>
-                <span>竖图上传</span>
-            </button>
-            
-            <!-- 画笔预览 -->
-            <div class="brush-preview-large">
-                <div id="brushPreviewBox"></div>
-            </div>
-            
-            <!-- 画笔大小调整 -->
-            <div class="brush-adjust-area">
-                <div class="brush-size-info">
-                    <span class="text-xs text-label">画笔大小:</span>
-                    <span id="brushSizeValue" class="brush-size-value">20px</span>
+<!-- 画布容器 -->
+<div class="bg-card rounded-lg shadow-md p-4 mb-4"> <!-- 改为 mb-4 更紧凑 -->
+    <div class="canvas-container">
+        <canvas id="drawingCanvas" width="800" height="300"></canvas>
+    </div>
+</div>
+<!-- 颜色工具栏 -->
+<div class="bg-card rounded-lg shadow-md p-4 mb-6">
+    <div class="color-toolbar">
+        <!-- 第一行：颜色预览、输入框、随机颜色按钮 -->
+     <div class="color-toolbar-row1">
+    <!-- 颜色预览 -->
+    <div id="currentColorPreview" class="color-preview-large" style="background: rgb(0, 0, 0);"></div>
+    
+    <!-- 颜色名输入框（固定14字符宽度） -->
+    <input type="text" id="colorNameInput" placeholder="颜色名" 
+           class="color-input-large border border-custom text-sm" data-testid="color-name-input"
+           style="width: 10px; flex-shrink: 0;">
+    
+    <!-- 随机颜色按钮 -->
+    <button id="randomColorBtn" class="color-random-btn random-color-btn text-white flex items-center justify-center gap-2">
+        <i class="fas fa-random btn-icon text-sm"></i>
+        <span>随机颜色添加</span>
+    </button>
+    
+    <!-- 智能生成提示词按钮（加大） -->
+    <button id="generatePromptBtn" class="generate-prompt-btn text-white py-2 rounded-lg font-medium text-sm flex items-center justify-center gap-2" style="flex: 1;">
+        <i class="fas fa-magic"></i>
+        <span>智能生成提示词</span>
+    </button>
+</div>
+    </div>
+    
+    <!-- 颜色列表 -->
+    <div id="colorList" class="flex flex-wrap gap-3 mt-4">
+        <!-- 动态添加的颜色项 -->
+    </div>
+</div>
+
+                        <!-- 提示词操作按钮 -->
+                        <div class="bg-card rounded-lg shadow-md p-4 mb-6">
+                            <div id="promptTextarea" class="prompt-textarea mb-4" placeholder="生成的提示词将显示在这里...点击下方按钮操作" data-testid="prompt-textarea"></div>
+                            
+                            <div class="bottom-buttons-row">
+                                <button id="copyPromptBtn" class="copy-prompt-btn bottom-btn text-white flex items-center justify-center" data-testid="copy-prompt-btn">
+                                    <i class="fas fa-copy"></i>
+                                    <span>复制提示词</span>
+                                </button>
+                                
+                                <button id="savePromptBtn" class="save-record-btn bottom-btn text-white flex items-center justify-center" data-testid="save-prompt-btn">
+                                    <i class="fas fa-save"></i>
+                                    <span>保存记录</span>
+                                </button>
+                                
+                                <button id="optimizeBtn" class="optimize-to-ai-btn bottom-btn text-white flex items-center justify-center" data-testid="optimize-btn">
+                                    <i class="fas fa-robot"></i>
+                                    <span>优化提示词></span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 保存的提示词记录 -->
+                        <div class="bg-card rounded-lg shadow-md p-4">
+                            <h3 class="text-sm font-medium text-label mb-3">提示词记录</h3>
+                            <div id="savedPromptsList" class="saved-prompts">
+                                <!-- 动态添加的保存记录 -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <input type="range" id="brushSize" min="5" max="50" value="20" class="brush-size-slider">
             </div>
         </div>
     </div>
-
-   <!-- 画布区域 -->
-<div class="bg-card canvas-card">
-    <div class="canvas-container" id="canvasContainer">
-        <canvas id="drawingCanvas" width="1024" height="300"></canvas>
-    </div>
-</div>
-
-    <!-- 颜色工具栏 -->
-    <div class="bg-card color-toolbar-card">
-        <!-- 颜色输入和生成按钮 -->
-        <div class="color-input-row">
-            <div id="currentColorPreview" class="color-preview-large"></div>
-            <input type="text" id="colorNameInput" placeholder="颜色名" class="color-name-input">
-            <button id="randomColorBtn" class="random-color-btn">
-                <i class="fas fa-random"></i>
-                <span>随机颜色</span>
-            </button>
-            <button id="generatePromptBtn" class="generate-prompt-btn">
-                <i class="fas fa-magic"></i>
-                <span>生成提示词</span>
-            </button>
-        </div>
-        
-        <!-- 颜色列表 -->
-        <div id="colorList" class="color-list"></div>
-    </div>
-
-    <!-- 提示词区域 -->
-    <div class="bg-card prompt-card">
-        <div id="promptTextarea" class="prompt-textarea" placeholder="生成的提示词将显示在这里..."></div>
-        
-        <div class="prompt-action-buttons">
-            <button id="copyPromptBtn" class="copy-prompt-btn">
-                <i class="fas fa-copy"></i>
-                <span>复制</span>
-            </button>
-            <button id="savePromptBtn" class="save-record-btn">
-                <i class="fas fa-save"></i>
-                <span>保存记录</span>
-            </button>
-            <button id="optimizeBtn" class="optimize-to-ai-btn">
-                <i class="fas fa-robot"></i>
-                <span>优化提示词</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- 保存的记录 -->
-    <div class="bg-card history-card">
-        <h3 class="history-title">提示词记录</h3>
-        <div id="savedPromptsList" class="saved-prompts-list">
-            <!-- 动态添加的保存记录 -->
-        </div>
-    </div>
-</div>
-
     
     <!-- 脚本加载顺序 -->
     <script src="ku.js"></script>

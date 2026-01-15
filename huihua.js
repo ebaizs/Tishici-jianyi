@@ -1,4 +1,12 @@
-  
+    // 应用状态管理
+    let state = null;
+    let canvas = null;
+    let ctx = null;
+    let isSystemInitialized = false;
+    let lastTouchY = 0;
+    let isTouchMoving = false;
+    let resizeTimeout = null; // 添加这行
+// huihua.js - 色绘设计系统
 (function() {
     'use strict';
     
@@ -12,8 +20,7 @@
     let isSystemInitialized = false;
     let lastTouchY = 0;
     let isTouchMoving = false;
-    let resizeTimeout = null; // 保留这行
-
+    
     function initializePaintSystem() {
         console.log('初始化色绘设计系统');
         
@@ -92,7 +99,52 @@ if (container) {
         }
     }
     
-
+    // 初始化画布
+  function initCanvas() {
+    if (!canvas) return;
+    
+    const container = canvas.parentElement;
+    if (!container) return;
+    
+    // 设置初始尺寸
+    const maxWidth = container.clientWidth - 4;
+    const initialHeight = 300; // 初始高度300px
+    
+    // 如果有背景图片，根据图片比例调整高度
+    if (state.backgroundImage) {
+        const img = state.backgroundImage;
+        const ratio = img.width / img.height;
+        let displayHeight = initialHeight;
+        let displayWidth = displayHeight * ratio;
+        
+        // 如果计算出的宽度大于最大宽度，重新计算
+        if (displayWidth > maxWidth) {
+            displayWidth = maxWidth;
+            displayHeight = displayWidth / ratio;
+        }
+        
+        canvas.width = displayWidth;
+        canvas.height = displayHeight;
+    } else {
+        canvas.width = maxWidth;
+        canvas.height = initialHeight;
+    }
+    
+    // 设置画布内容
+    if (ctx) {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // 如果有背景图片，绘制它
+        if (state.backgroundImage) {
+            const img = state.backgroundImage;
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+    }
+    
+    updateCanvasScaling();
+}
+    
     // 初始化颜色
     function initColors() {
         updateColorList();
@@ -110,12 +162,14 @@ if (container) {
             const colorElement = document.createElement('div');
             colorElement.className = `color-item ${colorObj.color === state.currentColor ? 'active' : ''}`;
             
-          colorElement.innerHTML = `
-    <div class="color-preview" style="background: ${colorObj.color};">
-        ${colorObj.name === '清除' ? '<i class="fas fa-times text-white text-xs"></i>' : ''}
-    </div>
-    <span class="text-xs whitespace-nowrap" style="${colorObj.name === '清除' ? 'color: #ff9500' : ''}">${colorObj.name}</span>
-`;
+            colorElement.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <div class="color-preview" style="background: ${colorObj.color};">
+                        ${colorObj.name === '清除' ? '<i class="fas fa-times text-white text-xs"></i>' : ''}
+                    </div>
+                    <span class="text-xs whitespace-nowrap" style="${colorObj.name === '清除' ? 'color: #ff9500' : ''}">${colorObj.name}</span>
+                </div>
+            `;
             
             colorElement.addEventListener('click', () => {
                 state.currentColor = colorObj.color;
@@ -299,47 +353,48 @@ function saveDrawingState() {
         ctx.globalCompositeOperation = 'source-over';
     }
     
-// 获取画布坐标
-function getCanvasCoordinates(e) {
-    if (!canvas) return { x: 0, y: 0 };
-    
-    const rect = canvas.getBoundingClientRect();
-    let clientX, clientY;
-    
-    if (e.type.includes('touch')) {
-        // 找到正确的触摸点
-        if (state.touchIdentifier !== null) {
-            for (let i = 0; i < e.touches.length; i++) {
-                if (e.touches[i].identifier === state.touchIdentifier) {
-                    clientX = e.touches[i].clientX;
-                    clientY = e.touches[i].clientY;
-                    break;
+    // 获取画布坐标
+    function getCanvasCoordinates(e) {
+        if (!canvas) return { x: 0, y: 0 };
+        
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        
+        let clientX, clientY;
+        
+        if (e.type.includes('touch')) {
+            // 找到正确的触摸点
+            if (state.touchIdentifier !== null) {
+                for (let i = 0; i < e.touches.length; i++) {
+                    if (e.touches[i].identifier === state.touchIdentifier) {
+                        clientX = e.touches[i].clientX;
+                        clientY = e.touches[i].clientY;
+                        break;
+                    }
                 }
             }
+            // 如果没找到指定的触摸点，使用第一个
+            if (clientX === undefined && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            }
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
         }
-        if (clientX === undefined && e.touches.length > 0) {
-            clientX = e.touches[0].clientX;
-            clientY = e.touches[0].clientY;
+        
+        // 确保坐标有效
+        if (clientX === undefined || clientY === undefined) {
+            return { x: state.lastX, y: state.lastY };
         }
-    } else {
-        clientX = e.clientX;
-        clientY = e.clientY;
+        
+        const x = (clientX - rect.left) * scaleX;
+        const y = (clientY - rect.top) * scaleY;
+        
+        return { x, y };
     }
     
-    // 确保坐标有效
-    if (clientX === undefined || clientY === undefined) {
-        return { x: state.lastX, y: state.lastY };
-    }
-    
-    // 计算坐标（不使用 canvasScale，直接计算）
-    const x = ((clientX - rect.left) / rect.width) * canvas.width;
-    const y = ((clientY - rect.top) / rect.height) * canvas.height;
-    
-    return { 
-        x: Math.max(0, Math.min(x, canvas.width)),
-        y: Math.max(0, Math.min(y, canvas.height))
-    };
-}
   // 清空画布
 function clearCanvas() {
     if (!canvas || !ctx) return;
@@ -372,360 +427,48 @@ function clearCanvas() {
     }
 }
     
-// 初始化画布
-function initCanvas() {
-    if (!canvas) return;
     
-    const container = canvas.parentElement;
-    if (!container) return;
-    
-    // 获取容器尺寸
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
-    
-    // 设置画布尺寸（保持比例，最大宽度为容器宽度）
-    const maxWidth = containerWidth - 8; // 减去边框和padding
-    const aspectRatio = 4/3; // 默认宽高比
-    
-    let canvasWidth = maxWidth;
-    let canvasHeight = canvasWidth / aspectRatio;
-    
-    // 如果有背景图片，使用图片比例
-    if (state.backgroundImage) {
-        const img = state.backgroundImage;
-        const imgAspectRatio = img.width / img.height;
-        canvasHeight = canvasWidth / imgAspectRatio;
-    }
-    
-    // 设置画布像素尺寸
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-    
-    // 设置CSS尺寸（用于显示）
-    canvas.style.width = canvasWidth + 'px';
-    canvas.style.height = canvasHeight + 'px';
-    
-    // 设置画布内容
-    if (ctx) {
-        ctx.fillStyle = 'white';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // 如果有背景图片，绘制它
-        if (state.backgroundImage) {
-            const img = state.backgroundImage;
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        }
-    }
-    
-    // 居中画布
-    canvas.style.margin = '0 auto';
-    canvas.style.display = 'block';
-}
-
-// 2. 添加图片处理函数 - 调整图片长边为1024
-function resizeImageToMax1024(img) {
-    return new Promise((resolve) => {
-        const maxDimension = 1024;
-        let width = img.width;
-        let height = img.height;
-        
-        // 如果长边大于1024，按比例缩放
-        if (width > maxDimension || height > maxDimension) {
-            const ratio = Math.min(maxDimension / width, maxDimension / height);
-            width = Math.floor(width * ratio);
-            height = Math.floor(height * ratio);
-        }
-        
-        // 创建临时画布进行缩放
-        const tempCanvas = document.createElement('canvas');
-        const tempCtx = tempCanvas.getContext('2d');
-        tempCanvas.width = width;
-        tempCanvas.height = height;
-        
-        // 绘制缩放后的图片
-        tempCtx.drawImage(img, 0, 0, width, height);
-        
-        // 创建新图片对象
-        const resizedImg = new Image();
-        resizedImg.onload = () => resolve(resizedImg);
-        resizedImg.src = tempCanvas.toDataURL('image/png');
-    });
-}
-
-function handleImageUpload(e) {
-    const file = e.target.files[0];
-    if (!file || !canvas || !ctx) return;
-    
-    if (!file.type.match('image.*')) {
-        showToast('请选择图片文件');
-        return;
-    }
-    
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const img = new Image();
-        img.onload = function() {
-            const container = canvas.parentElement;
-            const maxWidth = container ? container.clientWidth - 8 : 800;
-            
-            // 计算新的画布尺寸（保持图片比例）
-            let newWidth = img.width;
-            let newHeight = img.height;
-            
-            // 如果图片宽度超过最大宽度，按比例缩放
-            if (newWidth > maxWidth) {
-                const scale = maxWidth / newWidth;
-                newWidth = maxWidth;
-                newHeight = Math.floor(newHeight * scale);
-            }
-            
-            // 设置画布新尺寸
-            canvas.width = newWidth;
-            canvas.height = newHeight;
-            
-            // 设置CSS尺寸
-            canvas.style.width = newWidth + 'px';
-            canvas.style.height = newHeight + 'px';
-            
-            // 清除画布并绘制图片
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            
-            // 保存图片信息和状态
-            state.backgroundImage = img;
-            state.originalImageSize = {
-                width: img.width,
-                height: img.height
-            };
-            state.imageScale = newWidth / img.width;
-            state.isImageFixed = true;
-            
-            // 清空历史记录
-            state.drawingHistory = [];
-            state.undoStack = [];
-            state.redoStack = [];
-            
-            // 保存当前状态
-            saveDrawingState();
-            
-            showToast('图片上传成功');
-        };
-        img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-}
-
-// 4. 修改竖屏图片上传函数
-function handleRotateImageUpload(e) {
-    const file = e.target.files[0];
-    if (!file || !canvas || !ctx) return;
-    
-    if (!file.type.match('image.*')) {
-        showToast('请选择图片文件');
-        return;
-    }
-    
-    const reader = new FileReader();
-    reader.onload = async function(event) {
-        const img = new Image();
-        img.onload = async function() {
-            // 先旋转90度
-            const rotatedImg = await rotateImage90(img);
-            // 再处理图片尺寸
-            const resizedImg = await resizeImageToMax1024(rotatedImg);
-            loadImageToCanvas(resizedImg);
-        };
-        img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
-}
-
-// 5. 添加图片旋转90度函数
-function rotateImage90(img) {
-    return new Promise((resolve) => {
-        // 创建临时画布进行旋转
-        const tempCanvas = document.createElement('canvas');
-        const tempCtx = tempCanvas.getContext('2d');
-        
-        // 交换宽高以旋转90度
-        tempCanvas.width = img.height;
-        tempCanvas.height = img.width;
-        
-        // 旋转90度
-        tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
-        tempCtx.rotate(Math.PI / 2);
-        
-        // 绘制图像
-        tempCtx.drawImage(img, -img.width / 2, -img.height / 2);
-        
-        // 创建旋转后的图片
-        const rotatedImg = new Image();
-        rotatedImg.onload = () => resolve(rotatedImg);
-        rotatedImg.src = tempCanvas.toDataURL('image/png');
-    });
-}
-
-// 6. 修改 loadImageToCanvas 函数
-function loadImageToCanvas(img) {
-    if (!canvas || !ctx) return;
-    
-    // 设置画布尺寸等于图片尺寸（保持比例）
-    canvas.width = img.width;
-    canvas.height = img.height;
-    
-    // 更新容器高度以适应图片
-    const container = canvas.parentElement;
-    if (container) {
-        container.style.height = `${canvas.height}px`;
-    }
-    
-    // 清除画布并绘制图片（完整显示，不变形）
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-    
-    // 保存图片信息和状态
-    state.backgroundImage = img;
-    state.imageScale = 1; // 不再需要缩放，因为画布尺寸等于图片尺寸
-    state.originalImageSize = {
-        width: img.width,
-        height: img.height
-    };
-    state.isImageFixed = true; // 标记为已固定，不随窗口变化
-    
-    // 清空历史记录，只保留当前背景
-    state.drawingHistory = [];
-    state.undoStack = [];
-    state.redoStack = [];
-    
-    // 保存当前状态（只有背景图片）
-    saveDrawingState();
-    
-    // 更新画布缩放信息
-    updateCanvasScaling();
-    
-    // 设置画布样式防止滚动
-    canvas.style.touchAction = 'none';
-    canvas.style.userSelect = 'none';
-    canvas.style.webkitUserSelect = 'none';
-    
-    showToast(`图片已导入，画布尺寸调整为${Math.round(canvas.width)}×${Math.round(canvas.height)}px`);
-}
-
-// 7. 修改 updateCanvasScaling 函数 - 只更新坐标计算，不改变画布尺寸
-function updateCanvasScaling() {
-    if (!canvas) return;
-    
-    const rect = canvas.getBoundingClientRect();
-    
-    // 确保缩放比例不为0
-    const scaleX = rect.width > 0 ? canvas.width / rect.width : 1;
-    const scaleY = rect.height > 0 ? canvas.height / rect.height : 1;
-    
-    state.canvasScale = {
-        x: scaleX,
-        y: scaleY,
-        offsetX: rect.left,
-        offsetY: rect.top,
-        width: rect.width,
-        height: rect.height
-    };
-    
-    // 保持画布的CSS尺寸匹配实际像素尺寸
-    canvas.style.width = canvas.width + 'px';
-    canvas.style.height = canvas.height + 'px';
-    
-    console.log('更新画布缩放:', state.canvasScale);
-}
-
-// 窗口调整大小事件处理
-window.addEventListener('resize', () => {
-    if (resizeTimeout) {
-        clearTimeout(resizeTimeout);
-    }
-    
-    resizeTimeout = setTimeout(() => {
-        console.log('窗口大小调整，重新初始化画布');
-        
-        // 如果画布已初始化，重新设置画布尺寸
-        if (canvas && ctx) {
-            const container = canvas.parentElement;
-            if (container) {
-                const containerWidth = container.clientWidth;
-                const maxWidth = containerWidth - 8;
-                
-                // 如果有背景图片，保持图片比例
-                if (state.backgroundImage) {
-                    const img = state.backgroundImage;
-                    const aspectRatio = img.width / img.height;
-                    
-                    let newWidth = maxWidth;
-                    let newHeight = newWidth / aspectRatio;
-                    
-                    // 设置画布新尺寸
-                    canvas.width = newWidth;
-                    canvas.height = newHeight;
-                    
-                    // 设置CSS尺寸
-                    canvas.style.width = newWidth + 'px';
-                    canvas.style.height = newHeight + 'px';
-                    
-                    // 重新绘制背景图片
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    
-                    // 如果有绘画历史，重新绘制
-                    if (state.drawingHistory.length > 0) {
-                        const lastState = state.drawingHistory[state.drawingHistory.length - 1];
-                        ctx.putImageData(lastState, 0, 0);
-                    }
-                } else {
-                    // 没有背景图片，保持当前比例
-                    const currentAspectRatio = canvas.width / canvas.height;
-                    let newWidth = maxWidth;
-                    let newHeight = newWidth / currentAspectRatio;
-                    
-                    // 设置画布新尺寸
-                    canvas.width = newWidth;
-                    canvas.height = newHeight;
-                    
-                    // 设置CSS尺寸
-                    canvas.style.width = newWidth + 'px';
-                    canvas.style.height = newHeight + 'px';
-                    
-                    // 重新绘制白色背景
-                    ctx.fillStyle = 'white';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    
-                    // 如果有绘画历史，重新绘制
-                    if (state.drawingHistory.length > 0) {
-                        const lastState = state.drawingHistory[state.drawingHistory.length - 1];
-                        ctx.putImageData(lastState, 0, 0);
-                    }
-                }
-                
-                // 居中画布
-                canvas.style.margin = '0 auto';
-                canvas.style.display = 'block';
-            }
-        }
-    }, 300);
-});
-
-// 9. 修改 resizeCanvasToFitImage 函数（如果需要的话，可以简化或移除）
 function resizeCanvasToFitImage(img) {
     if (!canvas) return { width: 0, height: 0 };
     
-    // 如果图片已固定，使用当前画布尺寸
+    // 如果图片已固定，则使用当前画布尺寸
     if (state.isImageFixed) {
         return { width: canvas.width, height: canvas.height };
     }
     
-    // 这里可以保留原始的逻辑，但不再被使用
-    return {
-        width: Math.min(img.width, 1024),
-        height: Math.min(img.height, 1024)
-    };
+    const container = canvas.parentElement;
+    const maxWidth = container.clientWidth - 4;
+    const maxHeight = maxWidth * 0.75;
+    
+    state.originalImageSize = { width: img.width, height: img.height };
+    
+    let width = img.width;
+    let height = img.height;
+    
+    // 简单缩放
+    if (width > 1024 || height > 1024) {
+        const ratio = Math.min(1024 / width, 1024 / height);
+        width = Math.floor(width * ratio);
+        height = Math.floor(height * ratio);
+    }
+    
+    if (width > maxWidth) {
+        height = (height * maxWidth) / width;
+        width = maxWidth;
+    }
+    
+    if (height > maxHeight) {
+        width = (width * maxHeight) / height;
+        height = maxHeight;
+    }
+    
+    // 设置画布尺寸
+    canvas.width = width;
+    canvas.height = height;
+    
+    return { width, height };
 }
+    // 修改 undo 函数：
 function undo() {
     if (!ctx) return;
     
@@ -752,153 +495,147 @@ function undo() {
     }
 }
     
-// 添加随机颜色
-function addRandomColor() {
-    const colorNameInput = document.getElementById('colorNameInput');
-    const colorName = colorNameInput ? colorNameInput.value.trim() : '';
-    
-    // 检查颜色名是否为空
-    if (!colorName) {
-        showToast('请输入颜色名称');
-        if (colorNameInput) {
-            colorNameInput.focus();
+    // 添加随机颜色
+    function addRandomColor() {
+        const colorNameInput = document.getElementById('colorNameInput');
+        const colorName = colorNameInput ? colorNameInput.value.trim() : `颜色${state.colors.length}`;
+        const randomColor = getRandomColor();
+        
+        if (!state.colors.some(c => c.color === randomColor)) {
+            state.colors.push({
+                name: colorName,
+                color: randomColor
+            });
+            
+            state.currentColor = randomColor;
+            updateColorPreview();
+            updateColorList();
+            setTool('brush');
+            
+            if (colorNameInput) {
+                colorNameInput.value = '';
+            }
+            
+            showToast(`已添加颜色: ${colorName}，已切换到画笔模式`);
+        } else {
+            showToast('该颜色已存在');
         }
+    }
+    
+    // 生成随机颜色
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+ function handleImageUpload(e) {
+    const file = e.target.files[0];
+    if (!file || !canvas || !ctx) return;
+    
+    if (!file.type.match('image.*')) {
+        showToast('请选择图片文件');
         return;
     }
     
-    const randomColor = getDistinctRandomColor();
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+            // 计算图片宽高比
+            const imgRatio = img.width / img.height;
+            const container = canvas.parentElement;
+            const maxWidth = container ? container.clientWidth - 4 : 800;
+            
+            // 固定高度为300px，根据比例计算宽度
+            let newWidth = 300 * imgRatio; // 高度300px，根据比例计算宽度
+            let newHeight = 300;
+            
+            // 如果计算出的宽度超过最大宽度，重新计算
+            if (newWidth > maxWidth) {
+                newWidth = maxWidth;
+                newHeight = maxWidth / imgRatio;
+            }
+            
+            // 设置画布新尺寸
+            canvas.width = Math.floor(newWidth);
+            canvas.height = Math.floor(newHeight);
+            
+            // 清除画布并绘制图片
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            
+            // 保存图片信息和状态
+            state.backgroundImage = img;
+            state.imageScale = newWidth / img.width; // 这里使用 newWidth / img.width
+            state.originalImageSize = {
+                width: img.width,
+                height: img.height
+            };
+            state.isImageFixed = true;
+            
+            // 更新缩放信息和保存状态
+            updateCanvasScaling();
+            saveDrawingState();
+            
+            showToast('图片上传成功，已自动调整尺寸');
+        };
+        img.src = event.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+// 在 getCanvasCoordinates 函数上方添加
+function updateCanvasScaling() {
+    if (!canvas) return;
     
-    if (!state.colors.some(c => c.color === randomColor)) {
-        state.colors.push({
-            name: colorName,
-            color: randomColor
-        });
-        
-        state.currentColor = randomColor;
-        updateColorPreview();
-        updateColorList();
-        setTool('brush');
-        
-        if (colorNameInput) {
-            colorNameInput.value = '';
-        }
-        
-        showToast(`已添加颜色: ${colorName}，已切换到画笔模式`);
-    } else {
-        showToast('该颜色已存在');
-    }
+    const rect = canvas.getBoundingClientRect();
+    state.canvasScale = {
+        x: canvas.width / rect.width,
+        y: canvas.height / rect.height,
+        offsetX: rect.left,
+        offsetY: rect.top
+    };
 }
 
-// 生成随机颜色（避开#ff0000且颜色相差明显）
-function getDistinctRandomColor() {
-    const avoidColor = '#ff0000'; // 清除颜色
-    let attempts = 0;
-    const maxAttempts = 100;
+// 修改 getCanvasCoordinates 函数
+function getCanvasCoordinates(e) {
+    if (!canvas || !state.canvasScale) return { x: 0, y: 0 };
     
-    while (attempts < maxAttempts) {
-        const color = generateRandomColor();
-        
-        // 避开清除颜色
-        if (color === avoidColor) {
-            attempts++;
-            continue;
-        }
-        
-        // 检查与现有颜色的差异
-        let isDistinct = true;
-        for (const existingColor of state.colors) {
-            if (existingColor.color === '#ff0000') continue; // 跳过清除颜色
-            
-            if (colorDistance(color, existingColor.color) < 150) {
-                isDistinct = false;
-                break;
+    const rect = canvas.getBoundingClientRect();
+    let clientX, clientY;
+    
+    if (e.type.includes('touch')) {
+        // 找到正确的触摸点
+        if (state.touchIdentifier !== null) {
+            for (let i = 0; i < e.touches.length; i++) {
+                if (e.touches[i].identifier === state.touchIdentifier) {
+                    clientX = e.touches[i].clientX;
+                    clientY = e.touches[i].clientY;
+                    break;
+                }
             }
         }
-        
-        if (isDistinct) {
-            return color;
+        if (clientX === undefined && e.touches.length > 0) {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
         }
-        
-        attempts++;
+    } else {
+        clientX = e.clientX;
+        clientY = e.clientY;
     }
     
-    // 如果尝试多次都找不到明显不同的颜色，返回一个随机颜色
-    return generateRandomColor();
+    // 计算精确的坐标（考虑缩放和偏移）
+    const x = (clientX - rect.left) * (canvas.width / rect.width);
+    const y = (clientY - rect.top) * (canvas.height / rect.height);
+    
+    // 确保坐标在画布范围内
+    const safeX = Math.max(0, Math.min(x, canvas.width));
+    const safeY = Math.max(0, Math.min(y, canvas.height));
+    
+    return { x: safeX, y: safeY };
 }
-
-// 生成随机颜色（基础函数）
-function generateRandomColor() {
-    // 使用HSL色彩空间生成更鲜艳的颜色
-    const hue = Math.floor(Math.random() * 360);
-    
-    // 限制饱和度和亮度，避免太暗或太淡的颜色
-    const saturation = 60 + Math.floor(Math.random() * 30); // 60-90%
-    const lightness = 40 + Math.floor(Math.random() * 30); // 40-70%
-    
-    return hslToHex(hue, saturation, lightness);
-}
-
-// 计算两个颜色之间的距离（0-765之间）
-function colorDistance(color1, color2) {
-    const rgb1 = hexToRgb(color1);
-    const rgb2 = hexToRgb(color2);
-    
-    if (!rgb1 || !rgb2) return 765; // 最大值
-    
-    const dr = rgb1.r - rgb2.r;
-    const dg = rgb1.g - rgb2.g;
-    const db = rgb1.b - rgb2.b;
-    
-    // 使用欧几里得距离
-    return Math.sqrt(dr * dr + dg * dg + db * db);
-}
-
-// HEX转RGB
-function hexToRgb(hex) {
-    // 去掉#号
-    hex = hex.replace('#', '');
-    
-    if (hex.length !== 6) return null;
-    
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-    
-    return { r, g, b };
-}
-
-// HSL转HEX
-function hslToHex(h, s, l) {
-    s /= 100;
-    l /= 100;
-    
-    let c = (1 - Math.abs(2 * l - 1)) * s;
-    let x = c * (1 - Math.abs((h / 60) % 2 - 1));
-    let m = l - c / 2;
-    
-    let r, g, b;
-    
-    if (0 <= h && h < 60) {
-        [r, g, b] = [c, x, 0];
-    } else if (60 <= h && h < 120) {
-        [r, g, b] = [x, c, 0];
-    } else if (120 <= h && h < 180) {
-        [r, g, b] = [0, c, x];
-    } else if (180 <= h && h < 240) {
-        [r, g, b] = [0, x, c];
-    } else if (240 <= h && h < 300) {
-        [r, g, b] = [x, 0, c];
-    } else if (300 <= h && h < 360) {
-        [r, g, b] = [c, 0, x];
-    }
-    
-    r = Math.round((r + m) * 255);
-    g = Math.round((g + m) * 255);
-    b = Math.round((b + m) * 255);
-    
-    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`;
-}
-
     // 检测画布中使用的颜色
     function detectCanvasColors() {
         if (!canvas || !ctx) return [];
@@ -1249,23 +986,6 @@ if (redoTool) redoTool.addEventListener('click', redo);
             imageUpload.addEventListener('change', handleImageUpload);
         }
         
-        // 旋转导入按钮
-            const rotateImportBtn = document.getElementById('rotateImportBtn');
-            const rotateImageUpload = document.createElement('input');
-            rotateImageUpload.type = 'file';
-            rotateImageUpload.accept = 'image/*';
-            rotateImageUpload.style.display = 'none';
-            document.body.appendChild(rotateImageUpload);
-
-            if (rotateImportBtn) {
-                rotateImportBtn.addEventListener('click', () => {
-                    rotateImageUpload.click();
-                });
-            }
-
-            if (rotateImageUpload) {
-                rotateImageUpload.addEventListener('change', handleRotateImageUpload);
-            }
         // 提示词相关
         const generatePromptBtn = document.getElementById('generatePromptBtn');
         const copyPromptBtn = document.getElementById('copyPromptBtn');
@@ -1281,75 +1001,90 @@ if (redoTool) redoTool.addEventListener('click', redo);
             savePromptBtn.addEventListener('click', savePrompt);
         }
         
-          // 画布事件
-    if (canvas) {
-        // 设置画布样式防止滚动
-        canvas.style.touchAction = 'none';
-        canvas.style.userSelect = 'none';
-        canvas.style.webkitUserSelect = 'none';
-        
-        // 鼠标事件
-        canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mousemove', draw);
-        canvas.addEventListener('mouseup', stopDrawing);
-        canvas.addEventListener('mouseleave', stopDrawing);
-        
-        // 触摸事件 - 使用被动监听器防止滚动
-        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-        canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-        canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
-        canvas.addEventListener('touchcancel', handleTouchCancel, { passive: false });
-        
-        // 防止画布被拖动
-        canvas.addEventListener('dragstart', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-        
-        // 防止右键菜单
-        canvas.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-    }
-        
-
-    }
-    
-// 触摸事件处理函数 - 替换现有的四个函数
-function handleTouchStart(e) {
-    if (e.touches.length === 1) {
-        // 只阻止默认行为，不调用 preventDefault()
-        // 记录触摸标识符
-        state.touchIdentifier = e.touches[0].identifier;
-        state.isTouchActive = true;
-        
-        // 记录初始触摸位置
-        lastTouchY = e.touches[0].clientY;
-        isTouchMoving = false;
-        
-        // 开始绘图
-        startDrawing(e);
-    }
-}
-
-function handleTouchMove(e) {
-    if (state.isTouchActive && state.touchIdentifier !== null) {
-        // 找到对应的触摸点
-        let touch = null;
-        for (let i = 0; i < e.touches.length; i++) {
-            if (e.touches[i].identifier === state.touchIdentifier) {
-                touch = e.touches[i];
-                break;
-            }
+        // 画布事件
+        if (canvas) {
+            // 鼠标事件
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseleave', stopDrawing);
+            
+            // 触摸事件 - 使用被动监听器防止滚动
+            canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+            canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+            canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+            canvas.addEventListener('touchcancel', handleTouchCancel, { passive: false });
+            
+            // 防止画布被拖动
+            canvas.addEventListener('dragstart', (e) => e.preventDefault());
         }
         
-        if (touch) {
-            // 检测滚动行为
-            const currentY = touch.clientY;
+ // 修改窗口调整大小事件处理
+window.addEventListener('resize', () => {
+    if (resizeTimeout) {
+        clearTimeout(resizeTimeout);
+    }
+    
+    resizeTimeout = setTimeout(() => {
+        console.log('窗口大小调整');
+        
+        // 更新画布缩放信息
+        updateCanvasScaling();
+        
+        // 如果有背景图片，重新绘制
+        if (state && state.backgroundImage) {
+            const img = state.backgroundImage;
+            const container = canvas.parentElement;
+            const maxWidth = container ? container.clientWidth : 800;
+            
+            // 重新计算缩放比例
+            const scale = Math.min(
+                maxWidth / state.originalImageSize.width,
+                (maxWidth * 0.75) / state.originalImageSize.height
+            );
+            
+            const displayWidth = Math.floor(state.originalImageSize.width * scale);
+            const displayHeight = Math.floor(state.originalImageSize.height * scale);
+            
+            // 更新画布尺寸
+            canvas.width = displayWidth;
+            canvas.height = displayHeight;
+            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, displayWidth, displayHeight);
+            
+            // 重新绘制历史记录
+            if (state.drawingHistory.length > 0) {
+                const lastState = state.drawingHistory[state.drawingHistory.length - 1];
+                ctx.putImageData(lastState, 0, 0);
+            }
+            
+            updateCanvasScaling();
+        }
+    }, 250);
+});
+    }
+    
+    // 触摸事件处理函数
+    function handleTouchStart(e) {
+        if (e.touches.length === 1) {
+            e.preventDefault();
+            startDrawing(e);
+            // 记录触摸点位置，用于检测是否滚动
+            lastTouchY = e.touches[0].clientY;
+            isTouchMoving = false;
+        }
+    }
+    
+    function handleTouchMove(e) {
+        if (e.touches.length === 1) {
+            e.preventDefault();
+            
+            // 检测是否是滚动行为（垂直移动超过5px）
+            const currentY = e.touches[0].clientY;
             const deltaY = Math.abs(currentY - lastTouchY);
             
-            if (deltaY > 10) { // 增加到10px阈值
+            if (deltaY > 5) {
                 isTouchMoving = true;
             }
             
@@ -1360,28 +1095,22 @@ function handleTouchMove(e) {
             }
         }
     }
-}
-
-function handleTouchEnd(e) {
-    if (state.isTouchActive) {
-        stopDrawing(e);
-        state.isTouchActive = false;
-        state.touchIdentifier = null;
-        isTouchMoving = false;
+    
+    function handleTouchEnd(e) {
+        if (e.touches.length === 0) {
+            e.preventDefault();
+            stopDrawing(e);
+            isTouchMoving = false;
+        }
     }
-}
-
-function handleTouchCancel(e) {
-    if (state.isTouchActive) {
-        stopDrawing(e);
-        state.isTouchActive = false;
-        state.touchIdentifier = null;
-        isTouchMoving = false;
+    
+    function handleTouchCancel(e) {
+        if (e.touches.length === 0) {
+            e.preventDefault();
+            stopDrawing(e);
+            isTouchMoving = false;
+        }
     }
-}
-
-
-
     
     // 添加toast动画
     const style = document.createElement('style');
