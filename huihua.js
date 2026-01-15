@@ -590,20 +590,20 @@ function rotateAndLoadImage(img) {
     rotatedImg.src = tempCanvas.toDataURL('image/png');
 }
 
-// 加载图片到画布（共用函数）
+// 找到 loadImageToCanvas 函数，修改宽度强制为550px：
+
 function loadImageToCanvas(img) {
     const imgRatio = img.width / img.height;
-    const container = canvas.parentElement;
-    const maxWidth = container ? container.clientWidth - 4 : 800;
     
-    // 固定高度为600px，根据比例计算宽度
-    let newWidth = 600* imgRatio;
-    let newHeight = 600;
+    // 强制宽度为550px，计算高度
+    const FORCED_WIDTH = 550;
+    let newWidth = FORCED_WIDTH;
+    let newHeight = FORCED_WIDTH / imgRatio;
     
-    // 如果计算出的宽度超过最大宽度，重新计算
-    if (newWidth > maxWidth) {
-        newWidth = maxWidth;
-        newHeight = maxWidth / imgRatio;
+    // 如果计算出的高度超过800px，重新计算
+    if (newHeight > 800) {
+        newHeight = 800;
+        newWidth = newHeight * imgRatio;
     }
     
     // 设置画布新尺寸
@@ -623,11 +623,27 @@ function loadImageToCanvas(img) {
     };
     state.isImageFixed = true;
     
-    // 更新缩放信息和保存状态
-    updateCanvasScaling();
+    // 清空历史记录，只保留当前背景
+    state.drawingHistory = [];
+    state.undoStack = [];
+    state.redoStack = [];
+    
+    // 保存当前状态（只有背景图片）
     saveDrawingState();
     
-    showToast('图片已旋转90度并导入，图片已固定为背景');
+    // 更新画布缩放信息
+    updateCanvasScaling();
+    
+    // 确保画布在容器中居中显示
+    const container = canvas.parentElement;
+    if (container) {
+        container.style.display = 'flex';
+        container.style.justifyContent = 'center';
+        container.style.alignItems = 'center';
+        container.style.overflow = 'auto'; // 添加滚动条以便查看完整画布
+    }
+    
+    showToast('图片已旋转90度并导入，图片已锁定为背景（宽度: 550px）');
 }
 // 在 getCanvasCoordinates 函数上方添加
 function updateCanvasScaling() {
