@@ -76,9 +76,13 @@
                         <i class="fas fa-building"></i>
                         <span>公装设计</span>
                     </div>
+                    <div class="tab architecture" data-panel="architecture">
+                        <i class="fas fa-city"></i>
+                        <span>建筑设计</span>
+                    </div>
                     <div class="tab landscape" data-panel="landscape">
                         <i class="fas fa-tree"></i>
-                        <span>建筑景观</span>
+                        <span>景观设计</span>
                     </div>
                     <div class="tab art" data-panel="art">
                         <i class="fas fa-palette"></i>
@@ -260,6 +264,91 @@
                         </div>
                     </div>
                     
+<!-- 建筑设计面板 -->
+<div class="panel architecture-panel" id="architecture-panel">
+    <div class="form-row">
+        <div class="form-group">
+            <label for="architecture-scene"><i class="fas fa-camera"></i> 功能类型</label>
+            <select id="architecture-scene">
+                <option value="">请选择功能</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="architecture-style"><i class="fas fa-palette"></i> 设计风格</label>
+            <select id="architecture-style">
+                <option value="">请选择风格</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="architecture-space"><i class="fas fa-building"></i> 建筑类型</label>
+            <select id="architecture-space">
+                <option value="">请选择建筑类型</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <div class="section-title">
+            <i class="fas fa-building"></i> 建筑元素（可多选）
+        </div>
+        <div class="dynamic-checkboxes" id="architecture-furniture">
+            <span class="placeholder">请先选择风格和建筑类型</span>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group">
+            <label for="architecture-perspective"><i class="fas fa-eye"></i> 观察视角</label>
+            <select id="architecture-perspective">
+                <option value="">请选择视角</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="architecture-lighting"><i class="fas fa-lightbulb"></i> 灯光类型</label>
+            <select id="architecture-lighting">
+                <option value="">请选择灯光</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="architecture-lens"><i class="fas fa-video"></i> 画风类型</label>
+            <select id="architecture-lens">
+                <option value="">请选择画风</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <div class="section-title">
+            <i class="fas fa-star"></i> 设计修饰词（可多选）
+        </div>
+        <div class="dynamic-checkboxes" id="architecture-modifiers">
+            <span class="placeholder">请先选择风格和建筑类型</span>
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <div class="section-title">
+            <i class="fas fa-edit"></i> 附加描述
+        </div>
+        <div class="form-group">
+            <textarea id="architecture-desc" rows="3" placeholder="请输入附加描述，例如：现代感强烈、标志性建筑、城市地标等..."></textarea>
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <div class="section-title">
+            <i class="fas fa-exchange-alt"></i> 转换要求
+        </div>
+        <div class="special-checkboxes" id="architecture-special">
+            <!-- 动态生成选项 -->
+        </div>
+    </div>
+</div>
+
                     <!-- 景观设计面板 -->
                     <div class="panel landscape-panel" id="landscape-panel">
                         <div class="form-row">

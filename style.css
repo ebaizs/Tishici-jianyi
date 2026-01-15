@@ -23,10 +23,12 @@
     --gray-dark: #343a40;
     
     /* 功能区颜色 */
-    --home: #4361ee;
-    --public: #7209b7;
-    --landscape: #2a9d8f;
-    --art: #f72585;
+     /* 功能区颜色 */
+     --home: #4361ee;
+     --public: #7209b7;
+     --architecture: #2a9d8f;  /* 新增建筑颜色 */
+     --landscape: #f4a261;     /* 修改景观颜色 */
+     --art: #f72585;
     
     /* 阴影和圆角 */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -424,6 +426,7 @@ body {
 
 .tab.home.active { border-color: var(--home); }
 .tab.public.active { border-color: var(--public); }
+.tab.architecture.active { border-color: var(--architecture); }
 .tab.landscape.active { border-color: var(--landscape); }
 .tab.art.active { border-color: var(--art); }
 
