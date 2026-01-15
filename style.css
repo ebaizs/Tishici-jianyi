@@ -640,14 +640,14 @@ body {
 
 /* 生成按钮占60% */
 .button-row .btn.generate {
-    flex: 0 0 59%;
+    flex: 0 0 50%;
     background: linear-gradient(135deg, var(--primary), var(--secondary));
 }
 
 /* 保存和复制按钮各占20% */
 .button-row .btn.save,
 .button-row .btn.copy {
-    flex:0 0 18%;
+    flex:0 0 22%;
 }
 
 /* 加载动画 */
@@ -1690,7 +1690,7 @@ body {
     }
     
     .button-row .btn {
-        min-width: 90px;
+        min-width: 50px;
         padding: 8px 10px;
         font-size: 0.8rem;
     }
