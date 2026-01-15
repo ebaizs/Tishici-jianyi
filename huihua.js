@@ -116,8 +116,8 @@ function initCanvas() {
         }
     }
     
-    // 修改：初始高度设为200px
-    const displayHeight = 200; 
+    // 修改：初始高度设为300px
+    const displayHeight = 300; 
     
     // 确保最小宽度
     const minWidth = 300;
@@ -376,34 +376,27 @@ function adjustCanvasForImage(img) {
             }
         }
     }
-   // 修改 saveDrawingState 函数：
+ // 替换现有的 saveDrawingState 函数
 function saveDrawingState() {
-    if (!canvas || !ctx) return;
+    if (!canvas || !ctx || canvas.width === 0 || canvas.height === 0) return;
     
-    // 检查画布尺寸是否为0，避免 IndexSizeError
-    if (canvas.width === 0 || canvas.height === 0) {
-        console.warn('画布尺寸为0，跳过保存状态');
-        return;
-    }
-    
-    // 检查画布上下文是否有效
     try {
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        state.drawingHistory.push(imageData);
-
-        if (state.drawingHistory.length > state.maxHistorySteps) {
-            state.drawingHistory.shift();
-        }
-
+        
         // 保存到撤销栈（自动清空重做栈）
         state.undoStack.push(imageData);
         if (state.undoStack.length > state.maxUndoSteps) {
             state.undoStack.shift();
         }
         state.redoStack = []; // 新操作后清空重做栈
+        
+        // 同时保存到历史记录（用于其他功能）
+        state.drawingHistory.push(imageData);
+        if (state.drawingHistory.length > state.maxHistorySteps) {
+            state.drawingHistory.shift();
+        }
     } catch (error) {
         console.error('保存画布状态失败:', error);
-        // 不中断程序，只是记录错误
     }
 }
     // 开始绘图
@@ -588,46 +581,7 @@ function getCanvasCoordinates(e) {
     }
 
 
-    function resizeCanvasToFitImage(img) {
-        if (!canvas) return { width: 0, height: 0 };
-
-        // 如果图片已固定，则使用当前画布尺寸
-        if (state.isImageFixed) {
-            return { width: canvas.width, height: canvas.height };
-        }
-
-        const container = canvas.parentElement;
-        const maxWidth = container.clientWidth - 4;
-        const maxHeight = maxWidth * 0.75;
-
-        state.originalImageSize = { width: img.width, height: img.height };
-
-        let width = img.width;
-        let height = img.height;
-
-        // 简单缩放
-        if (width > 1024 || height > 1024) {
-            const ratio = Math.min(1024 / width, 1024 / height);
-            width = Math.floor(width * ratio);
-            height = Math.floor(height * ratio);
-        }
-
-        if (width > maxWidth) {
-            height = (height * maxWidth) / width;
-            width = maxWidth;
-        }
-
-        if (height > maxHeight) {
-            width = (width * maxHeight) / height;
-            height = maxHeight;
-        }
-
-        // 设置画布尺寸
-        canvas.width = width;
-        canvas.height = height;
-
-        return { width, height };
-    }
+  
     // 修改 undo 函数：
     function undo() {
         if (!ctx) return;
@@ -864,10 +818,10 @@ function handleRotateImageUpload(e) {
     };
     reader.readAsDataURL(file);
 }
+// 替换现有的 rotateAndLoadImage 函数
 function rotateAndLoadImage(img) {
     console.log('旋转图片，原始尺寸:', img.width, img.height);
     
-    // 检查图片是否已加载
     if (img.width === 0 || img.height === 0) {
         console.error('图片尺寸为0，无法旋转');
         showToast('图片加载失败，请重试');
@@ -877,30 +831,42 @@ function rotateAndLoadImage(img) {
     // 创建临时画布进行旋转
     const tempCanvas = document.createElement('canvas');
     const tempCtx = tempCanvas.getContext('2d');
-
+    
     // 交换宽高以旋转90度
     tempCanvas.width = img.height;
     tempCanvas.height = img.width;
-
+    
     console.log('旋转后画布尺寸:', tempCanvas.width, tempCanvas.height);
-
-    // 旋转90度
-    tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
-    tempCtx.rotate(Math.PI / 2);
-    tempCtx.drawImage(img, -img.width / 2, -img.height / 2);
-
-    // 创建旋转后的图片
-    const rotatedImg = new Image();
-    rotatedImg.onload = function () {
-        console.log('旋转图片加载完成，尺寸:', rotatedImg.width, rotatedImg.height);
-        // 使用旋转后的图片
-        loadImageToCanvas(rotatedImg);
-    };
-    rotatedImg.onerror = function (error) {
-        console.error('旋转图片加载失败:', error);
-        showToast('图片旋转失败，请重试');
-    };
-    rotatedImg.src = tempCanvas.toDataURL('image/png');
+    
+    try {
+        // 保存原始变换状态
+        tempCtx.save();
+        
+        // 旋转90度
+        tempCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+        tempCtx.rotate(Math.PI / 2);
+        tempCtx.drawImage(img, -img.width / 2, -img.height / 2);
+        
+        // 恢复状态
+        tempCtx.restore();
+        
+        // 创建旋转后的图片
+        const rotatedImg = new Image();
+        rotatedImg.onload = function () {
+            console.log('旋转图片加载完成，尺寸:', rotatedImg.width, rotatedImg.height);
+            loadImageToCanvas(rotatedImg);
+        };
+        rotatedImg.onerror = function (error) {
+            console.error('旋转图片加载失败:', error);
+            showToast('图片旋转失败，请重试');
+        };
+        rotatedImg.src = tempCanvas.toDataURL('image/png');
+    } catch (error) {
+        console.error('旋转图片时出错:', error);
+        showToast('图片处理失败，请重试其他图片');
+        // 尝试直接加载原图
+        loadImageToCanvas(img);
+    }
 }
 function loadImageToCanvas(img) {
     if (!canvas || !ctx || !img) return;
@@ -1391,11 +1357,11 @@ function initEventListeners() {
         canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseleave', stopDrawing);
 
-        // 触摸事件 - 使用被动监听器防止滚动
-        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-        canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-        canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
-        canvas.addEventListener('touchcancel', handleTouchCancel, { passive: false });
+       // 在 initEventListeners 函数中修改触摸事件
+canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
+canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+canvas.addEventListener('touchcancel', handleTouchCancel, { passive: false });
 
         // 防止画布被拖动
         canvas.addEventListener('dragstart', (e) => {
@@ -1458,46 +1424,51 @@ function initEventListeners() {
     });
 }
 
-    // 修改触摸事件处理函数
-    function handleTouchStart(e) {
-        if (e.touches.length === 1) {
-            e.preventDefault();
-            e.stopPropagation();
+   // 修改 handleTouchStart 函数，添加更严格的检查
+function handleTouchStart(e) {
+    if (e.touches.length === 1) {
+        e.preventDefault();
+        e.stopPropagation();
 
-            startDrawing(e);
-
-            // 记录触摸点位置，用于检测是否滚动
-            lastTouchY = e.touches[0].clientY;
-            isTouchMoving = false;
-
-            // 锁定画布滚动
-            canvas.style.touchAction = 'none';
-        }
+        // 记录触摸点位置
+        const touch = e.touches[0];
+        lastTouchY = touch.clientY;
+        isTouchMoving = false;
+        state.touchIdentifier = touch.identifier;
+        state.isTouchActive = true;
+        
+        // 调用开始绘图
+        startDrawing(e);
+        
+        // 锁定画布滚动
+        canvas.style.touchAction = 'none';
     }
+}
+   // 修改 handleTouchMove 函数，减少误判
+function handleTouchMove(e) {
+    if (e.touches.length === 1) {
+        e.preventDefault();
+        e.stopPropagation();
 
-    function handleTouchMove(e) {
-        if (e.touches.length === 1) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            // 检测是否是滚动行为（垂直移动超过5px）
-            const currentY = e.touches[0].clientY;
-            const deltaY = Math.abs(currentY - lastTouchY);
-
-            if (deltaY > 5) {
-                isTouchMoving = true;
-            }
-
-            // 如果不是明显的滚动行为，则绘图
-            if (!isTouchMoving || state.isDrawing) {
-                draw(e);
-                lastTouchY = currentY;
-            } else {
-                // 如果是滚动行为，阻止默认行为但不绘图
-                e.preventDefault();
-            }
+        const touch = e.touches[0];
+        const currentY = touch.clientY;
+        
+        // 减少误判阈值，增加水平移动检测
+        const deltaY = Math.abs(currentY - lastTouchY);
+        
+        // 只有当垂直移动距离较大时才认为是滚动
+        if (deltaY > 10 && !state.isDrawing) {
+            isTouchMoving = true;
         }
+        
+        // 如果不是明显的滚动行为，则绘图
+        if (!isTouchMoving || state.isDrawing) {
+            draw(e);
+        }
+        
+        lastTouchY = currentY;
     }
+}
 
     function handleTouchEnd(e) {
         if (e.touches.length === 0) {
