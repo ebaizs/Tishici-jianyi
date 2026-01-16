@@ -615,7 +615,7 @@
             </button>
             <button id="rotateSaveBtn" class="tool-btn large rotate-save-btn rounded-xl" data-testid="rotate-save-btn">
                 <i class="fas fa-retweet"></i>
-                <div class="text-xs mt-2">回正导图</div>
+                <div class="text-xs mt-2">竖图导出</div>
             </button>
         </div>
     </div>
@@ -655,7 +655,7 @@
     <!-- 画布区域 -->
     <div class="bg-card canvas-card">
         <div class="canvas-container">
-            <canvas id="drawingCanvas" ></canvas>
+            <canvas id="drawingCanvas"></canvas>
         </div>
     </div>
 
@@ -664,7 +664,7 @@
         <!-- 颜色输入和生成按钮 -->
         <div class="color-input-row">
             <div id="currentColorPreview" class="color-preview-large"></div>
-            <input type="text" id="colorNameInput" placeholder="颜色名" class="color-name-input">
+            <input type="text" id="colorNameInput" placeholder="颜色名" class="color-name-input" style="height: 20px;">
             <button id="randomColorBtn" class="random-color-btn">
                 <i class="fas fa-random"></i>
                 <span>随机颜色</span>
