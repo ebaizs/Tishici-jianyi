@@ -540,37 +540,37 @@
             prompt += ` ${desc}，`;
         }
 
-        // 5. 视角
-        if (perspective) {
-            prompt += `采用${perspective}，`;
-        }
-
-        // 6. 画风类型
-        if (lens) {
-            prompt += `画风类型为${lens}，`;
-        }
-
-        // 7. 灯光
-        if (lighting) {
-            prompt += `运用${lighting}与人工照明的完美融合，打造富有层次的光环境，`;
-        }
-
-        // 8. 风格
-        if (style) {
-            prompt += `${style}风格，`;
-        }
-
-        // 9. 设计修饰词
-        if (modifiers.length > 0) {
-            const modifiersText = modifiers.join('、');
-            prompt += `营造${modifiersText}的氛围，`;
-        }
-
-        // 10. 其它要求
+        // 5. 其它要求（移到附加描述后面）
         if (specialRequirements.length > 0) {
             specialRequirements.forEach(req => {
                 prompt += req + '，';
             });
+        }
+
+        // 6. 视角
+        if (perspective) {
+            prompt += `采用${perspective}，`;
+        }
+
+        // 7. 画风类型
+        if (lens) {
+            prompt += `画风类型为${lens}，`;
+        }
+
+        // 8. 灯光
+        if (lighting) {
+            prompt += `运用${lighting}与人工照明的完美融合，打造富有层次的光环境，`;
+        }
+
+        // 9. 风格
+        if (style) {
+            prompt += `${style}风格，`;
+        }
+
+        // 10. 设计修饰词
+        if (modifiers.length > 0) {
+            const modifiersText = modifiers.join('、');
+            prompt += `营造${modifiersText}的氛围，`;
         }
 
         // 11. 随机感受词和固定文字部分
