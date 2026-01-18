@@ -57,6 +57,10 @@
                             <i class="fas fa-paint-brush"></i>
                             <span>色绘设计</span>
                         </button>
+                        <button id="switch-export" class="switch-btn">
+                            <i class="fas fa-download"></i>
+                            <span>管理记录</span>
+                        </button>
                     </div>
 
                     <!-- 用户信息 -->
@@ -577,10 +581,10 @@
                                 <h3><i class="fas fa-history"></i> 历史记录</h3>
                                 <div class="history-actions">
                                     <button class="btn secondary" id="export-btn">
-                                        <i class="fas fa-download"></i> 导出
+                                        <i class="fas fa-download"></i> 转至管理记录
                                     </button>
                                     <button class="btn secondary" id="clear-history">
-                                        <i class="fas fa-trash-alt"></i> 清空
+                                        <i class="fas fa-trash-alt"></i> 清空记录
                                     </button>
                                 </div>
                             </div>
@@ -697,18 +701,18 @@
                         <div id="promptTextarea" class="prompt-textarea" placeholder="生成的提示词将显示在这里..."></div>
 
                         <div class="prompt-action-buttons">
-                            <button id="copyPromptBtn" class="copy-prompt-btn">
-                                <i class="fas fa-copy"></i>
-                                <span>复制</span>
-                            </button>
                             <button id="savePromptBtn" class="save-record-btn">
                                 <i class="fas fa-save"></i>
-                                <span>保存记录</span>
+                                <span>保存</span>
                             </button>
-                            <button id="optimizeBtn" class="optimize-to-ai-btn">
+                             <button id="optimizeBtn" class="optimize-to-ai-btn">
                                 <i class="fas fa-robot"></i>
                                 <span>优化提示词</span>
                             </button>
+                            <button id="copyPromptBtn" class="copy-prompt-btn">
+                                <i class="fas fa-copy"></i>
+                                <span>复制</span>
+                            </button>   
                         </div>
                     </div>
 
@@ -721,11 +725,112 @@
                     </div>
                 </div>
 
+                <!-- 导出页面 -->
+                <div id="export-page" class="page" style="display: none;">
+                    <div class="export-container">
+                        <!-- 头部 -->
+                        <div class="export-header">
+                            <button id="export-back-btn" class="back-btn">
+                                <i class="fas fa-arrow-left"></i> 返回
+                            </button>
+                            <h2><i class="fas fa-download"></i> 提示词导出与云端同步</h2>
+                        </div>
+
+                        <!-- 云端配置卡片 -->
+                        <div class="bg-card cloud-card">
+                            <div class="cloud-config">
+                                <div class="token-input-group">
+                                    <input type="password" id="cloud-token-input"
+                                        placeholder="输入GitHub Personal Access Token" class="token-input">
+                                    <button id="save-token-btn" class="token-btn">
+                                        <i class="fas fa-save"></i> 保存Token
+                                    </button>
+                                </div>
+                                <div class="token-info">
+                                    <span id="token-status" class="token-status">请先设置Token</span>
+                                </div>
+                                <div class="cloud-actions">
+                                    <button id="upload-cloud-btn" class="cloud-btn upload-btn">
+                                        <i class="fas fa-cloud-upload-alt"></i> 上传到云端
+                                    </button>
+                                    <button id="load-cloud-btn" class="cloud-btn load-btn">
+                                        <i class="fas fa-cloud-download-alt"></i> 从云端加载
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 筛选工具栏卡片 -->
+                        <div class="bg-card filter-card">
+                            <div class="filter-row">
+                                <div class="filter-group">
+                                    <label><i class="fas fa-layer-group"></i> 版块</label>
+                                    <select id="section-filter" class="filter-select">
+                                        <option value="all">所有版块</option>
+                                        <option value="家装设计">家装设计</option>
+                                        <option value="公装设计">公装设计</option>
+                                        <option value="建筑设计">建筑设计</option>
+                                        <option value="景观设计">景观设计</option>
+                                        <option value="绘画创作">绘画创作</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label><i class="fas fa-door-open"></i> 空间</label>
+                                    <select id="space-filter" class="filter-select">
+                                        <option value="all">所有空间</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label><i class="fas fa-palette"></i> 风格</label>
+                                    <select id="style-filter" class="filter-select">
+                                        <option value="all">所有风格</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="stats-row">
+                                <span id="export-stats" class="stats-text">共找到 0 条记录</span>
+                            </div>
+                        </div>
+
+                        <!-- 导出操作卡片 -->
+                        <div class="bg-card action-card">
+                            <div class="export-header-with-clear">
+                                <h3><i class="fas fa-list"></i> 提示词记录</h3>
+                                <button id="clear-all-records" class="btn small-btn danger">
+                                    <i class="fas fa-trash-alt"></i> 全部清空
+                                </button>
+                            </div>
+                            <div class="export-actions">
+                                <button id="export-local-btn" class="export-btn local-btn">
+                                    <i class="fas fa-download"></i> 导出到本地
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 记录列表卡片 -->
+                        <div class="bg-card records-card">
+                            <div id="export-content" class="export-content">
+                                <div class="empty-state">
+                                    <i class="fas fa-inbox"></i>
+                                    <p>正在加载记录...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 通知 -->
+                    <div id="export-notification" class="export-notification"></div>
+                </div>
+
 
                 <!-- 脚本加载顺序 -->
                 <script src="ku.js"></script>
                 <script src="tishici.js"></script>
                 <script src="huihua.js"></script>
+                <script src="yun.js"></script> <!-- 新增这一行 -->
                 <script src="app.js"></script>
             </div> <!-- 关闭 .global-container -->
 </body>
