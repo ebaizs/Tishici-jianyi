@@ -550,7 +550,8 @@ body {
     border-radius: var(--radius);
     border: 1px solid var(--border-light);
     min-height: 60px;
-     font-size: 0.8rem; /* 确保字体大小 */
+    font-size: 0.8rem;
+    /* 确保字体大小 */
 }
 
 .dynamic-checkboxes .placeholder,
@@ -568,16 +569,19 @@ body {
 .text-select-item {
     display: inline-flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: 6px 10px;
+    /* 减少内边距 */
     background: var(--bg-primary);
     border: 2px solid var(--border-light);
     border-radius: var(--radius);
     cursor: pointer;
     transition: all 0.3s ease;
-    font-size: 0.8rem; /* 改为更小的字体 */
+    font-size: 0.7rem;
+    /* 进一步减小字体 */
     color: var(--text-primary);
     user-select: none;
-    margin: 2px;
+    margin: 1px;
+    /* 减少外边距 */
 }
 
 .text-select-item:hover {
@@ -728,13 +732,14 @@ body {
     background: var(--bg-secondary);
     border: 2px dashed var(--border-color);
     border-radius: var(--radius);
-    padding: var(--space-lg);
+    padding: var(--space-md);
     min-height: 120px;
     font-family: 'Courier New', monospace;
     white-space: pre-wrap;
-    line-height: 1.6;
+    line-height: 1.5;
     margin-bottom: var(--space-md);
-    font-size: 0.9rem; /* 改为更小的字体 */
+    font-size: 0.8rem;
+    /* 进一步减小字体 */
     color: var(--text-primary);
     position: relative;
     resize: vertical;
@@ -806,7 +811,8 @@ body {
 }
 
 .history-item .prompt {
-    font-size: 0.8rem; /* 改为更小的字体 */
+    font-size: 0.7rem;
+    /* 进一步减小字体 */
     color: var(--text-secondary);
     margin-bottom: var(--space-sm);
     overflow: hidden;
@@ -817,7 +823,8 @@ body {
 }
 
 .history-item .timestamp {
-    font-size: 0.7rem; /* 改为更小的字体 */
+    font-size: 0.7rem;
+    /* 改为更小的字体 */
     color: var(--text-muted);
     margin-bottom: var(--space-sm);
 }
@@ -1273,10 +1280,11 @@ body {
 .prompt-textarea {
     width: 100%;
     height: 60px;
-    padding: 6px;
+    padding: 5px;
     border: 2px solid var(--border-color);
     border-radius: var(--radius);
-    font-size: 13px; /* 改为更小的字体 */
+    font-size: 12px;
+    /* 进一步减小字体 */
     background: var(--bg-primary);
     color: var(--text-primary);
     resize: vertical;
@@ -1646,7 +1654,8 @@ body {
     }
 
     .text-select-item {
-  font-size: 0.75rem; /* 改为更小的字体 */
+        font-size: 0.75rem;
+        /* 改为更小的字体 */
         padding: 6px 10px;
     }
 
@@ -1932,47 +1941,6 @@ body {
     gap: var(--space-md);
 }
 
-.token-input-group {
-    display: flex;
-    gap: var(--space-sm);
-    align-items: center;
-}
-
-.token-input {
-    flex: 1;
-    padding: 10px 12px;
-    border: 2px solid var(--border-color);
-    border-radius: var(--radius);
-    background: var(--bg-primary);
-    color: var(--text-primary);
-    font-size: 0.9rem;
-}
-
-.token-input:focus {
-    border-color: var(--primary);
-    outline: none;
-}
-
-.token-btn {
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.2s;
-    white-space: nowrap;
-}
-
-.token-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow);
-}
-
 .token-info {
     display: flex;
     justify-content: space-between;
@@ -2111,13 +2079,15 @@ body {
 }
 
 .export-record-time {
-    font-size: 0.75rem; /* 改为更小的字体 */
+    font-size: 0.65rem;
+    /* 进一步减小字体 */
     color: var(--text-muted);
 }
 
 .export-record-prompt {
-    font-size: 0.85rem; /* 改为更小的字体 */
-    line-height: 1.6;
+    font-size: 0.7rem;
+    /* 进一步减小字体 */
+    line-height: 1.5;
     color: var(--text-primary);
     white-space: pre-wrap;
     word-break: break-word;
@@ -2271,9 +2241,11 @@ body {
 .export-record-tag {
     background: var(--bg-tertiary);
     color: var(--text-secondary);
-    padding: 2px 8px;
-    border-radius: 12px;
-    font-size: 0.7rem; /* 改为更小的字体 */
+    padding: 1px 6px;
+    /* 减少内边距 */
+    border-radius: 10px;
+    font-size: 0.6rem;
+    /* 进一步减小字体 */
 }
 
 /* 导出页面卡片布局优化 */

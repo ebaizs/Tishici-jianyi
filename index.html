@@ -705,14 +705,14 @@
                                 <i class="fas fa-save"></i>
                                 <span>保存</span>
                             </button>
-                             <button id="optimizeBtn" class="optimize-to-ai-btn">
+                            <button id="optimizeBtn" class="optimize-to-ai-btn">
                                 <i class="fas fa-robot"></i>
                                 <span>优化提示词</span>
                             </button>
                             <button id="copyPromptBtn" class="copy-prompt-btn">
                                 <i class="fas fa-copy"></i>
                                 <span>复制</span>
-                            </button>   
+                            </button>
                         </div>
                     </div>
 
@@ -739,15 +739,8 @@
                         <!-- 云端配置卡片 -->
                         <div class="bg-card cloud-card">
                             <div class="cloud-config">
-                                <div class="token-input-group">
-                                    <input type="password" id="cloud-token-input"
-                                        placeholder="输入GitHub Personal Access Token" class="token-input">
-                                    <button id="save-token-btn" class="token-btn">
-                                        <i class="fas fa-save"></i> 保存Token
-                                    </button>
-                                </div>
                                 <div class="token-info">
-                                    <span id="token-status" class="token-status">请先设置Token</span>
+                                    <span id="token-status" class="token-status">未设置Token</span>
                                 </div>
                                 <div class="cloud-actions">
                                     <button id="upload-cloud-btn" class="cloud-btn upload-btn">
@@ -824,8 +817,6 @@
                     <!-- 通知 -->
                     <div id="export-notification" class="export-notification"></div>
                 </div>
-
-
                 <!-- 脚本加载顺序 -->
                 <script src="ku.js"></script>
                 <script src="tishici.js"></script>
