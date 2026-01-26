@@ -1,0 +1,842 @@
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI绘画工具 - 提示词生成与色绘设计</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="global-container">
+        <!-- 登录界面 -->
+        <div id="login-container">
+            <div class="login-box">
+                <h2><i class="fas fa-paint-brush"></i> AI绘画工具系统</h2>
+                <p style="color: #666; margin-bottom: 20px;">请登录后使用</p>
+
+                <input type="text" id="username" class="login-input" placeholder="用户名" autocomplete="username">
+                <input type="password" id="password" class="login-input" placeholder="密码"
+                    autocomplete="current-password">
+
+                <button id="login-button" class="login-button">
+                    <i class="fas fa-sign-in-alt"></i> 登录
+                </button>
+
+                <div id="login-loading" class="login-loading">
+                    <i class="fas fa-spinner fa-spin"></i> 正在验证...
+                </div>
+
+                <div id="login-error" class="login-error"></div>
+
+                <div style="margin-top: 20px; font-size: 12px; color: #999;">
+                    <p>技术支持：泰安立诺装饰 · 15662061321</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主应用内容（登录后显示） -->
+        <div id="main-container">
+            <!-- 标题栏 -->
+            <div class="main-header">
+                <div class="header-left">
+                    <h1><i class="fas fa-paint-brush"></i> AI绘画工具</h1>
+                    <p>技术支持：泰安立诺装饰 · 15662061321</p>
+                </div>
+
+                <div class="header-right">
+                    <!-- 页面切换按钮 -->
+                    <div class="page-switcher">
+                        <button id="switch-prompt" class="switch-btn active">
+                            <i class="fas fa-comment-alt"></i>
+                            <span>提示词生成</span>
+                        </button>
+                        <button id="switch-paint" class="switch-btn">
+                            <i class="fas fa-paint-brush"></i>
+                            <span>色绘设计</span>
+                        </button>
+                        <button id="switch-export" class="switch-btn">
+                            <i class="fas fa-download"></i>
+                            <span>管理记录</span>
+                        </button>
+                    </div>
+
+                    <!-- 用户信息 -->
+                    <div class="user-info" id="user-info"></div>
+                </div>
+            </div>
+
+            <!-- 主内容区域 -->
+            <div id="content-area">
+                <!-- 提示词生成页面 -->
+                <div id="prompt-page" class="page active" style="display: none;">
+                    <!-- 这里直接嵌入原tishici.html的内容 -->
+                    <div class="tabs">
+                        <div class="tab home active" data-panel="home">
+                            <i class="fas fa-home"></i>
+                            <span>家装设计</span>
+                        </div>
+                        <div class="tab public" data-panel="public">
+                            <i class="fas fa-building"></i>
+                            <span>公装设计</span>
+                        </div>
+                        <div class="tab architecture" data-panel="architecture">
+                            <i class="fas fa-city"></i>
+                            <span>建筑设计</span>
+                        </div>
+                        <div class="tab landscape" data-panel="landscape">
+                            <i class="fas fa-tree"></i>
+                            <span>景观设计</span>
+                        </div>
+                        <div class="tab art" data-panel="art">
+                            <i class="fas fa-palette"></i>
+                            <span>绘画创作</span>
+                        </div>
+                    </div>
+
+                    <div class="content">
+                        <!-- 家装设计面板 -->
+                        <div class="panel home-panel active" id="home-panel">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="home-scene"><i class="fas fa-camera"></i> 功能类型</label>
+                                    <select id="home-scene">
+                                        <option value="">请选择功能</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="home-style"><i class="fas fa-palette"></i> 设计风格</label>
+                                    <select id="home-style">
+                                        <option value="">请选择风格</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="home-space"><i class="fas fa-door-open"></i> 空间类型</label>
+                                    <select id="home-space">
+                                        <option value="">请选择空间</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-couch"></i> 空间元素（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="home-furniture">
+                                    <span class="placeholder">请先选择风格和空间</span>
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="home-perspective"><i class="fas fa-eye"></i> 观察视角</label>
+                                    <select id="home-perspective">
+                                        <option value="">请选择视角</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="home-lighting"><i class="fas fa-lightbulb"></i> 灯光类型</label>
+                                    <select id="home-lighting">
+                                        <option value="">请选择灯光</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="home-lens"><i class="fas fa-video"></i> 画风类型</label>
+                                    <select id="home-lens">
+                                        <option value="">请选择画风</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-star"></i> 设计修饰词（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="home-modifiers">
+                                    <span class="placeholder">请先选择风格和空间</span>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-edit"></i> 附加描述
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="home-desc" rows="3"
+                                        placeholder="请输入附加描述，例如：阳光充足、温馨舒适、带有书架等..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-exchange-alt"></i> 其它补充要求
+                                </div>
+                                <div class="special-checkboxes" id="home-special">
+                                    <!-- 动态生成选项 -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 公装设计面板 -->
+                        <div class="panel public-panel" id="public-panel">
+                            <div class="form-row">
+
+
+                                <div class="form-group">
+                                    <label for="public-scene"><i class="fas fa-camera"></i> 功能类型</label>
+                                    <select id="public-scene">
+                                        <option value="">请选择功能</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="public-style"><i class="fas fa-palette"></i> 设计风格</label>
+                                    <select id="public-style">
+                                        <option value="">请选择风格</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="public-space"><i class="fas fa-door-open"></i> 空间类型</label>
+                                    <select id="public-space">
+                                        <option value="">请选择空间</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-building"></i> 空间元素（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="public-furniture">
+                                    <span class="placeholder">请先选择风格和空间</span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="public-perspective"><i class="fas fa-eye"></i> 观察视角</label>
+                                    <select id="public-perspective">
+                                        <option value="">请选择视角</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="public-lighting"><i class="fas fa-lightbulb"></i> 灯光类型</label>
+                                    <select id="public-lighting">
+                                        <option value="">请选择灯光</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="public-lens"><i class="fas fa-video"></i> 画风类型</label>
+                                    <select id="public-lens">
+                                        <option value="">请选择画风</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-star"></i> 设计修饰词（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="public-modifiers">
+                                    <span class="placeholder">请先选择风格和空间</span>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-edit"></i> 附加描述
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="public-desc" rows="3"
+                                        placeholder="请输入附加描述，例如：人流量大、专业氛围、高端大气等..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-exchange-alt"></i> 转换要求
+                                </div>
+                                <div class="special-checkboxes" id="public-special">
+                                    <!-- 动态生成选项 -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 建筑设计面板 -->
+                        <div class="panel architecture-panel" id="architecture-panel">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="architecture-scene"><i class="fas fa-camera"></i> 功能类型</label>
+                                    <select id="architecture-scene">
+                                        <option value="">请选择功能</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="architecture-style"><i class="fas fa-palette"></i> 设计风格</label>
+                                    <select id="architecture-style">
+                                        <option value="">请选择风格</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="architecture-space"><i class="fas fa-building"></i> 建筑类型</label>
+                                    <select id="architecture-space">
+                                        <option value="">请选择建筑类型</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-building"></i> 建筑元素（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="architecture-furniture">
+                                    <span class="placeholder">请先选择风格和建筑类型</span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="architecture-perspective"><i class="fas fa-eye"></i> 观察视角</label>
+                                    <select id="architecture-perspective">
+                                        <option value="">请选择视角</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="architecture-lighting"><i class="fas fa-lightbulb"></i> 灯光类型</label>
+                                    <select id="architecture-lighting">
+                                        <option value="">请选择灯光</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="architecture-lens"><i class="fas fa-video"></i> 画风类型</label>
+                                    <select id="architecture-lens">
+                                        <option value="">请选择画风</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-star"></i> 设计修饰词（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="architecture-modifiers">
+                                    <span class="placeholder">请先选择风格和建筑类型</span>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-edit"></i> 附加描述
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="architecture-desc" rows="3"
+                                        placeholder="请输入附加描述，例如：现代感强烈、标志性建筑、城市地标等..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-exchange-alt"></i> 转换要求
+                                </div>
+                                <div class="special-checkboxes" id="architecture-special">
+                                    <!-- 动态生成选项 -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 景观设计面板 -->
+                        <div class="panel landscape-panel" id="landscape-panel">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="landscape-scene"><i class="fas fa-camera"></i> 功能类型</label>
+                                    <select id="landscape-scene">
+                                        <option value="">请选择功能</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="landscape-style"><i class="fas fa-palette"></i> 设计风格</label>
+                                    <select id="landscape-style">
+                                        <option value="">请选择风格</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="landscape-space"><i class="fas fa-tree"></i> 空间类型</label>
+                                    <select id="landscape-space">
+                                        <option value="">请选择空间</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-tree"></i> 建筑景观元素（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="landscape-furniture">
+                                    <span class="placeholder">请先选择风格和空间</span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="landscape-perspective"><i class="fas fa-eye"></i> 观察视角</label>
+                                    <select id="landscape-perspective">
+                                        <option value="">请选择视角</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="landscape-lighting"><i class="fas fa-lightbulb"></i> 灯光类型</label>
+                                    <select id="landscape-lighting">
+                                        <option value="">请选择灯光</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="landscape-lens"><i class="fas fa-video"></i> 画风类型</label>
+                                    <select id="landscape-lens">
+                                        <option value="">请选择画风</option>
+                                    </select>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-star"></i> 设计修饰词（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="landscape-modifiers">
+                                    <span class="placeholder">请先选择风格和空间</span>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-edit"></i> 附加描述
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="landscape-desc" rows="3"
+                                        placeholder="请输入附加描述，例如：日落时分、四季分明、都市绿洲等..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-exchange-alt"></i> 转换要求
+                                </div>
+                                <div class="special-checkboxes" id="landscape-special">
+                                    <!-- 动态生成选项 -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 绘画创作面板 -->
+                        <div class="panel art-panel" id="art-panel">
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label for="art-scene"><i class="fas fa-camera"></i> 功能类型</label>
+                                    <select id="art-scene">
+                                        <option value="">请选择功能</option>
+                                    </select>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label for="art-style"><i class="fas fa-palette"></i> 艺术风格</label>
+                                    <select id="art-style">
+                                        <option value="">请选择风格</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="art-space"><i class="fas fa-brush"></i> 创作主题</label>
+                                    <select id="art-space">
+                                        <option value="">请选择主题</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-palette"></i> 画面元素（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="art-furniture">
+                                    <span class="placeholder">请先选择风格和主题</span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+
+
+                                <div class="form-group">
+                                    <label for="art-perspective"><i class="fas fa-eye"></i> 观察视角</label>
+                                    <select id="art-perspective">
+                                        <option value="">请选择视角</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="art-lighting"><i class="fas fa-lightbulb"></i> 光影效果</label>
+                                    <select id="art-lighting">
+                                        <option value="">请选择光影</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="art-lens"><i class="fas fa-video"></i> 画风类型</label>
+                                    <select id="art-lens">
+                                        <option value="">请选择画风</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-star"></i> 艺术修饰词（可多选）
+                                </div>
+                                <div class="dynamic-checkboxes" id="art-modifiers">
+                                    <span class="placeholder">请先选择风格和主题</span>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-edit"></i> 附加描述
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="art-desc" rows="3"
+                                        placeholder="请输入附加描述，例如：忧郁情绪、戏剧性光影、梦幻色彩等..."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-section">
+                                <div class="section-title">
+                                    <i class="fas fa-exchange-alt"></i> 创作要求
+                                </div>
+                                <div class="special-checkboxes" id="art-special">
+                                    <!-- 动态生成选项 -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 通知容器 -->
+                        <div class="notification" id="notification"></div>
+
+                        <!-- 新的按钮栏（放在结果区域前面） -->
+                        <div class="action-bar new-action-bar">
+                            <div class="button-row">
+
+                                <button class="btn save" id="save-btn">
+                                    <i class="fas fa-save"></i> 保存
+                                </button>
+                                <button class="btn generate" id="generate-btn">
+                                    <i class="fas fa-magic"></i> 智能生成提示词
+                                </button>
+                                <button class="btn copy" id="copy-btn">
+                                    <i class="fas fa-copy"></i> 复制
+                                </button>
+                            </div>
+                        </div>
+                        <!-- 加载状态 -->
+                        <div class="loading" id="loading">
+                            <div class="spinner"></div>
+                            <div>正在智能生成提示词...</div>
+                        </div>
+
+                        <!-- 结果区域 -->
+                        <div class="result-section" id="result-section" style="display: none;">
+                            <h3><i class="fas fa-lightbulb"></i> 生成的AI绘画提示词</h3>
+                            <div class="prompt-output" id="prompt-output" contenteditable="true"
+                                placeholder="生成的提示词将显示在这里...">
+                                <span class="copy-hint">可编辑，点击复制</span>
+                            </div>
+                            <!-- 注：按钮已移动到上方 -->
+                        </div>
+
+                        <!-- 历史记录区域 -->
+                        <div class="history-section">
+                            <div class="history-header">
+                                <h3><i class="fas fa-history"></i> 历史记录</h3>
+                                <div class="history-actions">
+                                    <button class="btn secondary" id="export-btn">
+                                        <i class="fas fa-download"></i> 转至管理记录
+                                    </button>
+                                    <button class="btn secondary" id="clear-history">
+                                        <i class="fas fa-trash-alt"></i> 清空记录
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="history-list" id="history-list">
+                                <div class="empty-state">
+                                    <i class="fas fa-inbox"></i>
+                                    <p>暂无历史记录，请生成并保存提示词</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 色绘设计页面 -->
+                <div id="paint-page" class="page" style="display: none;">
+                    <!-- 移除所有外层容器，直接使用 bg-card -->
+                    <!-- 工具栏 -->
+                    <div class="bg-card toolbar-card">
+                        <div class="toolbar-container">
+                            <button id="brushTool" class="tool-btn large active rounded-xl" data-testid="brush-tool">
+                                <i class="fas fa-paint-brush"></i>
+                                <div class="text-xs mt-2">画笔</div>
+                            </button>
+                            <button id="eraserTool" class="tool-btn large eraser-btn rounded-xl"
+                                data-testid="eraser-tool">
+                                <i class="fas fa-eraser"></i>
+                                <div class="text-xs mt-2">橡皮</div>
+                            </button>
+                            <button id="lineTool" class="tool-btn large line-tool rounded-xl" data-testid="line-tool">
+                                <i class="fas fa-slash"></i>
+                                <div class="text-xs mt-2">直线</div>
+                            </button>
+                            <button id="lassoTool" class="tool-btn large lasso-btn rounded-xl">
+                                <i class="fas fa-draw-polygon"></i>
+                                <div class="text-xs mt-2">套索</div>
+                            </button>
+                            <button id="clearTool" class="tool-btn large clear-btn rounded-xl" data-testid="clear-tool">
+                                <i class="fas fa-trash-alt"></i>
+                                <div class="text-xs mt-2">清空画布</div>
+                            </button>
+                            <button id="undoTool" class="tool-btn large undo-btn rounded-xl" data-testid="undo-tool">
+                                <i class="fas fa-undo-alt"></i>
+                                <div class="text-xs mt-2">撤销</div>
+                            </button>
+                            <button id="redoTool" class="tool-btn large redo-btn rounded-xl" data-testid="redo-tool">
+                                <i class="fas fa-redo-alt"></i>
+                                <div class="text-xs mt-2">重做</div>
+                            </button>
+                            <button id="saveImageBtn" class="tool-btn large save-image-btn rounded-xl"
+                                data-testid="save-image-btn">
+                                <i class="fas fa-download"></i>
+                                <div class="text-xs mt-2">保存图片</div>
+                            </button>
+                            <button id="rotateSaveBtn" class="tool-btn large rotate-save-btn rounded-xl"
+                                data-testid="rotate-save-btn">
+                                <i class="fas fa-retweet"></i>
+                                <div class="text-xs mt-2">竖图导出</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 上传和画笔控制 -->
+                    <div class="bg-card upload-toolbar-card">
+                        <div class="upload-toolbar-content">
+                            <!-- 上传按钮 -->
+                            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                            <input type="file" id="rotateImageUpload" accept="image/*" style="display: none;">
+
+                            <button id="uploadBtn" class="upload-image-btn" data-testid="upload-btn">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>上传图片</span>
+                            </button>
+                            <button id="rotateImportBtn" class="upload-image-btn rotate-import-btn"
+                                data-testid="rotate-import-btn">
+                                <i class="fas fa-redo-alt"></i>
+                                <span>竖图上传</span>
+                            </button>
+
+                            <!-- 画笔预览 -->
+                            <div class="brush-preview-large">
+                                <div id="brushPreviewBox"></div>
+                            </div>
+
+                            <!-- 画笔大小调整 -->
+                            <div class="brush-adjust-area">
+                                <div class="brush-size-info">
+                                    <span class="text-xs text-label">画笔大小:</span>
+                                    <span id="brushSizeValue" class="brush-size-value">20px</span>
+                                </div>
+                                <input type="range" id="brushSize" min="5" max="50" value="20"
+                                    class="brush-size-slider">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 画布区域 -->
+                    <div class="bg-card canvas-card">
+                        <div class="canvas-container">
+                            <canvas id="drawingCanvas"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- 颜色工具栏 -->
+                    <div class="bg-card color-toolbar-card">
+                        <!-- 颜色输入和生成按钮 -->
+                        <div class="color-input-row">
+                            <div id="currentColorPreview" class="color-preview-large"></div>
+                            <input type="text" id="colorNameInput" placeholder="颜色名" class="color-name-input"
+                                style="height: 20px;">
+                            <button id="randomColorBtn" class="random-color-btn">
+                                <i class="fas fa-random"></i>
+                                <span>随机颜色</span>
+                            </button>
+                            <button id="generatePromptBtn" class="generate-prompt-btn">
+                                <i class="fas fa-magic"></i>
+                                <span>生成提示词</span>
+                            </button>
+                        </div>
+
+                        <!-- 颜色列表 -->
+                        <div id="colorList" class="color-list"></div>
+                    </div>
+
+                    <!-- 提示词区域 -->
+                    <div class="bg-card prompt-card">
+                        <div id="promptTextarea" class="prompt-textarea" placeholder="生成的提示词将显示在这里..."></div>
+
+                        <div class="prompt-action-buttons">
+                            <button id="savePromptBtn" class="save-record-btn">
+                                <i class="fas fa-save"></i>
+                                <span>保存</span>
+                            </button>
+                            <button id="optimizeBtn" class="optimize-to-ai-btn">
+                                <i class="fas fa-robot"></i>
+                                <span>优化提示词</span>
+                            </button>
+                            <button id="copyPromptBtn" class="copy-prompt-btn">
+                                <i class="fas fa-copy"></i>
+                                <span>复制</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 保存的记录 -->
+                    <div class="bg-card history-card">
+                        <h3 class="history-title">提示词记录</h3>
+                        <div id="savedPromptsList" class="saved-prompts-list">
+                            <!-- 动态添加的保存记录 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 导出页面 -->
+                <div id="export-page" class="page" style="display: none;">
+                    <div class="export-container">
+                        <!-- 头部 -->
+                        <div class="export-header">
+                            <button id="export-back-btn" class="back-btn">
+                                <i class="fas fa-arrow-left"></i> 返回
+                            </button>
+                            <h2><i class="fas fa-download"></i> 提示词导出与云端同步</h2>
+                        </div>
+
+                        <!-- 云端配置卡片 -->
+                        <div class="bg-card cloud-card">
+                            <div class="cloud-config">
+                                <div class="token-info">
+                                    <span id="token-status" class="token-status">未设置Token</span>
+                                </div>
+                                <div class="cloud-actions">
+                                    <button id="upload-cloud-btn" class="cloud-btn upload-btn">
+                                        <i class="fas fa-cloud-upload-alt"></i> 上传到云端
+                                    </button>
+                                    <button id="load-cloud-btn" class="cloud-btn load-btn">
+                                        <i class="fas fa-cloud-download-alt"></i> 从云端加载
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 筛选工具栏卡片 -->
+                        <div class="bg-card filter-card">
+                            <div class="filter-row">
+                                <div class="filter-group">
+                                    <label><i class="fas fa-layer-group"></i> 版块</label>
+                                    <select id="section-filter" class="filter-select">
+                                        <option value="all">所有版块</option>
+                                        <option value="家装设计">家装设计</option>
+                                        <option value="公装设计">公装设计</option>
+                                        <option value="建筑设计">建筑设计</option>
+                                        <option value="景观设计">景观设计</option>
+                                        <option value="绘画创作">绘画创作</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label><i class="fas fa-door-open"></i> 空间</label>
+                                    <select id="space-filter" class="filter-select">
+                                        <option value="all">所有空间</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label><i class="fas fa-palette"></i> 风格</label>
+                                    <select id="style-filter" class="filter-select">
+                                        <option value="all">所有风格</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="stats-row">
+                                <span id="export-stats" class="stats-text">共找到 0 条记录</span>
+                            </div>
+                        </div>
+
+                        <!-- 导出操作卡片 -->
+                        <div class="bg-card action-card">
+                            <div class="export-header-with-clear">
+                                <h3><i class="fas fa-list"></i> 提示词记录</h3>
+                                <button id="clear-all-records" class="btn small-btn danger">
+                                    <i class="fas fa-trash-alt"></i> 全部清空
+                                </button>
+                            </div>
+                            <div class="export-actions">
+                                <button id="export-local-btn" class="export-btn local-btn">
+                                    <i class="fas fa-download"></i> 导出到本地
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 记录列表卡片 -->
+                        <div class="bg-card records-card">
+                            <div id="export-content" class="export-content">
+                                <div class="empty-state">
+                                    <i class="fas fa-inbox"></i>
+                                    <p>正在加载记录...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 通知 -->
+                    <div id="export-notification" class="export-notification"></div>
+                </div>
+
+
+                <!-- 脚本加载顺序 -->
+                <script src="ku.js"></script>
+                <script src="tishici.js"></script>
+                <script src="huihua.js"></script>                
+                <script src="app.js"></script>
+            </div> <!-- 关闭 .global-container -->
+</body>
+
+</html>
