@@ -1517,6 +1517,11 @@ body {
     transition: all 0.3s;
 }
 
+.import-btn {
+    background: linear-gradient(135deg, #17a2b8, #138496);
+    color: white;
+}
+
 .local-btn {
     background: linear-gradient(135deg, #f72585, #b5179e);
     color: white;
@@ -1801,6 +1806,36 @@ body {
         padding: var(--space-sm);
     }
 
+    /* 小屏下云端操作按钮一行显示 */
+    .cloud-actions {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 4px;
+        /* 适当缩小间距 */
+    }
+
+    .cloud-actions .cloud-btn {
+        flex: 1 1 0;
+        white-space: nowrap;
+        padding: 8px 4px;
+        /* 根据实际效果调整 */
+        font-size: 12px;
+    }
+
+    /* 小屏下导出操作按钮一行显示 */
+    .export-actions {
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+        gap: 4px;
+    }
+
+    .export-actions .export-btn {
+        flex: 1 1 0;
+        white-space: nowrap;
+        padding: 10px 4px;
+        font-size: 13px;
+    }
+
     .main-header {
         flex-direction: column;
         align-items: stretch;
@@ -1927,6 +1962,16 @@ body {
     :root {
         --space-md: 12px;
         --space-lg: 16px;
+    }
+
+    .cloud-actions .cloud-btn {
+        padding: 6px 2px;
+        font-size: 11px;
+    }
+
+    .export-actions .export-btn {
+        padding: 8px 2px;
+        font-size: 12px;
     }
 
     .switch-btn {
