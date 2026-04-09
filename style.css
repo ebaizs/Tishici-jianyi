@@ -1969,10 +1969,13 @@ body {
         --space-md: 12px;
         --space-lg: 16px;
     }
+
     .history-list {
-        max-height: 300px !important;  /* 根据实际需要调整高度 */
-        
+        max-height: 300px !important;
+        /* 根据实际需要调整高度 */
+
     }
+
     /* 确保每个历史条目不会过高（例如限制内边距） */
     .history-item {
         padding: 12px;
@@ -2168,4 +2171,68 @@ body {
     .color-item .clear-color-select option {
         font-size: 10px;
     }
+}
+
+/* 自定义词条样式 */
+.custom-phrases-area .input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.custom-phrases-area .phrase-input {
+    flex: 2;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+}
+
+.btn-add-phrase,
+.btn-clear-phrases {
+    padding: 6px 12px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.btn-clear-phrases {
+    background: var(--danger);
+}
+
+.phrases-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.phrase-chip {
+    position: relative;
+    padding: 4px 24px 4px 10px;
+    background: var(--bg-tertiary);
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.phrase-chip.selected {
+    background: var(--primary);
+    color: white;
+}
+
+.phrase-delete {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.phrase-delete:hover {
+    opacity: 1;
 }
