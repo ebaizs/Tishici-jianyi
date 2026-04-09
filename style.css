@@ -2236,3 +2236,10 @@ body {
 .phrase-delete:hover {
     opacity: 1;
 }
+/* 其它要求折叠动画 */
+.special-options-container {
+    transition: all 0.2s ease;
+}
+.special-category-title i {
+    transition: transform 0.2s;
+}
