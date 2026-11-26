@@ -31,7 +31,7 @@
                 <div id="login-error" class="login-error"></div>
 
                 <div style="margin-top: 20px; font-size: 12px; color: #999;">
-                    <p>技术支持：泰安立诺装饰 · 15662061321</p>
+                    <p>技术支持：山东 · 15662061321</p>
                 </div>
             </div>
         </div>
@@ -40,30 +40,178 @@
         <div id="main-container">
             <!-- 标题栏 -->
             <div class="main-header">
-                <div class="header-left">
-                    <h1><i class="fas fa-paint-brush"></i> AI绘画工具</h1>
-                    <p class="support-info">技术支持：泰安立诺装饰 · 15662061321</p>
+                <!-- 第一行：标题 + 用户区 -->
+                <div class="header-row">
+                    <div class="header-left">
+                        <h1><i class="fas fa-paint-brush"></i> AI绘画工具</h1>
+                    </div>
+                    <div class="user-area">
+                        <span class="user-name-text" id="user-name-text">用户</span>
+                        <button id="help-btn-header" class="help-btn" title="帮助">?</button>
+                    </div>
                 </div>
 
-                <div class="header-right">
-                    <!-- 页面切换按钮 -->
+                <!-- 第二行：页面切换按钮 + 退出按钮 -->
+                <div class="nav-area">
                     <div class="page-switcher">
                         <button id="switch-prompt" class="switch-btn active">
-                            <i class="fas fa-comment-alt"></i>
-                            <span>提示词生成</span>
+                            <i class="fas fa-comment-alt"></i><span>生提示词</span>
                         </button>
                         <button id="switch-paint" class="switch-btn">
-                            <i class="fas fa-paint-brush"></i>
-                            <span>色绘设计</span>
+                            <i class="fas fa-paint-brush"></i><span>色绘设计</span>
                         </button>
                         <button id="switch-export" class="switch-btn">
-                            <i class="fas fa-download"></i>
-                            <span>管理记录</span>
+                            <i class="fas fa-download"></i><span>管理记录</span>
                         </button>
                     </div>
+                </div>
+            </div>
 
-                    <!-- 用户信息 -->
-                    <div class="user-info" id="user-info"></div>
+            <!-- 帮助模态框（静态） -->
+            <div id="helpModal" class="help-modal-overlay" style="display: none;">
+                <div class="help-modal">
+                    <div class="help-modal-header">
+                        <h3><i class="fas fa-question-circle"></i> AI绘画工具 · 帮助中心</h3>
+                        <button class="help-modal-close">&times;</button>
+                    </div>
+                    <div class="help-modal-content">
+
+                        <div class="qa-list">
+                            <p style="font-size:1.05rem; font-weight:600; margin-bottom:16px; color:#0f172a;">
+                                <i class="fas fa-life-ring"></i> AI绘画工具 · 操作技巧速查
+                            </p>
+                            <p style="color:#475569; margin-bottom:20px;">以下问答覆盖高频操作，助您快速上手。</p>
+                            <!-- 1. 提示词生成流程 -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-magic"></i> 如何快速生成专业提示词？</div>
+                                <div class="qa-a">
+                                    <strong>① 选择板块</strong>（家装/公装/建筑/景观/绘画）→ <strong>② 选风格、空间、灯光、视角</strong> → <strong>③
+                                        勾选【空间元素】【设计修饰词】</strong> → <strong>④ 在“附加描述”中添加自定义词条</strong> → <strong>⑤
+                                        点击“智能生成提示词”</strong> → 复制或保存。<br>
+                                    💡 生成的提示词可直接编辑，保存后自动进入历史记录，方便复用。
+                                </div>
+                            </div>
+
+                            <!-- 2. 色绘设计的核心作用（新增） -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-draw-polygon"></i> 色绘设计有什么独特作用？</div>
+                                <div class="qa-a">
+                                    色绘设计不仅仅是涂鸦工具，它的核心价值在于<strong>为AI提供精准的布局指引</strong>：<br>
+                                    • 您可以上传参考图作为底图，然后用不同颜色的方块在画布上标记出<strong>物体位置、大小比例、空间关系</strong>。<br>
+                                    •
+                                    AI会识别您绘制的颜色区域（例如蓝色区域表示“沙发”，红色区域表示“茶几”），并严格按照您标记的位置和比例生成物体，实现<strong>“指哪打哪”</strong>的精确控制。<br>
+                                    • 配合套索工具，可以绘制任意形状的区域，AI将在该区域内生成指定物体，彻底解决“AI乱放东西”的痛点。<br>
+                                    • 配合提示词生成工具，可以毛坯房生图，颜色语义生图，局部改图。<br>
+                                    💡 简单说：您画什么颜色，AI就在哪里生成对应的物体；您画多大，AI就生成多大。让AI真正听懂您的布局意图。
+                                </div>
+                            </div>
+
+                            <!-- 3. 色绘设计快捷键 -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-paint-brush"></i> 色绘设计有哪些实用快捷键？</div>
+                                <div class="qa-a">
+                                    <strong>画笔</strong> <kbd>B</kbd> <strong>橡皮</strong>
+                                    <kbd>E</kbd> <strong>直线</strong> <kbd>L</kbd> <strong>套索</strong> <kbd>O</kbd><br>
+                                    <strong>撤销</strong> <kbd>Ctrl+Z</kbd> <strong>重做</strong> <kbd>Ctrl+Y</kbd> 或
+                                    <kbd>Ctrl+Shift+Z</kbd><br>
+                                    <strong>增大画笔</strong> <kbd>↑</kbd> / <kbd>]</kbd> <strong>减小画笔</strong> <kbd>↓</kbd>
+                                    / <kbd>[</kbd><br>
+                                    <strong>套索完成</strong> <kbd>Enter</kbd> <strong>取消套索</strong> <kbd>Esc</kbd><br>
+                                    <strong>删除最后套索点</strong> <kbd>Backspace</kbd> / <kbd>Delete</kbd><br>
+                                    <strong>Shift + 拖动画笔</strong> 绘制水平/垂直直线<br>
+                                    💡 快捷键在焦点不在输入框时生效，避免误触。
+                                </div>
+                            </div>
+
+                            <!-- 4. 附加描述（自定义词条）云端同步 -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-cloud-upload-alt"></i> 自定义词条如何跨设备同步？</div>
+                                <div class="qa-a">
+                                    每个板块底部的“附加描述”区域，您可以输入常用词条并点击“添加”生成可多选的词条库。点击 <strong>“上传至云端”</strong>
+                                    按钮，当前板块的所有词条会备份到您的公司专属空间（超级管理员自动归入“linuo”公司）。<br>
+                                    换设备后点击【管理记录】→“从云端加载”，即可合并词条，实现跨设备同步。<br>
+                                    💡 词条支持拖拽排序（长按拖动），顺序也会同步到云端。
+                                </div>
+                            </div>
+
+                            <!-- 5. 记录拆解与重新选择 -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-code-branch"></i> 如何将历史记录拆解回原始选项？</div>
+                                <div class="qa-a">
+                                    在【管理记录】页面，点击任意历史记录右侧的 <strong>“编辑”</strong>
+                                    按钮，系统会自动将该记录包含的<strong>风格、空间、视角、灯光、画风、家具元素、修饰词、特殊要求、自定义词条</strong>全部还原到生成页面对应的控件中。<br>
+                                    您可以在此基础上修改任意选项，生成全新的提示词，极大提高复用效率。<br>
+                                    💡 此功能完美支持旧版本记录（会自动从提示词文本中智能提取选项）。
+                                </div>
+                            </div>
+
+                            <!-- 6. 标签管理、备份与切换 -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-tags"></i> 如何给提示词打标签并快速筛选？</div>
+                                <div class="qa-a">
+                                    每条保存的提示词都可以添加一个不超过12字的标签（如“客厅方案A”“北欧风待修改”）。<br>
+                                    • <strong>添加/编辑标签</strong>：在【管理记录】页面，双击标签区域即可输入。<br>
+                                    • <strong>仅显示已打标记录</strong>：点击“切换标识记录”按钮，所有带标签的记录会排在列表最上方，无标签的靠后。<br>
+                                    • <strong>标签备份</strong>：标签会随本地数据一并导出/导入云端，团队协作时标签不会丢失。<br>
+                                    💡 导出本地ZIP包或上传云端时，标签完整保存。
+                                </div>
+                            </div>
+
+                            <!-- 7. 记录分类筛选（强大筛选器） -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-filter"></i> 如何按板块/空间/风格筛选历史记录？</div>
+                                <div class="qa-a">
+                                    进入【管理记录】页面，顶部提供 <strong>版块、空间、风格</strong> 三级筛选器，支持组合筛选。<br>
+                                    例如：选择“家装设计”→“客厅”→“现代简约”，即可快速定位所有符合条件的记录。<br>
+                                    筛选结果支持批量编辑、删除、导出或上传到云端。<br>
+                                    💡 筛选器选项会根据已有记录自动填充，不会出现空选项。
+                                </div>
+                            </div>
+
+                            <!-- 8. 云端备份与恢复 -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-database"></i> 如何备份/恢复所有提示词和词条？</div>
+                                <div class="qa-a">
+                                    • <strong>上传到云端</strong>：点击“上传到云端”，将当前所有提示词记录 + 自定义词条打包上传至公司空间。<br>
+                                    • <strong>从云端加载</strong>：点击“从云端加载”，系统会将云端数据与本地数据<strong>智能合并</strong>（不会重复）。<br>
+                                    • <strong>导出到本地</strong>：生成 ZIP 压缩包（内含 tishici.json 和 attach.json），适合手动存档或迁移。<br>
+                                    • <strong>从本地导入</strong>：选择之前导出的 ZIP 或 JSON 文件，支持合并或覆盖模式。<br>
+                                    💡 所有操作均经过公司 ID 隔离，超级管理员账号自动归入“linuo”公司，普通用户只能操作自己公司的数据。
+                                </div>
+                            </div>
+
+                            <!-- 9. 小屏幕适配 -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-mobile-alt"></i> 手机/平板使用有哪些注意事项？</div>
+                                <div class="qa-a">
+                                    • 宽度 ≤ 480px 时，橡皮、直线、套索工具自动隐藏，保留核心画笔（可外接键盘使用快捷键）。<br>
+                                    • 表格和长列表支持左右滑动查看完整内容。<br>
+                                    • 所有按钮文字自动简化，触摸区域加大，方便手指操作。<br>
+                                    💡 建议横屏使用，获得更舒适的操作空间。
+                                </div>
+                            </div>
+
+                            <!-- 10. 账号使用限制 -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-chart-line"></i> 账号有使用次数限制吗？</div>
+                                <div class="qa-a">
+                                    普通用户每天使用次数有限（默认100次），管理员无限制。每次登录、生成提示词、保存图片等操作会计入使用次数。<br>
+                                    若超过限制，请联系管理员增加配额或升级账号。<br>
+                                    💡 技术支持：<strong>山东·泰安 15662061321</strong>（微信同号）。
+                                </div>
+                            </div>
+
+                            <!-- 11. 常见问题与支持 -->
+                            <div class="qa-item">
+                                <div class="qa-q"><i class="fas fa-question-circle"></i> 还有疑问或建议？</div>
+                                <div class="qa-a">
+                                    遇到问题可先刷新页面重试，或点击本帮助按钮查阅指南。<br>
+                                    若仍未解决，请联系技术支持 <strong style="color:#2563eb;">15662061321</strong>，我们将及时为您解答。<br>
+                                    版本 v2.0 | 持续优化中
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -166,6 +314,7 @@
                             <div class="form-section">
                                 <div class="section-title">
                                     <i class="fas fa-edit"></i> 附加描述（多选词条）
+                                    <button type="button" class="btn-upload-phrases" data-section="home">上传至云端</button>
                                 </div>
                                 <div class="custom-phrases-area" data-section="home">
                                     <div class="input-group">
@@ -178,12 +327,15 @@
                                 </div>
                             </div>
                             <div class="form-section">
-                                <div class="section-title">
-                                    <i class="fas fa-exchange-alt"></i> 其它补充要求
+                                <div class="section-title"
+                                    style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div><i class="fas fa-exchange-alt"></i> 其它补充要求</div>
+                                    <button type="button" class="btn-toggle-all-special" data-panel="home"
+                                        style="padding: 2px 12px; font-size: 12px; background:#327ae6; border-radius: 20px; border: none; cursor: pointer;">
+                                        <i class="fas fa-compress-alt"></i> <span>全部折叠</span>
+                                    </button>
                                 </div>
-                                <div class="special-checkboxes" id="home-special">
-                                    <!-- 动态生成选项 -->
-                                </div>
+                                <div class="special-checkboxes" id="home-special"></div>
                             </div>
                         </div>
 
@@ -258,6 +410,8 @@
                             <div class="form-section">
                                 <div class="section-title">
                                     <i class="fas fa-edit"></i> 附加描述（多选词条）
+                                    <button type="button" class="btn-upload-phrases"
+                                        data-section="public">上传至云端</button>
                                 </div>
                                 <div class="custom-phrases-area" data-section="public">
                                     <div class="input-group">
@@ -271,12 +425,15 @@
                             </div>
 
                             <div class="form-section">
-                                <div class="section-title">
-                                    <i class="fas fa-exchange-alt"></i> 转换要求
+                                <div class="section-title"
+                                    style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div><i class="fas fa-exchange-alt"></i> 其它补充要求</div>
+                                    <button type="button" class="btn-toggle-all-special" data-panel="public"
+                                        style="padding: 2px 12px; font-size: 12px; background:#327ae6; border-radius: 20px; border: none; cursor: pointer;">
+                                        <i class="fas fa-compress-alt"></i> <span>全部折叠</span>
+                                    </button>
                                 </div>
-                                <div class="special-checkboxes" id="public-special">
-                                    <!-- 动态生成选项 -->
-                                </div>
+                                <div class="special-checkboxes" id="public-special"></div>
                             </div>
                         </div>
 
@@ -349,6 +506,8 @@
                             <div class="form-section">
                                 <div class="section-title">
                                     <i class="fas fa-edit"></i> 附加描述（多选词条）
+                                    <button type="button" class="btn-upload-phrases"
+                                        data-section="architecture">上传至云端</button>
                                 </div>
                                 <div class="custom-phrases-area" data-section="architecture">
                                     <div class="input-group">
@@ -362,12 +521,15 @@
                             </div>
 
                             <div class="form-section">
-                                <div class="section-title">
-                                    <i class="fas fa-exchange-alt"></i> 转换要求
+                                <div class="section-title"
+                                    style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div><i class="fas fa-exchange-alt"></i> 其它补充要求</div>
+                                    <button type="button" class="btn-toggle-all-special" data-panel="architecture"
+                                        style="padding: 2px 12px; font-size: 12px; background:#327ae6; border-radius: 20px; border: none; cursor: pointer;">
+                                        <i class="fas fa-compress-alt"></i> <span>全部折叠</span>
+                                    </button>
                                 </div>
-                                <div class="special-checkboxes" id="architecture-special">
-                                    <!-- 动态生成选项 -->
-                                </div>
+                                <div class="special-checkboxes" id="architecture-special"></div>
                             </div>
                         </div>
 
@@ -447,6 +609,8 @@
                             <div class="form-section">
                                 <div class="section-title">
                                     <i class="fas fa-edit"></i> 附加描述（多选词条）
+                                    <button type="button" class="btn-upload-phrases"
+                                        data-section="landscape">上传至云端</button>
                                 </div>
                                 <div class="custom-phrases-area" data-section="landscape">
                                     <div class="input-group">
@@ -458,14 +622,16 @@
                                     <div class="phrases-list"></div>
                                 </div>
                             </div>
-
                             <div class="form-section">
-                                <div class="section-title">
-                                    <i class="fas fa-exchange-alt"></i> 转换要求
+                                <div class="section-title"
+                                    style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div><i class="fas fa-exchange-alt"></i> 其它补充要求</div>
+                                    <button type="button" class="btn-toggle-all-special" data-panel="landscape"
+                                        style="padding: 2px 12px; font-size: 12px; background:#327ae6; border-radius: 20px; border: none; cursor: pointer;">
+                                        <i class="fas fa-compress-alt"></i> <span>全部折叠</span>
+                                    </button>
                                 </div>
-                                <div class="special-checkboxes" id="landscape-special">
-                                    <!-- 动态生成选项 -->
-                                </div>
+                                <div class="special-checkboxes" id="landscape-special"></div>
                             </div>
                         </div>
 
@@ -543,6 +709,7 @@
                             <div class="form-section">
                                 <div class="section-title">
                                     <i class="fas fa-edit"></i> 附加描述（多选词条）
+                                    <button type="button" class="btn-upload-phrases" data-section="art">上传至云端</button>
                                 </div>
                                 <div class="custom-phrases-area" data-section="art">
                                     <div class="input-group">
@@ -556,21 +723,33 @@
                             </div>
 
                             <div class="form-section">
-                                <div class="section-title">
-                                    <i class="fas fa-exchange-alt"></i> 创作要求
+                                <div class="section-title"
+                                    style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div><i class="fas fa-exchange-alt"></i> 其它补充要求</div>
+                                    <button type="button" class="btn-toggle-all-special" data-panel="art"
+                                        style="padding: 2px 12px; font-size: 12px; background:#327ae6; border-radius: 20px; border: none; cursor: pointer;">
+                                        <i class="fas fa-compress-alt"></i> <span>全部折叠</span>
+                                    </button>
                                 </div>
-                                <div class="special-checkboxes" id="art-special">
-                                    <!-- 动态生成选项 -->
-                                </div>
+                                <div class="special-checkboxes" id="art-special"></div>
                             </div>
                         </div>
                         <!-- 通知容器 -->
                         <div class="notification" id="notification"></div>
 
-                        <!-- 新的按钮栏（放在结果区域前面） -->
+                        <!-- 结果区域（移到按钮栏上方） -->
+                        <div class="result-section" id="result-section" style="display: none;">
+                            <h3><i class="fas fa-lightbulb"></i> 生成的AI绘画提示词</h3>
+                            <div class="prompt-output" id="prompt-output" contenteditable="true"
+                                placeholder="生成的提示词将显示在这里...">
+                                <span class="copy-hint">可编辑，点击复制</span>
+                            </div>
+                            <!-- 注：按钮已移动到下方 -->
+                        </div>
+
+                        <!-- 新的按钮栏 -->
                         <div class="action-bar new-action-bar">
                             <div class="button-row">
-
                                 <button class="btn save" id="save-btn">
                                     <i class="fas fa-save"></i> 保存
                                 </button>
@@ -582,20 +761,11 @@
                                 </button>
                             </div>
                         </div>
+
                         <!-- 加载状态 -->
                         <div class="loading" id="loading">
                             <div class="spinner"></div>
                             <div>正在智能生成提示词...</div>
-                        </div>
-
-                        <!-- 结果区域 -->
-                        <div class="result-section" id="result-section" style="display: none;">
-                            <h3><i class="fas fa-lightbulb"></i> 生成的AI绘画提示词</h3>
-                            <div class="prompt-output" id="prompt-output" contenteditable="true"
-                                placeholder="生成的提示词将显示在这里...">
-                                <span class="copy-hint">可编辑，点击复制</span>
-                            </div>
-                            <!-- 注：按钮已移动到上方 -->
                         </div>
 
                         <!-- 历史记录区域 -->
@@ -605,6 +775,10 @@
                                 <div class="history-actions">
                                     <button class="btn secondary" id="export-btn">
                                         <i class="fas fa-download"></i> 转至管理记录
+                                    </button>
+                                    <button id="filter-marked-btn" class="btn secondary"
+                                        style="background: var(--info);">
+                                        <i class="fas fa-filter"></i> 切换标识记录
                                     </button>
                                     <button class="btn secondary" id="clear-history">
                                         <i class="fas fa-trash-alt"></i> 清空记录
@@ -698,7 +872,7 @@
                                     <span class="text-xs text-label">画笔大小:</span>
                                     <span id="brushSizeValue" class="brush-size-value">20px</span>
                                 </div>
-                                <input type="range" id="brushSize" min="5" max="50" value="20"
+                                <input type="range" id="brushSize" min="5" max="100" value="20"
                                     class="brush-size-slider">
                             </div>
                         </div>
@@ -714,15 +888,18 @@
                     <!-- 颜色工具栏 -->
                     <div class="bg-card color-toolbar-card">
                         <!-- 颜色输入和生成按钮 -->
-                        <div class="color-input-row">
-                            <div id="currentColorPreview" class="color-preview-large"></div>
+                        <div class="color-input-row"
+                            style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
+                            <div id="currentColorPreview" class="color-preview-large" style="flex: 0 0 auto;"></div>
                             <input type="text" id="colorNameInput" placeholder="颜色名" class="color-name-input"
-                                style="height: 20px;">
-                            <button id="randomColorBtn" class="random-color-btn">
+                                style="height: 20px; min-width: 100px; max-width: 300px; flex: 1 1 auto;">
+                            <button id="randomColorBtn" class="random-color-btn"
+                                style="flex: 0 0 auto; padding: 6px 12px; font-size: 13px; white-space: nowrap;">
                                 <i class="fas fa-random"></i>
                                 <span>随机颜色</span>
                             </button>
-                            <button id="generatePromptBtn" class="generate-prompt-btn">
+                            <button id="generatePromptBtn" class="generate-prompt-btn"
+                                style="flex: 1 1 auto; padding: 6px 16px; font-size: 13px; white-space: nowrap; text-align: center;">
                                 <i class="fas fa-magic"></i>
                                 <span>生成提示词</span>
                             </button>
@@ -778,16 +955,15 @@
                         <!-- 云端配置卡片 -->
                         <div class="bg-card cloud-card">
                             <div class="cloud-config">
-                                <div class="token-info">
-                                    <span id="token-status" class="token-status">未设置Token</span>
-                                </div>
-                                <div class="cloud-actions">
-                                    <button id="upload-cloud-btn" class="cloud-btn upload-btn">
-                                        <i class="fas fa-cloud-upload-alt"></i> 上传到云端
-                                    </button>
-                                    <button id="load-cloud-btn" class="cloud-btn load-btn">
-                                        <i class="fas fa-cloud-download-alt"></i> 从云端加载
-                                    </button>
+                                <div class="cloud-actions" style="flex-wrap: nowrap; overflow-x: auto; gap: 8px;">
+                                    <button id="load-cloud-btn" class="cloud-btn load-btn"
+                                        style="flex-shrink: 0;">从云端加载</button>
+                                    <button id="import-local-btn" class="cloud-btn local-btn"
+                                        style="flex-shrink: 0;">从本地导入</button>
+                                    <button id="upload-cloud-btn" class="cloud-btn upload-btn"
+                                        style="flex-shrink: 0; ">上传到云端</button>
+                                    <button id="export-local-btn" class="cloud-btn upload-btn"
+                                        style="flex-shrink: 0; background:#2c599c;">导出到本地</button>
                                 </div>
                             </div>
                         </div>
@@ -831,14 +1007,11 @@
                         <div class="bg-card action-card">
                             <div class="export-header-with-clear">
                                 <h3><i class="fas fa-list"></i> 提示词记录</h3>
-                                <button id="clear-all-records" class="btn small-btn danger">
-                                    <i class="fas fa-trash-alt"></i> 全部清空
-                                </button>
-                            </div>
-                            <div class="export-actions">
-                                <button id="export-local-btn" class="export-btn local-btn">
-                                    <i class="fas fa-download"></i> 导出到本地
-                                </button>
+                                <div style="display: flex; gap: 8px;">
+                                    <button id="export-filter-tagged-btn" class="btn small-btn"
+                                        style="background: var(--info);">切换标识记录</button>
+                                    <button id="clear-all-records" class="btn small-btn danger">全部清空</button>
+                                </div>
                             </div>
                         </div>
 
@@ -856,9 +1029,28 @@
                     <!-- 通知 -->
                     <div id="export-notification" class="export-notification"></div>
                 </div>
-
+                <template id="versionUpdateModalTemplate">
+                    <div class="version-modal-overlay">
+                        <div class="version-modal">
+                            <div class="version-modal-header">
+                                <h3><i class="fas fa-exclamation-triangle"></i> 版本过低，必须升级</h3>
+                                <button class="version-modal-close" id="versionUpdateCloseBtn">&times;</button>
+                            </div>
+                            <div class="version-modal-content">
+                                <p id="versionUpdateMessage">检测到新版本，请下载最新版本后继续使用。</p>
+                                <div class="version-modal-actions">
+                                    <a href="#" id="versionDownloadLink" class="version-download-btn" target="_blank">
+                                        <i class="fas fa-download"></i> 下载更新
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
 
                 <!-- 脚本加载顺序 -->
+                <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
                 <script src="ku.js"></script>
                 <script src="tishici.js"></script>
                 <script src="huihua.js"></script>
